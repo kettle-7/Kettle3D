@@ -28,6 +28,12 @@ sys.path.append(directory)
 Class file_dummy:
 	def open(self, a=None, b=None, c=None):
 		pass
+	def close():
+		pass
+	def read():
+		pass
+	def write():
+		pass
 
 try:
 	filelistfile = open(directory + "assets\\files.dat", 'rb')
