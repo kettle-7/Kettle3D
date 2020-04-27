@@ -1,6 +1,6 @@
 versionlist = {
 	"dev" : [
-		[20, 4, 'a']
+		[1, (20, 4, 'a')]
 	],
 	"stable" : [
 		#not applicable
