@@ -134,7 +134,7 @@ print("The launcher window opened successfully.")
 
 print("Have 1 files to update or download.")
 
-assets_index = txtfile("assets/assets_index.py", "assets\index\assets_index.py", 1)
+assets_index = txtfile("assets/assets_index.py", "assets\index\\assets_index.py", 1)
 
 def play():
 	isplayopen = True
