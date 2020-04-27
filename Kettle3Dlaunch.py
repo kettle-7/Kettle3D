@@ -9,6 +9,11 @@ versionlist = {
 
 from tkinter import *
 import time
+import sys
+
+sys.path.append("C:\\Program Files\\Kettle3D")
+directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
+sys.path.append(directory)
 
 isdiropen = False
 isplayopen = False
