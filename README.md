@@ -16,7 +16,7 @@ Here is a step-by-step guide to how to install Kettle3D:
 'C:\\Users\\<Your Windows Username>\\AppData\\Roaming\\Kettle3D\\' (with no quotes)
 4) Put Kettle3D.bat somewhere useful. When you double-click on this file, the Kettle3D launcher will open.
   
-Please note that you'll need to have installed Panda3D for the game to work. You can get it here: [https://www.panda3d.org/]. If prompted for whether you would like Panda for Python or C++, pick Python.
+Please note that you'll need to have installed Panda3D for the game to work. You can get it here: https://www.panda3d.org/. If prompted for whether you would like Panda for Python or C++, pick Python.
   
 When you launch Kettle3D, a black window with white text will appear. This is the command line. It will display the game's output log. It'll look a little like this:
 
