@@ -2,8 +2,12 @@ from urllib.request import urlopen
 
 launcherprogramming = urlopen("https://Kettle3D.github.io/Kettle3D/kettle3D-versions.py").read().decode('utf-8')
 
-launcher = open("C:\\Program Files\\Kettle3D\\Kettle3Dlaunch.py", 'w')
+try:
+  launcher = open("C:\\Program Files\\Kettle3D\\kettle3D-launcher.py", 'w')
+except:
+  launcher = open("C:\\Program Files\\Kettle3D\\kettle3D-launcher.py", 'x')
+
 launcher.write(launcherprogramming)
 launcher.close()
 
-import Kettle3Dlaunch
+import kettle3D-launcher
