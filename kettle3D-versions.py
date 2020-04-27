@@ -7,28 +7,60 @@ versionlist = {
 	]
 }
 
+# Updates need to be posted above with syntax as such:
+# Developement versions go under "dev" and releases under "stable."
+# dev[0][0] is the version number; 1 is the first version, 2 the second etc.
+# The tuple contained within the array for the version is this:
+# (<year released>, <month released>, <build name>). Please only add a single-letter build name corresponding to the order in which
+# that month's versions were made.
+# Feel free to make a pull request - put your version in the list. DO NOT MARK IT AS STABLE UNTIL I HAVE TESTED IT.
+
 from tkinter import *
 from urllib.request import urlopen
 import time
 import sys
+import pickle
 
 sys.path.append("C:\\Program Files\\Kettle3D")
 directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
 sys.path.append(directory)
 
-class downloadfile:
+try:
+	filelistfile = open(directory + "assets\\files.dat", 'rb')
+	files = pickle.load(filelistfile)
+	print("Successfully retrieved file array.")
+	filelistfile.close()
+except FileNotFoundError:
+	filelistfile = open(directory + "assets\\files.dat", 'xb')
+	files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
+		"binary" : [
+			{# This is a file entry as provided by the downloadfile class. This entry belongs to the file array itself.
+				"path" : "assets/files.dat",
+				"winpath" : "assets\\files.dat",
+				"version" : 1
+			}
+		],
+		"txt" : [
+		]
+	}
+	pickle.dump(files, filelistfile)
+	print("Successfully created a new filearray.")
+	filelistfile.close()
+
+class txtfile:
 	def __init__(path, winpath, version): # file for download
 		self.path = path
 		self.version = version
-		self.winpath = winpath # FileNotFoundError
+		self.winpath = winpath
 		print("Looking for file %s..." % path)
 		try:
-			self.content = open(directory + winpath, 'w')
+			self.newcontent = open(directory + winpath, 'w')
+			self.oldcontent = open(directory + winpath, 'r')
 			print("File %s found successfully." % path)
 			try:
 				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
-				if self.content != self.onlinecontent:
-					self.content.write(self.onlinecontent)
+				if self.oldcontent != self.onlinecontent:
+					self.newcontent.write(self.onlinecontent)
 					print("Successfully updated file.")
 				else:
 					print("File matches.")
@@ -39,11 +71,49 @@ class downloadfile:
 			print("File %s created successfully." % path)
 			try:
 				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
-				if self.content != self.onlinecontent:
-					self.content.write(self.onlinecontent)
+				print("Successfully downloaded file.")
+				fae = {
+					"path" : self.path,
+					"winpath" : self.winpath,
+					"version" : self.version
+				}
+				files[txt].append(fae)
+			except:
+				print("Couldn't download file. Maybe try checking your internet connection?")
+		finally:
+			self.content.close()
+
+class binaryfile:
+	def __init__(path, winpath, version): # file for download
+		self.path = path
+		self.version = version
+		self.winpath = winpath
+		print("Looking for file %s..." % path)
+		try:
+			self.newcontent = open(directory + winpath, 'wb')
+			self.oldcontent = open(directory + winpath, 'rb')
+			print("File %s found successfully." % path)
+			try:
+				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, 'rb').read().decode('utf-8')
+				if self.oldcontent != self.onlinecontent:
+					self.newcontent.write(self.onlinecontent)
 					print("Successfully updated file.")
 				else:
 					print("File matches.")
+			except:
+				print("Couldn't update file. Maybe try checking your internet connection?")
+		except FileNotFoundError:
+			self.content = open(directory + winpath, 'xb')
+			print("File %s created successfully." % path)
+			try:
+				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, 'rb').read().decode('utf-8')
+				print("Successfully downloaded file.")
+				fae = {
+					"path" : self.path,
+					"winpath" : self.winpath,
+					"version" : self.version
+				}
+				files[txt].append(fae)
 			except:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
