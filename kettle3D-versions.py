@@ -41,6 +41,7 @@ def closedirwin():
 		isdiropen = False
 
 def launch():
+	play_tk.destroy()
 	isplayopen = False
 
 def dir():
@@ -71,7 +72,6 @@ while True:
 	tk.update()
 	if isdiropen:
 		dir_canvas.itemconfig(dirtxt, x=dir_tk.winfo_width(), text="The directory is set to %s." % directory)
-		dir_canvas.config(width=dir_tk.winfo_width())
 		dir_tk.update_idletasks()
 		dir_tk.update()
 	if isplayopen:
