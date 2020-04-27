@@ -2,7 +2,8 @@ from urllib.request import urlopen
 import sys
 
 try:
-        launcherprogramming = urlopen("https://Kettle3D.github.io/Kettle3D/kettle3D-versions.py").read().decode('utf-8')
+#if True:
+        launcherprogramming = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/kettle3D-versions.py").read().decode('utf-8')
         print("Checking for updates")
 
         try:
