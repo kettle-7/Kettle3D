@@ -8,6 +8,7 @@ versionlist = {
 }
 
 from tkinter import *
+from urllib.request import urlopen
 import time
 import sys
 
@@ -19,7 +20,34 @@ class downloadfile:
 	def __init__(path, winpath, version): # file for download
 		self.path = path
 		self.version = version
-		self.winpath = winpath
+		self.winpath = winpath # FileNotFoundError
+		print("Looking for file %s..." % path)
+		try:
+			self.content = open(directory + winpath, 'w')
+			print("File %s found successfully." % path)
+			try:
+				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
+				if self.content != self.onlinecontent:
+					self.content.write(self.onlinecontent)
+					print("Successfully updated file.")
+				else:
+					print("File matches.")
+			except:
+				print("Couldn't update file. Maybe try checking your internet connection?")
+		except FileNotFoundError:
+			self.content = open(directory + winpath, 'x')
+			print("File %s created successfully." % path)
+			try:
+				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
+				if self.content != self.onlinecontent:
+					self.content.write(self.onlinecontent)
+					print("Successfully updated file.")
+				else:
+					print("File matches.")
+			except:
+				print("Couldn't download file. Maybe try checking your internet connection?")
+		finally:
+			self.content.close()
 
 isdiropen = False
 isplayopen = False
