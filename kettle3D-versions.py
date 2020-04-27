@@ -27,7 +27,7 @@ sys.path.append("C:\\Program Files\\Kettle3D")
 directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
 sys.path.append(directory)
 
-Class file_dummy:
+Class file_dummy():
 	def open(self, a=None, b=None, c=None):
 		pass
 	def close():
@@ -59,7 +59,7 @@ except FileNotFoundError; OSError:
 	print("Successfully created a new filearray.")
 	filelistfile.close()
 
-class txtfile:
+class txtfile():
 	def __init__(self, path, winpath, version, newcontent=None): # file for download
 		self.path = path
 		self.version = version
@@ -96,7 +96,7 @@ class txtfile:
 		finally:
 			self.newcontent.close()
 
-class binaryfile:
+class binaryfile():
 	def __init__(self, path, winpath, version): # file for download
 		self.path = path
 		self.version = version
