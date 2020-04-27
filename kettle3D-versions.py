@@ -58,7 +58,7 @@ except FileNotFoundError; OSError:
 	filelistfile.close()
 
 class txtfile:
-	def __init__(self, path, winpath, version, newcontent=file_dummy()): # file for download
+	def __init__(self, path, winpath, version, newcontent=None): # file for download
 		self.path = path
 		self.version = version
 		self.winpath = winpath
@@ -145,7 +145,9 @@ print("The launcher window opened successfully.")
 
 print("Have 1 files to update or download.")
 
-assets_index = txtfile("assets/assets_index.py", "assets\index\\assets_index.py", 1)
+tomas = file_dummy()
+
+assets_index = txtfile("assets/assets_index.py", "assets\index\\assets_index.py", 1, tomas)
 
 def play():
 	isplayopen = True
