@@ -26,7 +26,7 @@ directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
 sys.path.append(directory)
 
 Class file_dummy:
-	def open(a=None, b=None, c=None):
+	def open(self, a=None, b=None, c=None):
 		pass
 
 try:
@@ -52,7 +52,7 @@ except FileNotFoundError; OSError:
 	filelistfile.close()
 
 class txtfile:
-	def __init__(self, path, winpath, version, newcontent=): # file for download
+	def __init__(self, path, winpath, version, newcontent=file_dummy()): # file for download
 		self.path = path
 		self.version = version
 		self.winpath = winpath
