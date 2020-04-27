@@ -8,7 +8,7 @@ Kettle3D is designed to allow you to construct the skyscraper of your dreams, th
 Kettle3D is currently in the early stages of developement. I'm hoping to release it later this year.
 
 # Installation Instructions
-Here is a step-by-step guide to how to install Kettle3D:
+Even though I haven't finished the first version of Kettle3D yet, you can still get the installer and launcher so that when I do release it, you can get it right away. Please note that I haven't completely error-proofed the updater and Kettle3D will crash if you don't have an internet connaction.
 
 1) Download kettle3D-updater.py and Kettle3D.bat.
 2) Put kettle3D-updater.py in C:\Program Files\Kettle3D. You may need administrator permission to do this.
