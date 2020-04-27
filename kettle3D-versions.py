@@ -30,7 +30,7 @@ try:
 	files = pickle.load(filelistfile)
 	print("Successfully retrieved file array.")
 	filelistfile.close()
-except FileNotFoundError:
+except FileNotFoundError; OSError:
 	filelistfile = open(directory + "assets\\files.dat", 'xb')
 	files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
 		"binary" : [
