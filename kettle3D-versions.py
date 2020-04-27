@@ -25,6 +25,10 @@ sys.path.append("C:\\Program Files\\Kettle3D")
 directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
 sys.path.append(directory)
 
+Class file_dummy:
+	def open(a=None, b=None, c=None):
+		pass
+
 try:
 	filelistfile = open(directory + "assets\\files.dat", 'rb')
 	files = pickle.load(filelistfile)
@@ -48,10 +52,11 @@ except FileNotFoundError; OSError:
 	filelistfile.close()
 
 class txtfile:
-	def __init__(self, path, winpath, version): # file for download
+	def __init__(self, path, winpath, version, newcontent=): # file for download
 		self.path = path
 		self.version = version
 		self.winpath = winpath
+		self.newcontent = newcontent
 		print("Looking for file %s..." % path)
 		try:
 			self.newcontent = open(directory + winpath, 'w')
