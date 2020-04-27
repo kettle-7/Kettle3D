@@ -67,7 +67,7 @@ class txtfile:
 			except:
 				print("Couldn't update file. Maybe try checking your internet connection?")
 		except FileNotFoundError:
-			self.content = open(directory + winpath, 'x')
+			self.newcontent = open(directory + winpath, 'x')
 			print("File %s created successfully." % path)
 			try:
 				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
@@ -81,7 +81,7 @@ class txtfile:
 			except:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
-			self.content.close()
+			self.newcontent.close()
 
 class binaryfile:
 	def __init__(self, path, winpath, version): # file for download
