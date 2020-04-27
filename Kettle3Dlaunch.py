@@ -15,6 +15,12 @@ sys.path.append("C:\\Program Files\\Kettle3D")
 directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
 sys.path.append(directory)
 
+class downloadfile:
+	def __init__(path, winpath, version): # file for download
+		self.path = path
+		self.version = version
+		self.winpath = winpath
+
 isdiropen = False
 isplayopen = False
 dir_tk = None
