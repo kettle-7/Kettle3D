@@ -13,4 +13,17 @@ md Kettle3D
 cd Kettle3D
 powershell "Invoke-WebRequest https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/Kettle3D-updater-win10.py -O kettle3D-updater.py"
 powershell "Invoke-WebRequest https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/windows.txt -O osname.txt"
+powershell "Invoke-WebRequest https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/Kettle3D.bat -O Kettle3D.bat"
+@echo off
+
+set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+
+echo Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
+echo sLinkFile = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Kettle3D.lnk" >> %SCRIPT%
+echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%
+echo oLink.TargetPath = "C:\Program Files\Kettle3D\Kettle3D.bat" >> %SCRIPT%
+echo oLink.Save >> %SCRIPT%
+
+cscript /nologo %SCRIPT%
+del %SCRIPT%
 ppython kettle3D-updater.py
