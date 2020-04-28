@@ -30,11 +30,11 @@ sys.path.append(directory)
 class file_dummy():
 	def open(self, a=None, b=None, c=None):
 		pass
-	def close():
+	def close(self):
 		pass
-	def read():
+	def read(self):
 		pass
-	def write():
+	def write(self):
 		pass
 
 try:
