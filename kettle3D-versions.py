@@ -27,7 +27,7 @@ sys.path.append("C:\\Program Files\\Kettle3D")
 directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
 sys.path.append(directory)
 
-Class file_dummy():
+class file_dummy():
 	def open(self, a=None, b=None, c=None):
 		pass
 	def close():
