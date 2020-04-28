@@ -30,7 +30,8 @@ osnamefile = normpath(getcwd() + "/osname.txt")
 
 osname = open(osnamefile).read()
 
-if osname == 'windows': # do windows-specific things
+if True:
+#if osname == 'windows': # do windows-specific things
 	directory = getenv("%USERPROFILE%") + "\\AppData\\Roaming\\Kettle3D\\"
 
 class file_dummy():
