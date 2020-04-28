@@ -19,6 +19,7 @@ versionlist = {
 
 from tkinter import *
 from urllib.request import urlopen
+from os.path import normpath
 import time
 import sys
 import pickle
@@ -48,7 +49,6 @@ except (FileNotFoundError, OSError):
 		"binary" : [
 			{# This is a file entry as provided by the downloadfile class. This entry belongs to the file array itself.
 				"path" : "assets/files.dat",
-				"winpath" : "assets\\files.dat",
 				"version" : 1
 			}
 		],
@@ -60,10 +60,10 @@ except (FileNotFoundError, OSError):
 	filelistfile.close()
 
 class txtfile():
-	def __init__(self, path, winpath, version, newcontent=None): # file for download
+	def __init__(self, path, version, newcontent=None): # file for download
 		self.path = path
 		self.version = version
-		self.winpath = winpath
+		self.winpath = normpath(self.path)
 		self.newcontent = newcontent
 		print("Looking for file %s..." % path)
 		try:
@@ -97,10 +97,10 @@ class txtfile():
 			self.newcontent.close()
 
 class binaryfile():
-	def __init__(self, path, winpath, version): # file for download
+	def __init__(self, path, version): # file for download
 		self.path = path
 		self.version = version
-		self.winpath = winpath
+		self.winpath = normpath(self.path)
 		print("Looking for file %s..." % path)
 		try:
 			self.newcontent = open(directory + winpath, 'wb')
@@ -147,9 +147,9 @@ print("The launcher window opened successfully.")
 
 print("Have 1 files to update or download.")
 
-tomas = file_dummy()
+thomas = file_dummy()
 
-assets_index = txtfile("assets/assets_index.py", "assets\index\\assets_index.py", 1, tomas)
+assets_index = txtfile("assets/assets_index.py", "assets\index\\assets_index.py", 1, thomas)
 
 def play():
 	isplayopen = True
