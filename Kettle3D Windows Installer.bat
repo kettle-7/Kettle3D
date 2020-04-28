@@ -6,7 +6,7 @@ md versions
 cd C:\Program Files
 md Kettle3D
 cd C:\Program Files\Kettle3D
-python -m wget
+python -m wget https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/Kettle3D-updater-win10.py
 echo off
 title Custom Text File
 cls
