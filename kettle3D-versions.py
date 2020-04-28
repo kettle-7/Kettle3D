@@ -3,7 +3,7 @@ versionlist = {
 		[1, (20, 4, 'a')]
 	],
 	"stable" : [
-		#not applicable
+		#none yet...
 	]
 }
 
@@ -26,7 +26,7 @@ import time
 import sys
 import pickle
  
-osnamefile = normpath(os.getcwd() + "/osname.txt")
+osnamefile = normpath(getcwd() + "/osname.txt")
 
 osname = open(osnamefile).read()
 
