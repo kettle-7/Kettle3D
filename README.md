@@ -9,6 +9,8 @@ Although the game itself is in early stages of development, a Windows 10 64-bit 
 
 # Installation Instructions
 Even though I haven't finished the first version of Kettle3D yet, you can still get the installer and launcher so that when I do release it, you can get it right away. You can download the Windows 10 installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0/Kettle3D.Windows.10.Installer.64bit.bat)
+
+You'll also need to download the Kettle3D.bat file in `master`. Put it somewhere useful and double-click it to launch Kettle3D.
   
 Please note that you'll need to have installed Panda for the game to work. The Panda installer is contained in the Kettle3D installer - it'll open when you install Kettle3D.
   
