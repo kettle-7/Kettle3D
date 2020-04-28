@@ -1,3 +1,5 @@
+cd %USERPROFILE%\Downloads
+
 cd %USERPROFILE%\AppData\Roaming
 md Kettle3D\assets\index
 md data
