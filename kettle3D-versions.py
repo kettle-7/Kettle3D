@@ -20,13 +20,18 @@ versionlist = {
 from tkinter import *
 from urllib.request import urlopen
 from os.path import normpath
+from os import getenv
+from os import getcwd
 import time
 import sys
 import pickle
+ 
+osnamefile = normpath(os.getcwd() + "/osname.txt")
 
-sys.path.append("C:\\Program Files\\Kettle3D")
-directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
-sys.path.append(directory)
+osname = open(osnamefile).read()
+
+if osname == 'windows': # do windows-specific things
+	directory = getenv("%USERPROFILE%") + "\\AppData\\Roaming\\Kettle3D\\"
 
 class file_dummy():
 	def open(self, a=None, b=None, c=None):
@@ -39,12 +44,12 @@ class file_dummy():
 		pass
 
 try:
-	filelistfile = open(directory + "assets\\files.dat", 'rb')
+	filelistfile = open(directory + normpath("assets/files.dat"), 'rb')
 	files = pickle.load(filelistfile)
 	print("Successfully retrieved file array.")
 	filelistfile.close()
 except (FileNotFoundError, OSError):
-	filelistfile = open(directory + "assets\\files.dat", 'xb')
+	filelistfile = open(directory + normpath("assets/files.dat"), 'xb')
 	files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
 		"binary" : [
 			{# This is a file entry as provided by the downloadfile class. This entry belongs to the file array itself.
@@ -151,6 +156,8 @@ thomas = file_dummy()
 
 assets_index = txtfile("assets/assets_index.py", "assets\index\\assets_index.py", 1, thomas)
 
+print("Finished checking files.")
+
 def play():
 	isplayopen = True
 	play_tk = Tk()
@@ -177,7 +184,6 @@ def dir():
 	
 	isdiropen = True
 	
-	directory = open("C:\\Program Files\\Kettle3D\\dir.txt").read()
 	dir_tk = Tk()
 	dir_tk.title("Change Directory - Kettle3D Launcher")
 	dir_tk.wm_attributes("-topmost", 1)
@@ -187,8 +193,6 @@ def dir():
 	tk.update()
 	dirtxt = dir_canvas.create_text(250, 11, text="The directory is set to %s." % directory, font=('Helvetica', 15))
 	
-	
-
 choosedir = Button(tk, text="Change Directory", command=dir)
 playbtn = Button(tk, text="PLAY", command=play)
 choosedir.pack()
