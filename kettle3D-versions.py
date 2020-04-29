@@ -179,7 +179,7 @@ class imagefile:
 		winpath = normpath(path)
 		self.winpath = winpath
 		print("Looking for file %s" % path)
-		img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).content
+		img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).read()
 		with open(directory + normpath(path), 'wb') as handler:
 			handler.write(img_data)
 			handler.close()
