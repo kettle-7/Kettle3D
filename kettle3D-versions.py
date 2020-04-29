@@ -173,7 +173,7 @@ class binaryfile():
 			self.newcontent.close()
 
 class imagefile:
-	def __init__(self, path, version):
+	def __init__(self, path, version): # Image for download
 		self.path = path
 		self.version = version
 		winpath = normpath(path)
