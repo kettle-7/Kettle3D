@@ -26,8 +26,8 @@ try:
         	old_launcher = o.read()
         	is_new = False
         except FileNotFoundError:
-	        if osname == 'windows':
-        	        launcher = open("C:\\Program Files\\Kettle3D\\kettle3DLauncher.py", 'x')
+                if osname == 'windows':
+                        launcher = open("C:\\Program Files\\Kettle3D\\kettle3DLauncher.py", 'x')
 		        os.path[0] = getenv("appdata") + "\\Kettle3D"
 	        if osname == 'os x':
 		        launcher = open(getenv("HOME") + "/Library/Application Support/Kettle3D/Kettle3D/kettle3DLauncher.py", 'x')
