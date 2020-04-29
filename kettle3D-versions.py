@@ -147,7 +147,7 @@ class binaryfile():
 			self.oldcontent = open(directory + self.winpath, 'rb')
 			print("File %s found successfully." % path)
 			try:
-				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, 'rb').read()
+				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, mode='rb').read()
 				if self.oldcontent != self.onlinecontent:
 					self.newcontent.write(self.onlinecontent)
 					print("Successfully updated file.")
@@ -159,7 +159,7 @@ class binaryfile():
 			self.newcontent = open(directory + winpath, 'xb')
 			print("File %s created successfully." % path)
 			try:
-				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, 'rb').read()
+				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, mode='rb').read()
 				print("Successfully downloaded file.")
 				fae = {
 					"path" : self.path,
@@ -179,7 +179,7 @@ class imagefile:
 		winpath = normpath(path)
 		self.winpath = winpath
 		print("Looking for file %s" % path)
-		img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path, 'rb').content
+		img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path, mode='rb').content
 		with open(directory + normpath(path), 'wb') as handler:
 			handler.write(img_data)
 			handler.close()
