@@ -160,6 +160,10 @@ print("Have 1 file to check or download...")
 if not {"path" : "lib/launcherbase.py", "version" : 1} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=1)
 
+filelistfile = open(directory + normpath("assets/files.dat"), 'w')
+pickle.dump(files, filelistfile)
+filelistfile.close
+
 def play():
 	isplayopen = True
 	play_tk = Tk()
