@@ -18,4 +18,4 @@ mkdir lib
 mkdir versions
 curl -o kettle3D-updater.py https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/Kettle3D-updater-win10.py
 cd $HOME/Desktop
-curl -o Kettle3D.sh https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/Kettle3D.sh
+curl -o Kettle3D.command https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/Kettle3D.sh
