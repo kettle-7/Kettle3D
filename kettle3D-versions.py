@@ -179,16 +179,19 @@ class imagefile:
 		winpath = normpath(path)
 		self.winpath = winpath
 		print("Looking for file %s" % path)
-		img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).read()
-		with open(directory + normpath(path), 'wb') as handler:
-			handler.write(img_data)
-			handler.close()
-		fae = {
-			"path" : self.path,
-			"version" : self.version
-		}
-		files["image"].append(fae)
-		print("File %s downloaded successfully.")
+		try:
+			img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).read()
+			with open(directory + winpath, 'wb') as handler:
+				handler.write(img_data)
+				handler.close()
+			fae = {
+				"path" : self.path,
+				"version" : self.version
+			}
+			files["image"].append(fae)
+			print("File %s downloaded successfully." % self.path)
+		except URLError:
+			print("Couldn't download file. Maybe try checking your internet connection?")
 
 isdiropen = False
 isplayopen = False
@@ -208,12 +211,16 @@ print("Have 2 files to check or download...")
 if not {"path" : "lib/launcherbase.py", "version" : 1} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=1)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
-	downloadfile = imagefile(path='assets/k3dlauncher1.png', version=1)
+	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
 
 files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
 pickle.dump(files, filelistfile)
 filelistfile.close
+
+print("Checked or downloaded 2 files with no errors :)")
+
+launcherbackground = PhotoImage(file=directory + background1.winpath)
 
 def play():
 	isplayopen = True
@@ -255,6 +262,9 @@ playbtn = Button(tk, text="PLAY", command=play)
 choosedir.pack()
 playbtn.pack()
 closebtn = Button(tk, text="Cancel", command=closedirwin)
+closebtn.pack
+
+backgroundImage = canvas.create_image(0, 0, image=launcherbackground, anchor=NW)
 
 while True:
 	tk.update_idletasks()
