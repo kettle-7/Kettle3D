@@ -1,6 +1,6 @@
-REM cd %USERPROFILE%\Downloads
-REM powershell "Invoke-WebRequest https://www.panda3d.org/download/panda3d-1.10.6/Panda3D-SDK-1.10.6-x64.exe -o %USERPROFILE%\Downloads\panda_installer.exe"
-REM panda_installer.exe
+cd %USERPROFILE%\Downloads
+powershell "Invoke-WebRequest https://www.panda3d.org/download/panda3d-1.10.6/Panda3D-SDK-1.10.6-x64.exe -o %USERPROFILE%\Downloads\panda_installer.exe"
+panda_installer.exe
 
 cd %USERPROFILE%\AppData\Roaming
 md Kettle3D\assets\index
