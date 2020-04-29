@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+from urllib.error import URLError
 from os.path import normpath
 from os import getenv
 from os import getcwd
@@ -42,7 +43,7 @@ try:
 		print("Updated Kettle3D Successfully")
 	else:
 		print("Kettle3D is up to date")
-except:
+except URLError:
 	print("Kettle3D couldn't check for updates. Try checking your internet connection.")
 
 sys.path.append(getcwd())
