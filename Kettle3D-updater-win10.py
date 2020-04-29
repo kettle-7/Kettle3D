@@ -15,7 +15,7 @@ try:
         print("Checking for updates")
 
         try:
-		if osname == 'windows':
+	        if osname == 'windows':
         		launcher = open("C:\\Program Files\\Kettle3D\\kettle3DLauncher.py", 'w')
         		o = open("C:\\Program Files\\Kettle3D\\kettle3DLauncher.py", 'r')
 			os.path[0] = getenv("appdata") + "\\Kettle3D"
