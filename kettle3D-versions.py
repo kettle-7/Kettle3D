@@ -55,20 +55,21 @@ try:
 	print("Successfully retrieved file array.")
 	filelistfile.close()
 except(EOFError, FileNotFoundError, OSError):
-	filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
-	files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
-		"binary" : [
-			{# This is a file entry as provided by the downloadfile class. This entry belongs to the file array itself.
-				"path" : "assets/files.dat",
-				"version" : 1
-			}
-		],
-		"txt" : [
-		]
-	}
-	pickle.dump(files, filelistfile)
-	print("Successfully created a new filearray.")
-	filelistfile.close()
+	try:
+		filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
+		files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
+			"binary" : [
+				{# This is a file entry as provided by the downloadfile class. This entry belongs to the file array itself.
+					"path" : "assets/files.dat",
+					"version" : 1
+				}
+			],
+			"txt" : [
+			]
+		}
+		pickle.dump(files, filelistfile)
+		print("Successfully created a new filearray.")
+		filelistfile.close()
 	except(FileNotFoundError, OSError):
 		filelistfile = open(directory + normpath("assets/files.dat"), 'xb')
 		files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
