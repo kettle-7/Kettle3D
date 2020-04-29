@@ -9,7 +9,7 @@ cd $HOME
 mkdir Library
 cd Library
 mkdir "Application Support"
-cd Application Support
+cd "Application Support"
 mkdir Kettle3D
 cd Kettle3D
 mkdir assets
