@@ -30,10 +30,13 @@ osnamefile = normpath(getcwd() + "/osname.txt")
 
 osname = open(osnamefile).read()
 
-if True:
-#if osname == 'windows': # do windows-specific things
-	global directory
-	directory = getenv("%USERPROFILE%") + "\\AppData\\Roaming\\Kettle3D\\"
+directory = None
+
+#if True:
+if osname == 'windows': # do windows-specific things
+	directory = getenv("USERPROFILE") + "\\AppData\\Roaming\\Kettle3D\\"
+if osname == 'os x': #do apple-specific things
+	directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
 
 class file_dummy():
 	def open(self, a=None, b=None, c=None):
@@ -97,7 +100,7 @@ class txtfile():
 					"winpath" : self.winpath,
 					"version" : self.version
 				}
-				files[txt].append(fae)
+				files["txt"].append(fae)
 			except:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
@@ -133,7 +136,7 @@ class binaryfile():
 					"winpath" : self.winpath,
 					"version" : self.version
 				}
-				files[txt].append(fae)
+				files["binary"].append(fae)
 			except:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
@@ -151,14 +154,6 @@ canvas.pack()
 tk.update()
 
 print("The launcher window opened successfully.")
-
-print("Have 1 files to update or download.")
-
-thomas = file_dummy()
-
-assets_index = txtfile("assets/assets_index.py", "assets\index\\assets_index.py", 1, thomas)
-
-print("Finished checking files.")
 
 def play():
 	isplayopen = True
