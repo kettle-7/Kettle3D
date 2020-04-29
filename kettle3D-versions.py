@@ -202,6 +202,7 @@ play_tk = None
 tk = Tk()
 tk.title("Kettle3D Launcher")
 tk.wm_attributes("-topmost", 1)
+tk.configure(bg='black')
 canvas = Canvas(tk, width=500, height=500, bd=0, highlightthickness=0)
 canvas.pack()
 tk.update()
@@ -222,6 +223,7 @@ filelistfile.close
 
 print("Checked or downloaded 2 files with no errors :)")
 
+tk.configure(bg=colorchooder.askcolor()[1])
 launcherbackground = PhotoImage(file=directory + background1.winpath)
 
 def play():
