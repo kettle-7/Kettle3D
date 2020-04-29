@@ -237,10 +237,8 @@ def play():
 def launch():
 	play_tk.destroy()
 	isplayopen = False
-	
-choosedir = Button(tk, text="Change Directory", command=dir)
+
 playbtn = Button(tk, text="PLAY", command=play)
-choosedir.pack()
 playbtn.pack()
 closebtn = Button(tk, text="Cancel", command=closedirwin)
 closebtn.pack
@@ -250,10 +248,6 @@ backgroundImage = canvas.create_image(0, 0, image=launcherbackground, anchor=NW)
 while True:
 	tk.update_idletasks()
 	tk.update()
-	if isdiropen:
-		dir_canvas.itemconfig(dirtxt, x=dir_tk.winfo_width(), text="The directory is set to %s." % directory)
-		dir_tk.update_idletasks()
-		dir_tk.update()
 	if isplayopen:
 		play_tk.update_idletasks()
 		play_tk.update()
