@@ -155,6 +155,11 @@ tk.update()
 
 print("The launcher window opened successfully.")
 
+print("Have 1 file to check or download...")
+
+if not {"path" : "lib/launcherbase.py", "version" : 1} in files["txt"]:
+	downloadfile = txtfile(path='lib/launcherbase.py', version=1)
+
 def play():
 	isplayopen = True
 	play_tk = Tk()
