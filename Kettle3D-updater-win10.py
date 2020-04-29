@@ -6,7 +6,7 @@ from os import getcwd
 import sys
 
 osnamefile = normpath(getcwd() + "/osname.txt")
-osname = open(osnamefile).read()
+osname = open(osnamefile).read().strip()
 launcher = None
 o = None
 print("Kettle3D Updater is launching for %s" % osname)
