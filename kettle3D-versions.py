@@ -24,7 +24,6 @@ from sys import platform
 from tkinter import *
 from os import getenv
 from os import getcwd
-import requests
 import pickle
 import time
 import sys
@@ -169,7 +168,7 @@ class imagefile:
 		winpath = normpath(path)
 		self.winpath = winpath
 		print("Looking for file %s" % path)
-		img_data = requests.get("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).content
+		img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path, 'rb').content
 		with open(directory + normpath(path), 'wb') as handler:
 			handler.write(img_data)
 			handler.close()
