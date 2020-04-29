@@ -53,7 +53,15 @@ class file_dummy():
 
 try:
 	filelistfile = open(directory + normpath("assets/files.dat"), 'rb')
-	files = pickle.load(filelistfile)
+	tempfiles = pickle.load(filelistfile)
+	if "image" in tempfiles:
+		files = tempfiles
+	else:
+		files = {
+			"txt" : tempfiles["txt"]
+			"binary" : tempfiles["binary"]
+			"image" : []
+		}
 	print("Successfully retrieved file array.")
 	filelistfile.close()
 except(EOFError, FileNotFoundError, OSError):
@@ -67,6 +75,8 @@ except(EOFError, FileNotFoundError, OSError):
 				}
 			],
 			"txt" : [
+			],
+			"image" : [
 			]
 		}
 		pickle.dump(files, filelistfile)
