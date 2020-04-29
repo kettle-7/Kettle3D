@@ -3,6 +3,7 @@ from urllib.error import URLError
 from os.path import normpath
 from os import getenv
 from os import getcwd
+from os import name
 import sys
 
 osnamefile = normpath(getcwd() + "/osname.txt")
