@@ -27,7 +27,5 @@ C:\Program Files\Kettle3D>ppython kettle3D-updater.py
 
 ----------------------------------------------------------
 
-If the black window opens and then closes shortly afterwards, you may have to right-click on the file and click 'Run as Administrator.' This is because the program's files are stored in a Windows system folder. If you like, you can put the Kettle3D folder directly in C:, but you'll have to edit the Kettle3D.bat file using Notepad, and where it says `cd C:\Program Files\Kettle3D`, change it to `cd C:\Kettle3D`. You'll have to still keep 'osname.txt' in Program Files\Kettle3D so that it can be found by the launcher.
-
 # How did I make it?
 Kettle3D was programmed using Batch, Python and Tcl. The 3D rendering engine uses Panda3D, OpenGL, OpenAL and C++.
