@@ -18,6 +18,7 @@ versionlist = {
 # Initialise the textfile under the play function. Make sure to add all required txtfiles and binaryfiles as well.
 
 from urllib.request import urlopen
+from urllib.error import URLError
 from os.path import normpath
 from sys import platform
 from tkinter import *
