@@ -77,8 +77,8 @@ class txtfile():
 		self.newcontent = newcontent
 		print("Looking for file %s..." % path)
 		try:
-			self.newcontent = open(directory + winpath, 'w')
-			self.oldcontent = open(directory + winpath, 'r')
+			self.newcontent = open(directory + self.winpath, 'w')
+			self.oldcontent = open(directory + self.winpath, 'r')
 			print("File %s found successfully." % path)
 			try:
 				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
@@ -90,17 +90,17 @@ class txtfile():
 			except:
 				print("Couldn't update file. Maybe try checking your internet connection?")
 		except (FileNotFoundError, OSError):
-			self.newcontent = open(directory + winpath, 'x')
+			self.newcontent = open(directory + self.winpath, 'x')
 			print("File %s created successfully." % path)
 			try:
 				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
 				print("Successfully downloaded file.")
 				fae = {
 					"path" : self.path,
-					"winpath" : self.winpath,
 					"version" : self.version
 				}
 				files["txt"].append(fae)
+				self.newcontent.write(self.onlinecontent)
 			except:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
@@ -113,11 +113,11 @@ class binaryfile():
 		self.winpath = normpath(self.path)
 		print("Looking for file %s..." % path)
 		try:
-			self.newcontent = open(directory + winpath, 'wb')
-			self.oldcontent = open(directory + winpath, 'rb')
+			self.newcontent = open(directory + self.winpath, 'wb')
+			self.oldcontent = open(directory + self.winpath, 'rb')
 			print("File %s found successfully." % path)
 			try:
-				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, 'rb').read().decode('utf-8')
+				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, 'rb').read()
 				if self.oldcontent != self.onlinecontent:
 					self.newcontent.write(self.onlinecontent)
 					print("Successfully updated file.")
@@ -126,21 +126,21 @@ class binaryfile():
 			except:
 				print("Couldn't update file. Maybe try checking your internet connection?")
 		except (FileNotFoundError, OSError):
-			self.content = open(directory + winpath, 'xb')
+			self.newcontent = open(directory + winpath, 'xb')
 			print("File %s created successfully." % path)
 			try:
-				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, 'rb').read().decode('utf-8')
+				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path, 'rb').read()
 				print("Successfully downloaded file.")
 				fae = {
 					"path" : self.path,
-					"winpath" : self.winpath,
 					"version" : self.version
 				}
 				files["binary"].append(fae)
+				self.newcontent.write(self.onlinecontent)
 			except:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
-			self.content.close()
+			self.newcontent.close()
 
 isdiropen = False
 isplayopen = False
