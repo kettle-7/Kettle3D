@@ -36,8 +36,12 @@ try:
 			os.path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
 		is_new = True
 	
-	launcher.write(launcherprogramming)
-	launcher.close()
+	try:
+		launcher.write(launcherprogramming)
+		launcher.close()
+	except AttributeError:
+		exec(launcherprogramming)
+	
 	if is_new:
 		print("Successfully installed Kettle3D launcher")
 	elif not old_launcher == launcherprogramming:
