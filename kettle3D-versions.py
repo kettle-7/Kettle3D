@@ -69,7 +69,7 @@ except(EOFError, FileNotFoundError, OSError):
 	pickle.dump(files, filelistfile)
 	print("Successfully created a new filearray.")
 	filelistfile.close()
-	except (FileNotFoundError, OSError):
+	except(FileNotFoundError, OSError):
 		filelistfile = open(directory + normpath("assets/files.dat"), 'xb')
 		files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
 			"binary" : [
