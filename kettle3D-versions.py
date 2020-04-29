@@ -54,7 +54,7 @@ try:
 	files = pickle.load(filelistfile)
 	print("Successfully retrieved file array.")
 	filelistfile.close()
-except (EOFError, FileNotFoundError, OSError):
+except(EOFError, FileNotFoundError, OSError):
 	filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
 	files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
 		"binary" : [
