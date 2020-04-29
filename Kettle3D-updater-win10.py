@@ -9,6 +9,7 @@ osnamefile = normpath(getcwd() + "/osname.txt")
 osname = open(osnamefile).read()
 launcher = None
 o = None
+print("Kettle3D Updater is launching for %s" % osname)
 
 try:
 #if True:
