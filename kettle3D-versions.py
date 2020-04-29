@@ -223,7 +223,8 @@ filelistfile.close
 
 print("Checked or downloaded 2 files with no errors :)")
 
-tk.configure(bg=colorchooder.askcolor()[1])
+grey = colorchooser.askcolor()[1]
+tk.configure(bg=grey)
 launcherbackground = PhotoImage(file=directory + background1.winpath)
 
 def play():
