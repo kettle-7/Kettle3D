@@ -1,2 +1,2 @@
-cd C:\Program Files\Kettle3D
+cd %APPDATA%\Kettle3D
 ppython kettle3D-updater.py
