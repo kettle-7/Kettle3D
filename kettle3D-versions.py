@@ -177,7 +177,8 @@ print("Have 1 file to check or download...")
 if not {"path" : "lib/launcherbase.py", "version" : 1} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=1)
 
-filelistfile = open(directory + normpath("assets/files.dat"), 'w')
+files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
+filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
 pickle.dump(files, filelistfile)
 filelistfile.close
 
