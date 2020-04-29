@@ -92,7 +92,8 @@ except(EOFError, FileNotFoundError, OSError):
 				}
 			],
 			"txt" : [
-			]
+			],
+			"image" : []
 		}
 		pickle.dump(files, filelistfile)
 		print("Successfully created a new filearray.")
@@ -172,7 +173,7 @@ class binaryfile():
 			self.newcontent.close()
 
 class imagefile:
-	def __init__(path, version):
+	def __init__(self, path, version):
 		self.path = path
 		self.version = version
 		winpath = normpath(path)
