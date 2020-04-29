@@ -45,4 +45,5 @@ try:
 except:
 	print("Kettle3D couldn't check for updates. Try checking your internet connection.")
 
+sys.path.append(getcwd())
 import kettle3DLauncher
