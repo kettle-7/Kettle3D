@@ -104,7 +104,7 @@ class txtfile():
 					print("Successfully updated file.")
 				else:
 					print("File matches.")
-			except:
+			except URLError:
 				print("Couldn't update file. Maybe try checking your internet connection?")
 		except(FileNotFoundError, OSError):
 			self.newcontent = open(directory + self.winpath, 'x')
@@ -118,7 +118,7 @@ class txtfile():
 				}
 				files["txt"].append(fae)
 				self.newcontent.write(self.onlinecontent)
-			except:
+			except URLError:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
 			self.newcontent.close()
@@ -140,7 +140,7 @@ class binaryfile():
 					print("Successfully updated file.")
 				else:
 					print("File matches.")
-			except:
+			except URLError:
 				print("Couldn't update file. Maybe try checking your internet connection?")
 		except(FileNotFoundError, OSError):
 			self.newcontent = open(directory + winpath, 'xb')
@@ -154,7 +154,7 @@ class binaryfile():
 				}
 				files["binary"].append(fae)
 				self.newcontent.write(self.onlinecontent)
-			except:
+			except URLError:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
 			self.newcontent.close()
