@@ -240,7 +240,7 @@ def launch():
 
 playbtn = Button(tk, text="PLAY", command=play)
 playbtn.pack()
-closebtn = Button(tk, text="Cancel", command=closedirwin)
+closebtn = Button(tk, text="Cancel", command=tk.destroy)
 closebtn.pack
 
 backgroundImage = canvas.create_image(0, 0, image=launcherbackground, anchor=NW)
