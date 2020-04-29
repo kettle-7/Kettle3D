@@ -36,9 +36,11 @@ directory = None
 
 #if True:
 if platform.startswith('win32') or platform.startswith('cygwin'): # do windows-specific things
-	directory = getenv("USERPROFILE") + "\\AppData\\Roaming\\Kettle3D\\"
+	directory = getenv("appdata") + "\\Kettle3D\\"
+	sys.path[0] = getenv("appdata") + "\\Kettle3D"
 if platform.startswith('darwin'): #do apple-specific things
 	directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
+	sys.path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
 	sys.path.append(getenv("HOME") + "/Library/Developer/Panda3D")
 
 class file_dummy():
@@ -231,31 +233,10 @@ def play():
 	play_canvas.pack()
 	play_tk.update()
 	tk.update()
-	
-	
-def closedirwin():
-	if isdiropen:
-		dir_tk.destroy()
-		dir_tk = None
-		isdiropen = False
 
 def launch():
 	play_tk.destroy()
 	isplayopen = False
-	
-def dir():
-	# Change directory
-	
-	isdiropen = True
-	
-	dir_tk = Tk()
-	dir_tk.title("Change Directory - Kettle3D Launcher")
-	dir_tk.wm_attributes("-topmost", 1)
-	dir_canvas = Canvas(dir_tk, width=500, height=20)
-	dir_canvas.pack()
-	dir_tk.update()
-	tk.update()
-	dirtxt = dir_canvas.create_text(250, 11, text="The directory is set to %s." % directory, font=('Helvetica', 15))
 	
 choosedir = Button(tk, text="Change Directory", command=dir)
 playbtn = Button(tk, text="PLAY", command=play)
