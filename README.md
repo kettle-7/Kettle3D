@@ -5,12 +5,24 @@ A 3D sandbox game I'm working on allowing you to design and construct skyscraper
 Kettle3D is designed to allow you to construct the skyscraper of your dreams, then turn on options to calculate lateral and gravity loads. Later on I plan to add more features such as electricity, plumbing, internet and the ability to build a whole city.
 
 # Where is Kettle3D at?
-Although the game itself is in early stages of development, a Windows 10 64-bit installer is available - this installs the 3D rendering engine and the launcher, which updates itself every time you use it.
+Although the game itself is in early stages of development, a Windows 10 64-bit installer and a OS X 32-bit/64-bit installer are available - this installs the 3D rendering engine and the launcher, which updates itself every time you use it.
 
 # Installation Instructions
-Even though I haven't finished the first version of Kettle3D yet, you can still get the installer and launcher so that when I do release it, you can get it right away. You can download the Windows 10 installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0/Kettle3D.Windows.10.Installer.64bit.bat)
+Even though I haven't finished the first version of Kettle3D yet, you can still get the installer and launcher so that when I do release it, you can get it right away.
 
-You'll also need to download the Kettle3D.bat file in `master`. Put it somewhere useful and double-click it to launch Kettle3D.
+## For Windows 10
+You can download the Windows 10 installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0/Kettle3D.Windows.10.Installer.64bit.bat)
+
+Right-click on it (in File Explorer) and click 'Run as Administrator.'
+
+Kettle3D should be in your Start Menu.
+
+## For Mac OS X
+You can download the OS X installer [here.]
+(https://github.com/Kettle3D/Kettle3D/releases/download/v1.0/Kettle3D.Mac.OS.X.Installer.32-bit.sh)
+
+The installer will download the Panda installer, but you'll have to manually install it.
+There will be a file called Kettle3D.command on your desktop - double-click on it to open Kettle3D.
   
 Please note that you'll need to have installed Panda for the game to work. The Panda installer is contained in the Kettle3D installer - it'll open when you install Kettle3D.
   
