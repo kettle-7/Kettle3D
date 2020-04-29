@@ -1,6 +1,6 @@
 versionlist = {
 	"dev" : [
-		[1, (20, 4, 'a')]
+		[1, 'd20-04a']
 	],
 	"stable" : [
 		#none yet...
@@ -10,9 +10,9 @@ versionlist = {
 # Updates need to be posted above with syntax as such:
 # Developement versions go under "dev" and releases under "stable."
 # dev[0][0] is the version number; 1 is the first version, 2 the second etc.
-# The tuple contained within the array for the version is this:
-# (<year released>, <month released>, <build name>). Please only add a single-letter build name corresponding to the order in which
-# that month's versions were made.
+# The string contained within the list is this:
+# ['d' for dev | None for 'stable'] + <year released> + '-' + <month released> + <one-letter build name>.
+# Please only add a single-letter build name corresponding to the order in which that month's versions were made.
 # Feel free to make a pull request - put your version in the list. DO NOT MARK IT AS STABLE UNTIL I HAVE TESTED IT.
 # Put the programming for the version in Kettle3D/versions/d20-04a.py. Add a txtfile object for all the text files, along with .py etc.
 # Initialise the textfile under the play function. Make sure to add all required txtfiles and binaryfiles as well.
