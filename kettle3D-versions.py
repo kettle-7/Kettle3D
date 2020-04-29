@@ -106,7 +106,7 @@ class txtfile():
 					print("File matches.")
 			except:
 				print("Couldn't update file. Maybe try checking your internet connection?")
-		except (FileNotFoundError, OSError):
+		except(FileNotFoundError, OSError):
 			self.newcontent = open(directory + self.winpath, 'x')
 			print("File %s created successfully." % path)
 			try:
@@ -142,7 +142,7 @@ class binaryfile():
 					print("File matches.")
 			except:
 				print("Couldn't update file. Maybe try checking your internet connection?")
-		except (FileNotFoundError, OSError):
+		except(FileNotFoundError, OSError):
 			self.newcontent = open(directory + winpath, 'xb')
 			print("File %s created successfully." % path)
 			try:
