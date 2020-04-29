@@ -24,6 +24,7 @@ from sys import platform
 from tkinter import *
 from os import getenv
 from os import getcwd
+import requests
 import pickle
 import time
 import sys
@@ -39,6 +40,7 @@ if platform.startswith('win32') or platform.startswith('cygwin'): # do windows-s
 	directory = getenv("USERPROFILE") + "\\AppData\\Roaming\\Kettle3D\\"
 if platform.startswith('darwin'): #do apple-specific things
 	directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
+	sys.path.append(getenv("HOME") + "/Library/Developer/Panda3D")
 
 class file_dummy():
 	def open(self, a=None, b=None, c=None):
@@ -160,6 +162,24 @@ class binaryfile():
 		finally:
 			self.newcontent.close()
 
+class imagefile:
+	def __init__(path, version):
+		self.path = path
+		self.version = version
+		winpath = normpath(path)
+		self.winpath = winpath
+		print("Looking for file %s" % path)
+		img_data = requests.get("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).content
+		with open(directory + normpath(path), 'wb') as handler:
+			handler.write(img_data)
+			handler.close()
+		fae = {
+			"path" : self.path,
+			"version" : self.version
+		}
+		files["image"].append(fae)
+		print("File %s downloaded successfully.")
+
 isdiropen = False
 isplayopen = False
 dir_tk = None
@@ -178,7 +198,7 @@ print("Have 2 files to check or download...")
 if not {"path" : "lib/launcherbase.py", "version" : 1} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=1)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["binary"]:
-	downloadfile = binaryfile(path='assets/k3dlauncher1.png', version=1)
+	downloadfile = imagefile(path='assets/k3dlauncher1.png', version=1)
 
 files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
