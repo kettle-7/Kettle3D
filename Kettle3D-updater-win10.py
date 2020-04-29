@@ -4,7 +4,7 @@ from os.path import normpath
 from os import getenv
 from os import getcwd
 from os import name
-import sys
+from sys import path
 
 osnamefile = normpath(getcwd() + "/osname.txt")
 osname = open(osnamefile).read().strip()
@@ -20,21 +20,21 @@ try:
 	try:
 		if osname == 'windows':
 			launcher = open(getenv("appdata") + "\\Kettle3D\\kettle3DLauncher.py", 'w')
-			o = open("C:\\Program Files\\Kettle3D\\kettle3DLauncher.py", 'r')
-			os.path[0] = getenv("appdata") + "\\Kettle3D"
+			o = open(getenv("appdata") + "\\Kettle3D\\kettle3DLauncher.py", 'r')
+			path[0] = getenv("appdata") + "\\Kettle3D"
 		elif osname == 'os x':
 			launcher = open(getenv("HOME") + "/Library/Application Support/Kettle3D/kettle3DLauncher.py", "w")
 			o = open(getenv("HOME") + "/Library/Application Support/Kettle3D/kettle3DLauncher.py", 'r')
-			os.path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
+			path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
 		old_launcher = o.read()
 		is_new = False
 	except (FileNotFoundError, AttributeError):
 		if osname == 'windows':
-			launcher = open("C:\\Program Files\\Kettle3D\\kettle3DLauncher.py", 'x')
-			os.path[0] = getenv("appdata") + "\\Kettle3D"
+			launcher = open(getenv("appdata") + "\\Kettle3D\\kettle3DLauncher.py", 'x')
+			path[0] = getenv("appdata") + "\\Kettle3D"
 		if osname == 'os x':
 			launcher = open(getenv("HOME") + "/Library/Application Support/Kettle3D/Kettle3D/kettle3DLauncher.py", 'x')
-			os.path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
+			path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
 		is_new = True
 	
 	try:
@@ -52,5 +52,5 @@ try:
 except URLError:
 	print("Kettle3D couldn't check for updates. Try checking your internet connection.")
 
-sys.path.append(getcwd())
+path.append(getcwd())
 import kettle3DLauncher
