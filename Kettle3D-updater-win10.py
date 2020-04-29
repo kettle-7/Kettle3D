@@ -19,7 +19,7 @@ try:
 
 	try:
 		if osname == 'windows':
-			launcher = open("C:\\Program Files\\Kettle3D\\kettle3DLauncher.py", 'w')
+			launcher = open(getenv("appdata") + "\\Kettle3D\\kettle3DLauncher.py", 'w')
 			o = open("C:\\Program Files\\Kettle3D\\kettle3DLauncher.py", 'r')
 			os.path[0] = getenv("appdata") + "\\Kettle3D"
 		elif osname == 'os x':
