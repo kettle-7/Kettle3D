@@ -58,8 +58,8 @@ try:
 		files = tempfiles
 	else:
 		files = {
-			"txt" : tempfiles["txt"]
-			"binary" : tempfiles["binary"]
+			"txt" : tempfiles["txt"],
+			"binary" : tempfiles["binary"],
 			"image" : []
 		}
 	print("Successfully retrieved file array.")
