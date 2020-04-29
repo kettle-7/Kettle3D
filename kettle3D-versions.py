@@ -17,14 +17,15 @@ versionlist = {
 # Put the programming for the version in Kettle3D/versions/d20-04a.py. Add a txtfile object for all the text files, along with .py etc.
 # Initialise the textfile under the play function. Make sure to add all required txtfiles and binaryfiles as well.
 
-from tkinter import *
 from urllib.request import urlopen
 from os.path import normpath
+from sys import platform
+from tkinter import *
 from os import getenv
 from os import getcwd
+import pickle
 import time
 import sys
-import pickle
  
 osnamefile = normpath(getcwd() + "/osname.txt")
 
@@ -33,9 +34,9 @@ osname = open(osnamefile).read()
 directory = None
 
 #if True:
-if osname == 'windows': # do windows-specific things
+if platform.startswith('win32') or platform.startswith('cygwin'): # do windows-specific things
 	directory = getenv("USERPROFILE") + "\\AppData\\Roaming\\Kettle3D\\"
-if osname == 'os x': #do apple-specific things
+if platform.startswith('darwin'): #do apple-specific things
 	directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
 
 class file_dummy():
