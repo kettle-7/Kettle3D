@@ -1,3 +1,5 @@
+# Kettle3D Launcher v1.0 :)
+
 versionlist = {
 	"dev" : [
 		[1, 'd20-04a']
