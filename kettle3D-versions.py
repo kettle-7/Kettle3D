@@ -2,7 +2,7 @@
 
 versionlist = {
 	"dev" : [
-		[1, 'd20-04a']
+		[1, 'd20.04a']
 	],
 	"stable" : [
 		#none yet...
@@ -220,7 +220,7 @@ if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 if not {"path" : "versions/d2004a.py", "version" : 1} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2004a.py', version=1)
 try: # Add 
-	import version.d20.04a as v1
+	import version.d2004a as v1
 except ModuleNotFoundError:
 	print("Connect to the internet to update Kettle3D.")
 	class v1:
