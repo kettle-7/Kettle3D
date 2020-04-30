@@ -219,17 +219,6 @@ if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
 if not {"path" : "versions/d2004a.py", "version" : 2} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2004a.py', version=2)
-try: # Add developement version d20-04 build A to Python's scope as v1 (for reference)
-	import version.d2004a as v1
-except ModuleNotFoundError:
-	print("Connect to the internet to update Kettle3D.")
-	class v1:
-		def __init__(self=None):
-			pass
-		def launch_k3d(self=None):
-			print("Connect to the internet to download this version.")
-		pass
-	pass
 
 print("2 files and 1 versions downloaded with no errors :)")
 
@@ -257,9 +246,17 @@ def play():
 	tk.update()
 
 def launchv1():
-	play_tk.destroy()
-	isplayopen = False
-	v1.launch_k3d()
+	try:
+		v1 = __import__("versions.d2004a")
+		play_tk.destroy()
+		isplayopen = False
+		v1.launch_k3d()
+	except ModuleNotFoundError:
+		err_tk = Tk()
+		err_canvas = Canvas(err_tk, width=300, height=25)
+		err_canvas.pack()
+		err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+		err_tk.update()
 
 playbtn = Button(tk, text="PLAY", command=play)
 playbtn.pack()
