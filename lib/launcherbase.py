@@ -28,11 +28,6 @@ class file_dummy():
 	def write(self):
 		pass
 
-filelistfile = open(directory + normpath("assets/files.dat"), 'rb')
-files = pickle.load(filelistfile)
-print("Successfully retrieved file array.")
-filelistfile.close()
-
 class txtfile():
 	def __init__(self, path, version, newcontent=None): # file for download
 		self.path = path
