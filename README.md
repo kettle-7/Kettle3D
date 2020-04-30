@@ -24,7 +24,9 @@ You can download the OS X installer [here.]
 The installer will download the Panda installer, but you'll have to manually install it.
 There will be a file called Kettle3D.command on your desktop - double-click on it to open Kettle3D.
   
-Please note that you'll need to have installed Panda for the game to work. The Panda installer is contained in the Kettle3D installer - it'll open when you install Kettle3D.
+---
+
+Please note that you'll need to have installed Panda for the game to work. The Panda installer is contained in the Kettle3D installer - it'll open when you install Kettle3D on Windows 10, and it'll download the Mac installer to HOME/Downloads on OS X.
   
 When you launch Kettle3D, a black window with white text will appear. This is the command line. It will display the game's output log. It'll look a little like this:
 
