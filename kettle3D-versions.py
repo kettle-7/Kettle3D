@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0
+# Kettle3D Launcher v1.0 :)
 
 versionlist = {
 	"dev" : [
@@ -224,6 +224,8 @@ try: # Add developement version d20-04 build A to Python's scope as v1 (for refe
 except ModuleNotFoundError:
 	print("Connect to the internet to update Kettle3D.")
 	class v1:
+		def __init__(self):
+			pass
 		def launch(self):
 			print("Connect to the internet to download this version.")
 		pass
@@ -249,7 +251,7 @@ def play():
 	play_canvas = Canvas(play_tk, width=300, height=300)
 	play_canvas.pack()
 	play_canvas.create_text(150, 11, text="Development Versions:", font=('Helvetica', 20))
-	v1btn = Button(text="Play 20.04 build A", command=v1.launch)
+	v1btn = Button(play_tk, text="Play 20.04 build A", command=v1.launch)
 	v1btn.pack()
 	play_tk.update()
 	tk.update()
