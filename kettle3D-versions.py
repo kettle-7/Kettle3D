@@ -217,8 +217,17 @@ if not {"path" : "lib/launcherbase.py", "version" : 2} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=2)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
-if not {"path" : "versions/d20-04a.py", "version" : 1} in files["txt"]:
-	downloadfile = txtfile(path='versions/d20-04a.py', version=1)
+if not {"path" : "versions/d20.04a.py", "version" : 1} in files["txt"]:
+	downloadfile = txtfile(path='versions/d20.04a.py', version=1)
+try: # Add 
+	import version.d20.04a as v1
+except ModuleNotFoundError:
+	print("Connect to the internet to update Kettle3D.")
+	class v1:
+		def launch(self):
+			print("Connect to the internet to download this version.")
+		pass
+	pass
 
 print("2 files and 1 versions downloaded successfully :)")
 
@@ -239,6 +248,8 @@ def play():
 	play_tk.wm_attributes("-topmost", 1)
 	play_canvas = Canvas(play_tk, width=250, height=250)
 	play_canvas.pack()
+	play_canvas.create_text(125, 11, text="Development Versions:", font=('Helvetica', 20))
+	v1btn = Button(text="Play 20.04 build A", command=v1.launch)
 	play_tk.update()
 	tk.update()
 
