@@ -209,12 +209,13 @@ tk.update()
 
 print("The launcher window opened successfully.")
 
-print("Have 2 files to check or download...")
+print("Have 2 files and 1 versions to check or download...")
 
 if not {"path" : "lib/launcherbase.py", "version" : 1} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=1)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
+print("Couldn't download version d20-04a. Reason: Not finished yet. Sorry about that :(")
 
 files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
