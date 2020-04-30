@@ -197,10 +197,18 @@ class imagefile:
 		except URLError:
 			print("Couldn't download file. Maybe try checking your internet connection?")
 
+class tkdummy:
+	def __init__(self):
+		pass
+	
+	def destroy(self):
+		pass
+	pass
+
 isdiropen = False
 isplayopen = False
 dir_tk = None
-play_tk = None
+play_tk = tkdummy()
 tk = Tk()
 tk.title("Kettle3D Launcher")
 tk.wm_attributes("-topmost", 1)
@@ -208,6 +216,8 @@ tk.configure(bg='black')
 canvas = Canvas(tk, width=500, height=500, bd=0, highlightthickness=0)
 canvas.pack()
 tk.update()
+
+files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 
 print("The launcher window opened successfully.")
 
@@ -222,7 +232,6 @@ if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
 
 print("2 files and 1 versions downloaded with no errors :)")
 
-files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
 pickle.dump(files, filelistfile)
 filelistfile.close
@@ -247,9 +256,10 @@ def play():
 
 def launch(vsn):
 	try:
-		version = __import__("versions." + vsn)
 		play_tk.destroy()
+		play_tk = tkdummy()
 		isplayopen = False
+		version = __import__("versions." + vsn)
 		version.launch_k3d()
 	except ModuleNotFoundError:
 		err_tk = Tk()
