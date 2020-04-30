@@ -217,8 +217,8 @@ if not {"path" : "lib/launcherbase.py", "version" : 2} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=2)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
-if not {"path" : "versions/d2004a.py", "version" : 1} in files["txt"]:
-	downloadfile = txtfile(path='versions/d2004a.py', version=1)
+if not {"path" : "versions/d2004a.py", "version" : 2} in files["txt"]:
+	downloadfile = txtfile(path='versions/d2004a.py', version=2)
 try: # Add developement version d20-04 build A to Python's scope as v1 (for reference)
 	import version.d2004a as v1
 except ModuleNotFoundError:
@@ -253,7 +253,9 @@ def play():
 	play_canvas.create_text(150, 11, text="Development Versions:", font=('Helvetica', 20))
 	v1btn = Button(play_tk, text="Play 20.04 build A", command=v1.launch)
 	v1btn.pack()
+	play_tk.update_idletasks()
 	play_tk.update()
+	tk.update_idletasks()
 	tk.update()
 
 def launch():
