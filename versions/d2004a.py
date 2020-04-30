@@ -75,10 +75,10 @@ try:
   downloadfile = txtfile(path='lib/launcherbase.py', version=3)
 except URLError:
   err_tk = Tk()
-    err_canvas = Canvas(err_tk, width=300, height=25)
-    err_canvas.pack()
-    err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-    err_tk.update()
+  err_canvas = Canvas(err_tk, width=300, height=25)
+  err_canvas.pack()
+  err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+  err_tk.update()
 try:
   downloadfile = txtfile(path='lib/world.py', version=1)
 except URLError:
