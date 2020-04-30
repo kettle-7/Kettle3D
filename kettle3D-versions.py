@@ -217,8 +217,8 @@ if not {"path" : "lib/launcherbase.py", "version" : 2} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=2)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
-if not {"path" : "versions/d2004a.py", "version" : 5} in files["txt"]:
-	downloadfile = txtfile(path='versions/d2004a.py', version=5)
+if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
+	downloadfile = txtfile(path='versions/d2004a.py', version=6)
 
 print("2 files and 1 versions downloaded with no errors :)")
 
