@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0 :)
+# Kettle3D Launcher v1.0
 
 versionlist = {
 	"dev" : [
@@ -219,7 +219,7 @@ if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
 if not {"path" : "versions/d2004a.py", "version" : 1} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2004a.py', version=1)
-try: # Add 
+try: # Add developement version d20-04 build A to Python's scope as v1 (for reference)
 	import version.d2004a as v1
 except ModuleNotFoundError:
 	print("Connect to the internet to update Kettle3D.")
