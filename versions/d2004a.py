@@ -33,18 +33,7 @@ class file_dummy():
 	def write(self):
 		pass
 
-filelistfile = open(directory + normpath("assets/files.dat"), 'rb')
-tempfiles = pickle.load(filelistfile)
-if "image" in tempfiles:
-	files = tempfiles
-else:
-	files = {
-		"txt" : tempfiles["txt"],
-		"binary" : tempfiles["binary"],
-		"image" : []
-	}
-print("Successfully retrieved file array.")
-filelistfile.close()
+temp_files = []
 
 class txtfile():
 	def __init__(self, path, version, newcontent=None): # file for download
@@ -76,20 +65,37 @@ class txtfile():
 					"path" : self.path,
 					"version" : self.version
 				}
-				files["txt"].append(fae)
+				temp_files["txt"].append(fae)
 				self.newcontent.write(self.onlinecontent)
 			except URLError:
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
 			self.newcontent.close()
-
-if not {"path" : "lib/launcherbase.py", "version" : 2} in files["txt"]:
-  downloadfile = txtfile(path='lib/launcherbase.py', version=2)
-if not {"path" : "lib/world.py", "version" : 1} in files["txt"]:
+try:
+  downloadfile = txtfile(path='lib/launcherbase.py', version=3)
+except URLError:
+  err_tk = Tk()
+    err_canvas = Canvas(err_tk, width=300, height=25)
+    err_canvas.pack()
+    err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+    err_tk.update()
+try:
   downloadfile = txtfile(path='lib/world.py', version=1)
+except URLError:
+    err_tk = Tk()
+      err_canvas = Canvas(err_tk, width=300, height=25)
+      err_canvas.pack()
+      err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+      err_tk.update()
 
-import lib.launcherbase as launcherbase
-
+try:
+	import lib.launcherbase as launcherbase
+except ModuleNotFoundError:
+	err_tk = Tk()
+		err_canvas = Canvas(err_tk, width=300, height=25)
+		err_canvas.pack()
+		err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+		err_tk.update()
 
 # All versions need the above code.
 
