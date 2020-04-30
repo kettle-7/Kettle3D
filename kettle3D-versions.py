@@ -249,16 +249,17 @@ def play():
 	play_canvas = Canvas(play_tk, width=300, height=300)
 	play_canvas.pack()
 	play_canvas.create_text(150, 11, text="Development Versions:", font=('Helvetica', 20))
-	v1btn = Button(play_tk, text="Play 20.04 build A", command=v1.launch_k3d)
+	v1btn = Button(play_tk, text="Play 20.04 build A", command=launchv1)
 	v1btn.pack()
 	play_tk.update_idletasks()
 	play_tk.update()
 	tk.update_idletasks()
 	tk.update()
 
-def launch():
+def launchv1():
 	play_tk.destroy()
 	isplayopen = False
+	v1.launch_k3d()
 
 playbtn = Button(tk, text="PLAY", command=play)
 playbtn.pack()
