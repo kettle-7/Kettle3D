@@ -215,7 +215,10 @@ if not {"path" : "lib/launcherbase.py", "version" : 2} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=2)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
-print("Couldn't download version d20-04a. Reason: Not finished yet. Sorry about that :(")
+if not {"path" : "version/d20-04a.py", "version" : 1} in files["txt"]:
+	downloadfile = txtfile(path='version/d20-04a.py', version=1)
+
+print("2 files and 1 versions downloaded successfully :)")
 
 files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
