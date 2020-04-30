@@ -44,7 +44,7 @@ else:
 		"image" : []
 	}
 print("Successfully retrieved file array.")
-	filelistfile.close()
+filelistfile.close()
 
 class txtfile():
 	def __init__(self, path, version, newcontent=None): # file for download
