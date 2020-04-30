@@ -92,10 +92,10 @@ try:
 	import lib.launcherbase as launcherbase
 except ModuleNotFoundError:
 	err_tk = Tk()
-		err_canvas = Canvas(err_tk, width=300, height=25)
-		err_canvas.pack()
-		err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-		err_tk.update()
+	err_canvas = Canvas(err_tk, width=300, height=25)
+	err_canvas.pack()
+	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+	err_tk.update()
 
 # All versions need the above code.
 
