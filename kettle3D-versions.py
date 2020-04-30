@@ -246,10 +246,11 @@ def play():
 	play_tk = Tk()
 	play_tk.title("Versions - Kettle3D Launcher")
 	play_tk.wm_attributes("-topmost", 1)
-	play_canvas = Canvas(play_tk, width=250, height=250)
+	play_canvas = Canvas(play_tk, width=300, height=300)
 	play_canvas.pack()
-	play_canvas.create_text(125, 11, text="Development Versions:", font=('Helvetica', 20))
+	play_canvas.create_text(150, 11, text="Development Versions:", font=('Helvetica', 20))
 	v1btn = Button(text="Play 20.04 build A", command=v1.launch)
+	v1btn.pack()
 	play_tk.update()
 	tk.update()
 
