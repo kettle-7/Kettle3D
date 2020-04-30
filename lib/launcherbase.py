@@ -106,3 +106,23 @@ class binaryfile():
 		finally:
 			self.newcontent.close()
 
+class imagefile:
+	def __init__(self, path, version): # Image for download
+		self.path = path
+		self.version = version
+		winpath = normpath(path)
+		self.winpath = winpath
+		print("Looking for file %s" % path)
+		try:
+			img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).read()
+			with open(directory + winpath, 'wb') as handler:
+				handler.write(img_data)
+				handler.close()
+			fae = {
+				"path" : self.path,
+				"version" : self.version
+			}
+			files["image"].append(fae)
+			print("File %s downloaded successfully." % self.path)
+		except URLError:
+			print("Couldn't download file. Maybe try checking your internet connection?")
