@@ -16,7 +16,7 @@ versionlist = {
 # ['d' for dev | None for 'stable'] + <year released> + '-' + <month released> + <one-letter build name>.
 # Please only add a single-letter build name corresponding to the order in which that month's versions were made.
 # Feel free to make a pull request - put your version in the list. DO NOT MARK IT AS STABLE UNTIL I HAVE TESTED IT.
-# Put the programming for the version in Kettle3D/versions/d20-04a.py. Add a txtfile object for all the text files, along with .py etc.
+# Put the programming for the version in Kettle3D/versions/d2004a.py. Add a txtfile object for all the text files, along with .py etc.
 # Initialise the textfile under the play function. Make sure to add all required txtfiles and binaryfiles as well.
 
 from urllib.request import urlopen
@@ -217,8 +217,8 @@ if not {"path" : "lib/launcherbase.py", "version" : 2} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=2)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
-if not {"path" : "versions/d20.04a.py", "version" : 1} in files["txt"]:
-	downloadfile = txtfile(path='versions/d20.04a.py', version=1)
+if not {"path" : "versions/d2004a.py", "version" : 1} in files["txt"]:
+	downloadfile = txtfile(path='versions/d2004a.py', version=1)
 try: # Add 
 	import version.d20.04a as v1
 except ModuleNotFoundError:
