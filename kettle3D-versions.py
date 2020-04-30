@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0 :)
+# Kettle3D Launcher v1.0
 
 versionlist = {
 	"dev" : [
@@ -231,14 +231,12 @@ except ModuleNotFoundError:
 		pass
 	pass
 
-print("2 files and 1 versions downloaded successfully :)")
+print("2 files and 1 versions downloaded with no errors :)")
 
 files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
 pickle.dump(files, filelistfile)
 filelistfile.close
-
-print("Checked or downloaded 2 files with no errors :)")
 
 tk.configure(bg='#47ad73')
 launcherbackground = PhotoImage(file=directory + background1.winpath)
