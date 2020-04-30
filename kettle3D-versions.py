@@ -238,19 +238,19 @@ def play():
 	play_canvas = Canvas(play_tk, width=300, height=25)
 	play_canvas.pack()
 	play_canvas.create_text(150, 12, text="Development Versions:", font=('Helvetica', 20))
-	v1btn = Button(play_tk, text="Play 20.04 build A", command=launchv1)
+	v1btn = Button(play_tk, text="Play 20.04 build A", command=launch("d2004a"))
 	v1btn.pack()
 	play_tk.update_idletasks()
 	play_tk.update()
 	tk.update_idletasks()
 	tk.update()
 
-def launchv1():
+def launch(vsn):
 	try:
-		v1 = __import__("versions.d2004a")
+		version = __import__("versions." + vsn)
 		play_tk.destroy()
 		isplayopen = False
-		v1.launch_k3d()
+		version.launch_k3d()
 	except ModuleNotFoundError:
 		err_tk = Tk()
 		err_canvas = Canvas(err_tk, width=300, height=25)
