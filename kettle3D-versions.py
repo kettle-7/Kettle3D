@@ -208,7 +208,8 @@ class tkdummy:
 isdiropen = False
 isplayopen = False
 dir_tk = None
-global play_tk = tkdummy()
+global play_tk
+play_tk = tkdummy()
 tk = Tk()
 tk.title("Kettle3D Launcher")
 tk.wm_attributes("-topmost", 1)
