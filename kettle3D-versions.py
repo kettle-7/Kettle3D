@@ -224,9 +224,9 @@ try: # Add developement version d20-04 build A to Python's scope as v1 (for refe
 except ModuleNotFoundError:
 	print("Connect to the internet to update Kettle3D.")
 	class v1:
-		def __init__(self):
+		def __init__(self=None):
 			pass
-		def launch_k3d(self):
+		def launch_k3d(self=None):
 			print("Connect to the internet to download this version.")
 		pass
 	pass
