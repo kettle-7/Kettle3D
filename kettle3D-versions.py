@@ -226,7 +226,7 @@ except ModuleNotFoundError:
 	class v1:
 		def __init__(self):
 			pass
-		def launch(self):
+		def launch_k3d(self):
 			print("Connect to the internet to download this version.")
 		pass
 	pass
