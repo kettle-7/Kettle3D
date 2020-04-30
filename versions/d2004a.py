@@ -93,7 +93,7 @@ import lib.launcherbase as launcherbase
 
 # All versions need the above code.
 
-def launch():
+def launch(self=None):
   # The code below executes when you open the version with the launcher.
   
   print("Kettle3D development version d20-04 build A launched.")
