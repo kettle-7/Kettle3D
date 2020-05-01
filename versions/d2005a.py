@@ -67,6 +67,9 @@ class txtfile():
 				print("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
 			self.newcontent.close()
+
+print("Have 4 files to check or download.")
+
 try:
   downloadfile = txtfile(path='lib/launcherbase.py', version=3)
 except URLError:
@@ -76,7 +79,23 @@ except URLError:
   err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
   err_tk.update()
 try:
-  downloadfile = txtfile(path='lib/world.py', version=1)
+	downloadfile = txtfile(path='lib/world.py', version=1)
+except URLError:
+	err_tk = Tk()
+	err_canvas = Canvas(err_tk, width=300, height=25)
+	err_canvas.pack()
+	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+	err_tk.update()
+try:
+	downloadfile = txtfile(path='lib/chunk.py', version=1)
+except URLError:
+	err_tk = Tk()
+	err_canvas = Canvas(err_tk, width=300, height=25)
+	err_canvas.pack()
+	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+	err_tk.update()
+try:
+	downloadfile = txtfile(path='lib/block.py', version=1)
 except URLError:
 	err_tk = Tk()
 	err_canvas = Canvas(err_tk, width=300, height=25)
