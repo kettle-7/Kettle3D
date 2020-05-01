@@ -1,9 +1,10 @@
 # The class used to save, load and query data from sections of a world.
 
 from os import system # system(String command) runs a batch command
-import pickle
-import lib.block as block
 import lib.launcherbase as laucherbase
+from os.path import normpath
+import lib.block as block
+import pickle
 
 class newchunk:
 	def __init__(self, world, xpos, ypos, zpos, isground):
