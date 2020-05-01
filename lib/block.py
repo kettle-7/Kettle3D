@@ -25,6 +25,9 @@ class air():
 	
 	def destroy(self, chunk):
 		pass
+	
+	def lender(self):
+		pass
 
 class concrete(Block):
 	def __init__(self, chunk, xpos, ypos, zpos): # blockpath is expected to be provided within this class. Extra parameters are allowed such as blockstates.
@@ -37,6 +40,7 @@ class concrete(Block):
 		self.ypos = ypos
 		self.zpos = zpos
 		self.blockpath = 'models/concrete'
+		self.reparentTo(render)
 		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64))
 		pass
 	
@@ -46,3 +50,13 @@ class concrete(Block):
 		ypos = self.ypos
 		zpos = self.zpos
 		chunk.chunkmap[xpos][ypos][zpos] = air(chunk, xpos, ypos, zpos)
+		pass
+	
+	def lender(self):
+		self.reparentTo(self.render)
+	
+	def unlender(self, chunk):
+		self.removenode()
+		chunk.chunkmap[xpos][ypos][zpos] = self
+						  
+# That's it for now...
