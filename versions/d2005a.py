@@ -95,9 +95,10 @@ except ModuleNotFoundError:
 
 # All versions need the above code.
 
-def launch_k3d(self=None):
+def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here.
   	# The code below executes when you open the version with the launcher.
   
-  	print("Kettle3D development version d20-04 build A launched.")
+  	print("Kettle3D development version d20-05 build A launched.")
 	
 	#This version currently doesn't do anything - it's like that for a reason.
+	
