@@ -8,12 +8,6 @@ import pickle
 
 directory = None
 
-#if True:
-if osname == 'windows': # do windows-specific things
-	directory = getenv("USERPROFILE") + "\\AppData\\Roaming\\Kettle3D\\"
-if osname == 'os x': #do apple-specific things
-	directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
-
 class file_dummy():
 	def open(self, a=None, b=None, c=None):
 		pass
