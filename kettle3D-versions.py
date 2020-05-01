@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0, comes with free candyfaces :~)
+# Kettle3D Launcher v1.0, this time it actually works :~)
 
 versionlist = {
 	"dev" : [
@@ -218,7 +218,7 @@ files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 
 print("The launcher window opened successfully.")
 
-print("Have 2 files and 1 versions to check or download...")
+print("Have 2 files and 2 versions to check or download...")
 
 if not {"path" : "lib/launcherbase.py", "version" : 2} in files["txt"]:
 	downloadfile = txtfile(path='lib/launcherbase.py', version=2)
@@ -226,8 +226,10 @@ if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
 if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2004a.py', version=6)
+if not {"path" : "versions/d2005a.py", "version" : 1} in files["txt"]:
+	downloadfile = txtfile(path='versions/d2005a.py', version=1)
 
-print("2 files and 1 versions downloaded with no errors :)")
+print("2 files and 2 versions downloaded with no errors :)")
 
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
 pickle.dump(files, filelistfile)
@@ -251,7 +253,7 @@ def play():
 	tk.update_idletasks()
 	tk.update()
 
-def launch(vsn='d2004a'):
+def launch(vsn='d2005a'):
 	try:
 		global play_tk
 		play_tk.destroy()
@@ -262,6 +264,10 @@ def launch(vsn='d2004a'):
 			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
 			version = __import__("versions", fromlist=['d2004a'])
 			version.d2004a.launch_k3d()
+		elif vsn == 'd2005a':
+			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
+			version = __import__("versions", fromlist=['d2005a'])
+			version.d2005a.launch_k3d()
 		else:
 			print("Sorry, the launcher needs a bit of revision. :(")
 	except ModuleNotFoundError:
