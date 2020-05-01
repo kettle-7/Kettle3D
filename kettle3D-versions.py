@@ -262,9 +262,12 @@ def launch(vsn='d2004a'):
 		play_tk = tkdummy()
 		isplayopen = False
 		versionstr = "versions." + vsn
-		print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
-		version = __import__(versionstr)
-		version.launch_k3d()
+		if vsn = 'd2004a':
+			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
+			version = __import__(versionstr)
+			version.launch_k3d()
+		else:
+			print("Sorry, the launcher needs a bit of revision. :(")
 	except ModuleNotFoundError:
 		err_tk = Tk()
 		err_canvas = Canvas(err_tk, width=300, height=25)
