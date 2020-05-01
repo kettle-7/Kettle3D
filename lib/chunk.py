@@ -32,8 +32,6 @@ class newchunk:
 			'zpos' : self.zpos
 		}
 		
-		system("cd " + launcherbase.directory + "data")
-		system("mkdir " + world.name)
 		self.newfile = open(directory + normpath("data/") + world.name + normpath("/chunk") + self.xpos + "_" + self.ypos + "_" + self.zpos + ".dat", 'xb')
 		pickle.dump(self.mapmap, self.newfile)
 		self.newfile.close()
