@@ -97,7 +97,6 @@ class chunk:
 					pass
 				pass
 			pass
-		self.save(world) # Just double-checking that everything saves right.
 		self.__delete__()
 		pass
 	pass
