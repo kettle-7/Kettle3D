@@ -3,6 +3,7 @@
 # absz.
 
 from direct.showbase.ShowBase import ShowBase
+from panda3d.core import Filename
 
 class Block(ShowBase):
 	def __init__(xpos, ypos, zpos, blockpath):
@@ -34,7 +35,7 @@ class concrete(Block):
 		self.absx = chunk.xpos * 16 + xpos
 		self.absy = chunk.ypos * 16 + ypos
 		self.absz = chunk.zpos * 16 + zpos
-		Block.__init__(self.absx, self.absy, self.absz, 'models/concrete')
+		Block.__init__(self.absx, self.absy, self.absz, Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/concrete.egg")
 		self.blocktype = 'concrete'
 		self.xpos = xpos
 		self.ypos = ypos
