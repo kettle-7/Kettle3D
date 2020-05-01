@@ -1,4 +1,6 @@
 # This file stores the Block class and all of its children.
+# Please note that xpos, ypos and zpos are positions within the chunk, if you want the position within the world, use absx, absy and
+# absz.
 
 from direct.showbase.ShowBase import ShowBase
 
