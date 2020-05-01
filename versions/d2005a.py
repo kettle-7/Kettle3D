@@ -1,6 +1,8 @@
+from direct.showbase.ShowBase import ShowBase
 from urllib.request import urlopen
 from urllib.error import URLError
 from os.path import normpath
+from direct.task import Task
 from sys import platform
 from os import getenv
 from os import getcwd
@@ -105,6 +107,9 @@ except URLError:
 
 try:
 	import lib.launcherbase as launcherbase
+	import lib.block as block
+	import lib.world as world
+	import lib.chunk as chunk
 except ModuleNotFoundError:
 	err_tk = Tk()
 	err_canvas = Canvas(err_tk, width=300, height=25)
@@ -114,6 +119,23 @@ except ModuleNotFoundError:
 
 # All versions need the above code.
 
+class App(ShowBase):
+	def __init__(self):
+		ShowBase.__init__(self)
+		base.disableMouse()
+		self.taskMgr.add(self.mousewatchtask, "MouseWatchTask")
+		pass
+	
+	def mousewatchtask(self, task):
+		global world
+		if base.mouseWatcherNode.hasMouse():
+			x = base.mouseWatcherNode.getMouseX()
+			y = base.mouseWatcherNode.getMouseY()
+			self.camera.setHpr(x, y, 0)
+		self.camera.setPos(world.playerx, world.playerz, world.playery)
+		
+	pass
+
 def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here.
   	# The code below executes when you open the version with the launcher.
   
@@ -121,3 +143,15 @@ def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here
 	
 	#This version currently doesn't do anything - it's like that for a reason.
 	
+	try:
+		global world
+		world = World('world')
+	except FileNotFoundError:
+		global world
+		world = newWorld('world')
+	
+	k3d_window = App()
+	
+	while True:
+		taskMgr.step
+		time.sleep(1 / 24)
