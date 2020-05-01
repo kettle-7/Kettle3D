@@ -258,7 +258,7 @@ def launch(vsn='d2004a'):
 		play_tk = tkdummy()
 		isplayopen = False
 		versionstr = "versions." + vsn
-		if vsn = 'd2004a':
+		if vsn == 'd2004a':
 			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
 			version = __import__("versions", fromlist=['d2004a'])
 			d2004a.launch_k3d()
