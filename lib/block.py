@@ -16,6 +16,9 @@ class air():
 		self.xpos = xpos
 		self.ypos = ypos
 		self.zpos = zpos
+		self.absx = chunk.xpos * 16 + xpos
+		self.absy = chunk.ypos * 16 + ypos
+		self.absz = chunk.zpos * 16 + zpos
 		pass
 	
 	def destroy(self, chunk):
@@ -23,7 +26,10 @@ class air():
 
 class concrete(Block):
 	def __init__(self, chunk, xpos, ypos, zpos): # blockpath is expected to be provided within this class. Extra parameters are allowed such as blockstates.
-		Block.__init__(xpos, ypos, zpos, 'models/concrete')
+		self.absx = chunk.xpos * 16 + xpos
+		self.absy = chunk.ypos * 16 + ypos
+		self.absz = chunk.zpos * 16 + zpos
+		Block.__init__(self.absx, self.absy, self.absz, 'models/concrete')
 		self.blocktype = 'concrete'
 		self.xpos = xpos
 		self.ypos = ypos
