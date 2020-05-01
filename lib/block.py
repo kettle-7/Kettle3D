@@ -43,7 +43,6 @@ class concrete(Block):
 		self.blockpath = 'assets/concrete'
 		self.reparentTo(render)
 		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64))
-	
 	def destroy(self, chunk):
 		self.removenode()
 		xpos = self.xpos
@@ -51,11 +50,9 @@ class concrete(Block):
 		zpos = self.zpos
 		chunk.chunkmap[xpos][ypos][zpos] = air(chunk, xpos, ypos, zpos)
 		pass
-	
 	def lender(self):
 		self.reparentTo(self.render)
 		self.scene.setPos(xpos, zpos, ypos)
-	
 	def unlender(self, chunk):
 		self.removenode()
 		chunk.chunkmap[xpos][ypos][zpos] = self
