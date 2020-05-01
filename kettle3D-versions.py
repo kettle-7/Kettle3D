@@ -247,6 +247,7 @@ def play():
 	play_canvas.pack()
 	play_canvas.create_text(150, 12, text="Development Versions:", font=('Helvetica', 20))
 	v1btn = Button(play_tk, text="Play 20.04 build A", command=launch("d2004a"))
+	v1btn = Button(play_tk, text="Play 20.05 build A", command=launch("d2005a"))
 	v1btn.pack()
 	play_tk.update_idletasks()
 	play_tk.update()
