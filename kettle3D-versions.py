@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0
+# Kettle3D Launcher v1.0 :~)
 
 versionlist = {
 	"dev" : [
