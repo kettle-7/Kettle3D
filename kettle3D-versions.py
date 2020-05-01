@@ -29,10 +29,6 @@ from os import getcwd
 import pickle
 import time
 import sys
- 
-osnamefile = normpath(getcwd() + "/osname.txt")
-
-osname = open(osnamefile).read()
 
 directory = None
 
@@ -264,8 +260,8 @@ def launch(vsn='d2004a'):
 		versionstr = "versions." + vsn
 		if vsn = 'd2004a':
 			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
-			version = __import__(versionstr)
-			version.launch_k3d()
+			version = __import__("versions", fromlist=['d2004a'])
+			d2004a.launch_k3d()
 		else:
 			print("Sorry, the launcher needs a bit of revision. :(")
 	except ModuleNotFoundError:
