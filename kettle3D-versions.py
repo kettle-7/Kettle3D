@@ -257,6 +257,7 @@ def play():
 
 def launch(vsn):
 	try:
+		global play_tk
 		play_tk.destroy()
 		play_tk = tkdummy()
 		isplayopen = False
