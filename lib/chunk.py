@@ -82,7 +82,10 @@ class chunk:
 		pass
 	pass
 	
-	def __init__(self, world):
+	def __init__(self, world, x, y, z):
+		self.xpos = x
+		self.ypos = y
+		self.zpos = z
 		self.load(world)
 		pass
 	
