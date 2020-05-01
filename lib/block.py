@@ -40,7 +40,7 @@ class concrete(Block):
 		self.xpos = xpos
 		self.ypos = ypos
 		self.zpos = zpos
-		self.blockpath = 'models/concrete'
+		self.blockpath = 'assets/concrete'
 		self.reparentTo(render)
 		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64))
 		pass
@@ -55,9 +55,30 @@ class concrete(Block):
 	
 	def lender(self):
 		self.reparentTo(self.render)
+		self.scene.setPos(xpos, zpos, ypos)
 	
 	def unlender(self, chunk):
 		self.removenode()
 		chunk.chunkmap[xpos][ypos][zpos] = self
-						  
+		self.__delete__()
+
+class glass_wall(concrete):
+	def __init__(self, chunk, xpos, ypos, zpos, facing, half, third): # blockpath is expected to be provided within this class. Extra parameters are allowed such as blockstates.
+		self.absx = chunk.xpos * 16 + xpos
+		self.absy = chunk.ypos * 16 + ypos
+		self.absz = chunk.zpos * 16 + zpos
+		Block.__init__(self.absx, self.absy, self.absz, Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/glass_" + half + third + ".egg")
+		self.blocktype = 'glass_wall'
+		self.xpos = xpos
+		self.ypos = ypos
+		self.zpos = zpos
+		self.facing = facing
+		self.blockpath = 'assets/glass'
+		self.setHpr(facing * 90, 0, 0)
+		self.reparentTo(render)
+		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64))
+		pass
+	
+	def lender
+
 # That's it for now...
