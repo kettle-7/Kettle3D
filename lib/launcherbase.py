@@ -6,10 +6,6 @@ import time
 import sys
 import pickle
 
-osnamefile = normpath(getcwd() + "/osname.txt")
-
-osname = open(osnamefile).read()
-
 directory = None
 
 #if True:
