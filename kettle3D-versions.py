@@ -255,13 +255,15 @@ def play():
 	tk.update_idletasks()
 	tk.update()
 
-def launch(vsn):
+def launch(vsn='d2004a'):
 	try:
 		global play_tk
 		play_tk.destroy()
 		play_tk = tkdummy()
 		isplayopen = False
-		version = __import__("versions." + vsn)
+		versionstr = "versions." + vsn
+		print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
+		version = __import__(versionstr)
 		version.launch_k3d()
 	except ModuleNotFoundError:
 		err_tk = Tk()
