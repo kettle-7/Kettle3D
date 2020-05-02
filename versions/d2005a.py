@@ -90,6 +90,23 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 try:
+	downloadfile = txtfile(path='assets/concrete.egg', version=1)
+except URLError:
+	err_tk = Tk()
+	err_canvas = Canvas(err_tk, width=300, height=25)
+	err_canvas.pack()
+	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+	err_tk.update()
+try:
+	import lib.launcherbase
+	downloadfile = launcherbase.imagefile(path='assets/concrete.png', version=1)
+except URLError:
+	err_tk = Tk()
+	err_canvas = Canvas(err_tk, width=300, height=25)
+	err_canvas.pack()
+	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+	err_tk.update()
+try:
 	downloadfile = txtfile(path='lib/chunk.py', version=1)
 except URLError:
 	err_tk = Tk()
