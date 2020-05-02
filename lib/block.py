@@ -72,7 +72,7 @@ class glass_wall(concrete):
 		self.blockpath = 'assets/glass'
 		self.setHpr(facing * 90, 0, 0)
 		self.reparentTo(render)
-		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64))
+		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64)))
 		pass
 	
 	def lender
