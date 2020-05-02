@@ -6,7 +6,7 @@ import time
 import sys
 import pickle
 
-directory = None
+directory = getcwd() + normpath('/')
 
 class file_dummy():
 	def open(self, a=None, b=None, c=None):
