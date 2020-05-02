@@ -36,7 +36,7 @@ class new_World:
 				pass
 			pass
 		
-		self.newfile = open(directory + normpath("data/") + self.name + ".dat", 'xb') # Create world file - saves everything but chunks.
+		self.newfile = open(directory + normpath("data/" + self.name + ".dat"), 'xb') # Create world file - saves everything but chunks.
 		self.newfile.close()
 		self.save()
 		pass
