@@ -1,6 +1,7 @@
 # This library isn't done yet.
 
 from os import system # system(String command) runs a batch command. Java function syntax :~)
+from lib.launcherbase import directory
 from lib.chunk import *
 from lib.block import *
 import pickle
