@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0, would you like mayo with your order? :~)
+# Kettle3D Launcher v1.0, tilde faces are NOT a fashion statement :~)
 
 versionlist = {
 	"dev" : [
@@ -220,8 +220,8 @@ print("The launcher window opened successfully.")
 
 print("Have 2 files and 2 versions to check or download...")
 
-if not {"path" : "lib/launcherbase.py", "version" : 3} in files["txt"]:
-	downloadfile = txtfile(path='lib/launcherbase.py', version=3)
+if not {"path" : "lib/launcherbase.py", "version" : 4} in files["txt"]:
+	downloadfile = txtfile(path='lib/launcherbase.py', version=4)
 if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
 if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
