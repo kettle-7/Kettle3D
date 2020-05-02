@@ -98,7 +98,7 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 try:
-	import lib.launcherbase
+	import lib.launcherbase as launcherbase
 	downloadfile = launcherbase.imagefile(path='assets/concrete.png', version=1)
 except URLError:
 	err_tk = Tk()
