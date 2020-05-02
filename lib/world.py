@@ -55,14 +55,14 @@ class new_World:
 		}
 		
 		print(directory + normpath("data/") + self.name + ".dat")
-		self.file = open(directory + normpath("data/") + self.name + ".dat", 'wb')
+		self.file = open(directory + normpath("data/" + self.name + ".dat"), 'xb')
 		pickle.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
 	
 	def load(self):
 		print(directory + normpath("data/") + self.name + ".dat")
-		self.file = open(directory + normpath("data/") + self.name + ".dat", 'rb')
+		self.file = open(directory + normpath("data/" + self.name + ".dat"), 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
 		
@@ -103,14 +103,14 @@ class World:
 		}
 		
 		print(directory + normpath("data/") + self.name + ".dat")
-		self.file = open(directory + normpath("data/") + self.name + ".dat", 'wb')
+		self.file = open(directory + normpath("data/" + self.name + ".dat"), 'wb')
 		pickle.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
 	
 	def load(self):
 		print(directory + normpath("data/") + self.name + ".dat")
-		self.file = open(directory + normpath("data/") + self.name + ".dat", 'rb')
+		self.file = open(directory + normpath("data/" + self.name + ".dat"), 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
 		
