@@ -32,7 +32,11 @@ class file_dummy():
 	def write(self):
 		pass
 
-temp_files = []
+temp_files = {
+	'txt' : [],
+	'img' : [],
+	'image' : []
+}
 
 class txtfile():
 	def __init__(self, path, version, newcontent=None): # file for download
