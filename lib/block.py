@@ -75,6 +75,12 @@ class glass_wall(concrete):
 		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64)))
 		pass
 	
-	def lender
+	def lender(self):
+		self.reparentTo(self.render)
+		self.scene.setPos(xpos, zpos, ypos)
+	def unlender(self, chunk):
+		self.removenode()
+		chunk.chunkmap[xpos][ypos][zpos] = self
+		self.__delete__()
 
 # That's it for now...
