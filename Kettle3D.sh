@@ -1,2 +1,2 @@
 cd "$HOME/Library/Application Support/Kettle3D"
-python kettle3D-updater.py
+python3 kettle3D-updater.py
