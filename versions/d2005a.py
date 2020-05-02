@@ -87,7 +87,7 @@ class imagefile:
 				"path" : self.path,
 				"version" : self.version
 			}
-			files["image"].append(fae)
+			temp_files["image"].append(fae)
 			print("File %s downloaded successfully." % self.path)
 		except URLError:
 			print("Couldn't download file. Maybe try checking your internet connection?")
