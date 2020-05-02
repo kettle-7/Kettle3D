@@ -144,7 +144,7 @@ def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here
 	
 	#This version currently doesn't do anything - it's like that for a reason.
 	
-	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")
+	if os.path.exists(directory + normpath("data/" + 'world' + ".dat"):
 		worldin = world.World('world')
 	else:
 		worldin = world.new_World('world')
