@@ -5,6 +5,7 @@ from lib.launcherbase import directory
 from lib.chunk import *
 from lib.block import *
 import pickle
+from lib.block import air, concrete
 
 class new_World:
 	def __init__(self, name, size=[16, 128, 16]): # This should generate a cube of concrete and a cube of air on top of it.
