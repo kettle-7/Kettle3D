@@ -36,6 +36,7 @@ class new_World:
 				pass
 			pass
 		
+		print(directory + normpath("data/") + self.name + ".dat")
 		self.newfile = open(directory + normpath("data/" + self.name + ".dat"), 'xb') # Create world file - saves everything but chunks.
 		self.newfile.close()
 		self.save()
@@ -53,12 +54,14 @@ class new_World:
 			"playerz" : self.playerz
 		}
 		
+		print(directory + normpath("data/") + self.name + ".dat")
 		self.file = open(directory + normpath("data/") + self.name + ".dat", 'wb')
 		pickle.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
 	
 	def load(self):
+		print(directory + normpath("data/") + self.name + ".dat")
 		self.file = open(directory + normpath("data/") + self.name + ".dat", 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
@@ -106,6 +109,7 @@ class World:
 		pass
 	
 	def load(self):
+		print(directory + normpath("data/") + self.name + ".dat")
 		self.file = open(directory + normpath("data/") + self.name + ".dat", 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
