@@ -42,7 +42,7 @@ class concrete(Block):
 		self.zpos = zpos
 		self.blockpath = 'assets/concrete'
 		self.reparentTo(render)
-		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64))
+		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64)))
 	def destroy(self, chunk):
 		self.removenode()
 		xpos = self.xpos
