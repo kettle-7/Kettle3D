@@ -144,9 +144,9 @@ def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here
 	
 	#This version currently doesn't do anything - it's like that for a reason.
 	
-	try:
+	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")
 		worldin = world.World('world')
-	except FileNotFoundError:
+	else:
 		worldin = world.new_World('world')
 	
 	k3d_window = App()
