@@ -43,3 +43,6 @@ C:\Program Files\Kettle3D>ppython kettle3D-updater.py
 
 # How did I make it?
 Kettle3D was programmed using Batch, Python and Tcl. The 3D rendering engine uses Panda3D, OpenGL, OpenAL and C++.
+
+# DISCLAIMER
+Please note that while every effort has been put into this game to ensure that users get a good experience, Kettle3D will not accept any responsibility for buildings prototyped on this game and built without confirmation that building codes are met. While this game allows you to simulate gravity and lateral loads, they may not mimic reality and are purely for amusement. Basically, don't use this game as an architecture guide.
