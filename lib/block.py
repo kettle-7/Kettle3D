@@ -10,8 +10,8 @@ class Block(ShowBase):
 	def __init__(self, xpos, ypos, zpos, blockpath):
 		super().__init__()
 		self.model = self.loader.loadModel(blockpath) # Make sure to add these variables to any children
-		self.scene.reparentTo(self.render)
-		self.scene.setPos(xpos * 64, zpos * 64, ypos * 64) # Y and Z are reversed. This is intentional.
+		super().scene.reparentTo(self.render)
+		super().scene.setPos(xpos * 64, zpos * 64, ypos * 64) # Y and Z are reversed. This is intentional.
 		pass
 	pass
 
@@ -43,7 +43,6 @@ class concrete(Block):
 		self.ypos = ypos
 		self.zpos = zpos
 		self.blockpath = 'assets/concrete'
-		self.reparentTo(render)
 		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64)))
 	def destroy(self, chunk):
 		self.removenode()
