@@ -99,6 +99,7 @@ class World:
 			"playerz" : self.playerz
 		}
 		
+		print(directory + normpath("data/") + self.name + ".dat")
 		self.file = open(directory + normpath("data/") + self.name + ".dat", 'wb')
 		pickle.dump(self.mapmap, self.file)
 		self.file.close()
