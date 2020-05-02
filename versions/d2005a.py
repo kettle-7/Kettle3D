@@ -127,7 +127,7 @@ class App(ShowBase):
 		pass
 	
 	def mousewatchtask(self, task):
-		global world
+		global worldin
 		if base.mouseWatcherNode.hasMouse():
 			x = base.mouseWatcherNode.getMouseX()
 			y = base.mouseWatcherNode.getMouseY()
@@ -144,9 +144,9 @@ def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here
 	#This version currently doesn't do anything - it's like that for a reason.
 	
 	try:
-		world = World('world')
+		worldin = world.World('world')
 	except FileNotFoundError:
-		world = newWorld('world')
+		worldin = world.newWorld('world')
 	
 	k3d_window = App()
 	
