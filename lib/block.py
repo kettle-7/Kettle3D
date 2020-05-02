@@ -3,6 +3,7 @@
 # absz.
 
 from direct.showbase.ShowBase import ShowBase
+import lib.launcherbase as launcherbase
 from panda3d.core import Filename
 
 class Block(ShowBase):
