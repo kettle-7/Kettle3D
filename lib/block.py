@@ -7,7 +7,7 @@ import lib.launcherbase as launcherbase
 from panda3d.core import Filename
 
 class Block(ShowBase):
-	def __init__(xpos, ypos, zpos, blockpath):
+	def __init__(self, xpos, ypos, zpos, blockpath):
 		self.model = self.loader.loadModel(blockpath) # Make sure to add these variables to any children
 		self.scene.reparentTo(self.render)
 		self.scene.setPos(xpos * 64, zpos * 64, ypos * 64) # Y and Z are reversed. This is intentional.
