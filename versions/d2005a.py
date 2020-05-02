@@ -147,7 +147,7 @@ def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here
 	try:
 		worldin = world.World('world')
 	except FileNotFoundError:
-		worldin = world.newWorld('world')
+		worldin = world.new_World('world')
 	
 	k3d_window = App()
 	
