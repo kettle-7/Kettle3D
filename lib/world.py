@@ -20,18 +20,18 @@ class new_World:
 		self.playery = 0
 		self.playerz = 0
 		self.worldmap = []
-		for chunkx in range(size[0] * -1, size[0]):
-			self.worldmap.append([])
-			for chunky in range(size[1] * -1, -1):
-				self.worldmap[chunkx].append([])
-				for chunkz in range(size[2] * -1, size[2]):
-					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, True))
+		for chunkx in range(0, size[0]):
+			self.worldmap[chunkx] = []
+			for chunky in range(0, size[1] - 1):
+				self.worldmap[chunkx][chunky] = []
+				for chunkz in range(0, size[2]):
+					self.worldmap[chunkx][chunky][chunkz] = (newchunk(self, chunkx, chunky, chunkz, True))
 					pass
 				pass
-			for chunky in range(0, size[1]):
+			for chunky in range(size[1], size[1] * 2):
 				self.worldmap[chunkx].append([])
-				for chunkz in range(size[2] * -1, size[2]):
-					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, False))
+				for chunkz in range(0, size[2]):
+					self.worldmap[chunkx][chunky][chunkz] = (newchunk(self, chunkx, chunky, chunkz, False))
 					pass
 				pass
 			pass
