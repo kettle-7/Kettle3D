@@ -4,6 +4,7 @@ from os import system # system(String command) runs a batch command
 import lib.launcherbase as laucherbase
 from os.path import normpath
 import lib.block as block
+from lib.block import *
 import pickle
 
 class newchunk:
@@ -18,9 +19,9 @@ class newchunk:
 				self.chunkmap[blockx].append([])
 				for blockz in range(0, 16):
 					if isground:
-						self.chunkmap[blockx][blocky].append(concrete(self, blockx, blocky, blockz))
+						self.chunkmap[blockx][blocky].append(block.concrete(self, blockx, blocky, blockz))
 					else:
-						self.chunkmap[blockx][blocky].append(concrete(self, blockx, blocky, blockz))
+						self.chunkmap[blockx][blocky].append(block.concrete(self, blockx, blocky, blockz))
 					pass
 				pass
 			pass
