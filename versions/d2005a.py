@@ -71,6 +71,27 @@ class txtfile():
 		finally:
 			self.newcontent.close()
 
+class imagefile:
+	def __init__(self, path, version): # Image for download
+		self.path = path
+		self.version = version
+		winpath = normpath(path)
+		self.winpath = winpath
+		print("Looking for file %s" % path)
+		try:
+			img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).read()
+			with open(directory + winpath, 'wb') as handler:
+				handler.write(img_data)
+				handler.close()
+			fae = {
+				"path" : self.path,
+				"version" : self.version
+			}
+			files["image"].append(fae)
+			print("File %s downloaded successfully." % self.path)
+		except URLError:
+			print("Couldn't download file. Maybe try checking your internet connection?")
+
 print("Have 4 files to check or download.")
 
 try:
@@ -98,7 +119,6 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 try:
-	from lib import *
 	downloadfile = imagefile(path='assets/concrete.png', version=1)
 except URLError:
 	err_tk = Tk()
