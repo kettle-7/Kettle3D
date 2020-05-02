@@ -105,17 +105,18 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 
-try:
+if True:
+#try:
 	import lib.launcherbase as launcherbase
 	import lib.block as block
 	import lib.world as world
 	import lib.chunk as chunk
-except ModuleNotFoundError:
-	err_tk = Tk()
-	err_canvas = Canvas(err_tk, width=300, height=25)
-	err_canvas.pack()
-	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-	err_tk.update()
+#except ModuleNotFoundError:
+#	err_tk = Tk()
+#	err_canvas = Canvas(err_tk, width=300, height=25)
+#	err_canvas.pack()
+#	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+#	err_tk.update()
 
 # All versions need the above code.
 
