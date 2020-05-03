@@ -64,6 +64,7 @@ class glass_wall(concrete):
 		self.absx = chunk.xpos * 16 + xpos
 		self.absy = chunk.ypos * 16 + ypos
 		self.absz = chunk.zpos * 16 + zpos
+		self.chunk = chunk
 		Block.__init__(self.absx, self.absy, self.absz, Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/glass_" + half + third + ".egg")
 		self.blocktype = 'glass_wall'
 		self.xpos = xpos
