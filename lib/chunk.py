@@ -2,7 +2,7 @@
 from os import system # system(String command) runs a batch command, yay for Java-style function definitions :~)
 
 try:
-    import original_pickle as pickle
+    import original_pickle as gherkin
 except ModuleNotFoundError:
     import lib.original_pickle as gherkin
 
