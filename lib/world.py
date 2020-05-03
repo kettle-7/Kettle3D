@@ -8,7 +8,7 @@ import pickle
 from lib.block import air, concrete
 
 class new_World:
-	def __init__(self, name, size=[16, 128, 16]): # This should generate a cube of concrete and a cube of air on top of it.
+	def __init__(self, name, size=[16, 128, 16], renderer): # This should generate a cube of concrete and a cube of air on top of it.
 		system('cd "' + directory + "data" + '"')
 		system('md "' + name + '"')
 		self.name = name
@@ -26,13 +26,13 @@ class new_World:
 			for chunky in range(0, size[1] - 1):
 				self.worldmap[chunkx].append([])
 				for chunkz in range(0, size[2]):
-					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, True))
+					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, True, renderer))
 					pass
 				pass
 			for chunky in range(size[1], size[1] * 2):
 				self.worldmap[chunkx].append([])
 				for chunkz in range(0, size[2]):
-					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, False))
+					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, False, renderer))
 					pass
 				pass
 			pass
@@ -78,7 +78,7 @@ class new_World:
 		for chunkx in range(playerx / 16 - 5, playerx / 16 + 6): # Load chunks
 			for chunky in range(playery / 16 - 5, playery / 16 + 6):
 				for chunkz in range(playerz / 16 - 5, playerz / 16 + 6):
-					lch = chunk(self, chunkx, chunky, chunkz)
+					lch = chunk(self, chunkx, chunky, chunkz, renderer)
 					pass
 				pass
 			pass
@@ -92,7 +92,7 @@ class new_World:
 	pass
 
 class World:
-	def __init__(self, name): # This should load the World from where you left off.
+	def __init__(self, name, renderer): # This should load the World from where you left off.
 		self.name = name
 		self.load()
 		pass
@@ -115,7 +115,7 @@ class World:
 		self.file.close()
 		pass
 	
-	def load(self):
+	def load(self, renderer):
 		print(directory + normpath("data/") + self.name + ".dat")
 		self.file = open(directory + normpath("data/" + self.name + ".dat"), 'rb')
 		self.mapmap = pickle.load(self.file)
@@ -132,14 +132,22 @@ class World:
 		for chunkx in range(playerx / 16 - 5, playerx / 16 + 6): # Load chunks
 			for chunky in range(playery / 16 - 5, playery / 16 + 6):
 				for chunkz in range(playerz / 16 - 5, playerz / 16 + 6):
-					lch = chunk(self, chunkx, chunky, chunkz)
+					lch = chunk(self, chunkx, chunky, chunkz, renderer)
 					pass
 				pass
 			pass
 		pass
 	
-	def quit(self):
+	def quit(self, renderer):
 		self.save()
+		for chunkx in range(playerx / 16 - 5, playerx / 16 + 6): # Load chunks
+			for chunky in range(playery / 16 - 5, playery / 16 + 6):
+				for chunkz in range(playerz / 16 - 5, playerz / 16 + 6):
+					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
+					pass
+				pass
+			pass
+		pass
 		self.__delete__()
 		pass
 	
