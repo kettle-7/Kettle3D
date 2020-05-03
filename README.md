@@ -32,12 +32,12 @@ When you launch Kettle3D, a black window with white text will appear. This is th
 
 ----------------------------------------------------------
 
-Microsoft Windows [Version 10.0.18362.778]
+`Microsoft Windows [Version 10.0.18362.778]
 (c) 2019 Microsoft Corporation. All rights reserved.
 
 C:\WINDOWS\system32>cd C:\Program Files\Kettle3D
 
-C:\Program Files\Kettle3D>ppython kettle3D-updater.py
+C:\Program Files\Kettle3D>ppython kettle3D-updater.py`
 
 ----------------------------------------------------------
 
