@@ -4,7 +4,7 @@ from os import system # system(String command) runs a batch command, yay for Jav
 try:
     import original_pickle as pickle
 except ModuleNotFoundError:
-    import lib.original_pickle as pickle
+    import lib.original_pickle as gherkin
 
 import lib.launcherbase as laucherbase
 from lib.launcherbase import directory
@@ -42,7 +42,7 @@ class newchunk:
 		
 		self.newfile = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"), 'xb')
 		print("Created file %s." % directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"))
-		pickle.dump(self.mapmap, self.newfile)
+		gherkin.dump(self.mapmap, self.newfile)
 		self.newfile.close()
 		pass
 	def save(self, world):
@@ -54,7 +54,7 @@ class newchunk:
 		}
 		
 		self.file = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"), 'wb')
-		pickle.dump(self.mapmap, self.file)
+		gherkin.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
 	pass
@@ -100,7 +100,7 @@ class chunk:
 		}
 		
 		self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'wb')
-		pickle.dump(self.mapmap, self.file)
+		gherkin.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
 	pass
