@@ -35,6 +35,7 @@ class newchunk:
 		}
 		
 		self.newfile = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"), 'xb')
+		print("Created file %s." % directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"))
 		pickle.dump(self.mapmap, self.newfile)
 		self.newfile.close()
 		pass
