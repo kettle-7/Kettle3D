@@ -30,7 +30,7 @@ class Block():
 	pass
 
 class air():
-	def __init__(self, chunk, xpos, ypos, zpos): # air is a ghost block; it doesn't have a model.
+	def __init__(self, chunk, xpos, ypos, zpos, renderer): # air is a ghost block; it doesn't have a model.
 		self.blocktype = 'air'
 		self.xpos = xpos
 		self.ypos = ypos
