@@ -6,27 +6,24 @@ from direct.showbase.ShowBase import ShowBase
 import lib.launcherbase as launcherbase
 from panda3d.core import Filename
 
-class Block(ShowBase):
-	def __init__(self, chunk, xpos, ypos, zpos, blockpath):
-		super().__init__()
-		self.model = self.loader.loadModel(blockpath) # Make sure to add these variables to any children
-		self.model.reparentTo(self.render)
-		self.model.setPos(absx * 64, absx * 64, absx * 64) # Y and Z are reversed. This is intentional.
+class Block():
+	def __init__(self):
 		pass
 	
 	def destroy(self, chunk):
-		self.removenode()
+		self.model.removenode()
 		xpos = self.xpos
 		ypos = self.ypos
 		zpos = self.zpos
 		chunk.chunkmap[xpos][ypos][zpos] = air(chunk, xpos, ypos, zpos)
 		pass
-	def lender(self):
-		self.reparentTo(self.render)
-		self.scene.setPos(xpos, zpos, ypos)
+	def lender(self, renderer):
+		self.model = renderer.loader.loadModel(blockpath) # Make sure to add these variables to any children
+		self.model.reparentTo(self.render)
+		self.model.setPos(absx * 64, absz * 64, absy * 64) # Y and Z are reversed. This is intentional.
 		pass
 	def unlender(self, chunk):
-		self.removenode()
+		self.model.removenode()
 		chunk.chunkmap[xpos][ypos][zpos] = self
 		self.__delete__()
 		pass
