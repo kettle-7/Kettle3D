@@ -1,19 +1,18 @@
 # The class used to save, load and query data from sections of a world.
-from sys import platform, path
-from os import getenv
+from os import system # system(String command) runs a batch command, yay for Java-style function definitions :~)
 
-if platform.startswith("win32"):
-	path[0] = getenv("appdata") + "\\Kettle3D"
-if platform.startswith("darwin"):
-	path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
+try:
+    import original_pickle as pickle
+except ModuleNotFoundError:
+    import lib.original_pickle as pickle
 
-from os import system # system(String command) runs a batch command
 import lib.launcherbase as laucherbase
 from lib.launcherbase import directory
+from sys import platform, path
 from os.path import normpath
 import lib.block as block
 from lib.block import *
-import lib.pickle as pickle
+from os import getenv
 
 class newchunk:
 	def __init__(self, world, xpos, ypos, zpos, isground, renderer):
