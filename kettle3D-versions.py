@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0, tilde faces are apparently a fashion statement :~)
+# Kettle3D Launcher v1.0, would you like a bag with your order? :~)
 
 versionlist = {
 	"dev" : [
@@ -226,8 +226,8 @@ if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
 if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2004a.py', version=6)
-if not {"path" : "versions/d2005a.py", "version" : 8} in files["txt"]:
-	downloadfile = txtfile(path='versions/d2005a.py', version=8)
+if not {"path" : "versions/d2005a.py", "version" : 9} in files["txt"]:
+	downloadfile = txtfile(path='versions/d2005a.py', version=9)
 
 print("2 files and 2 versions downloaded with no errors :)")
 
