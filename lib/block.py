@@ -6,6 +6,8 @@ from direct.showbase.ShowBase import ShowBase
 import lib.launcherbase as launcherbase
 from panda3d.core import Filename
 
+print('')
+
 class Block():
 	def __init__(self):
 		pass
