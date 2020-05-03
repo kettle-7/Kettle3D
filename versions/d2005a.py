@@ -184,12 +184,12 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 	
 	print("Kettle3D development version d20-05 build A launched.")
 	
-	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")):
-		worldin = world.World('world')
-	else:
-		worldin = world.new_World('world')
-	
 	k3d_window = App()
+	
+	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")):
+		worldin = world.World('world', k3d_window)
+	else:
+		worldin = world.new_World('world', k3d_window)
 	
 	while True:
 		taskMgr.step
