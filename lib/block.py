@@ -21,7 +21,7 @@ class Block():
 		pass
 	def lender(self, renderer):
 		self.model = renderer.loader.loadModel(self.blockpath) # Make sure to add these variables to any children
-		self.model.reparentTo(self.render)
+		self.model.reparentTo(renderer.render)
 		self.model.setPos(absx * 64, absz * 64, absy * 64) # Y and Z are reversed. This is intentional.
 		pass
 	def unlender(self, chunk):
