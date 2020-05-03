@@ -179,7 +179,7 @@ class App(ShowBase):
 		
 	pass
 
-def launch_k3d(self=None, world='world', lanhost=False): # worlds etc. need to be passed in as parameters here.
+def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need to be passed in as parameters here.
 	# The code below executes when you open the version with the launcher.
 	
 	print("Kettle3D development version d20-05 build A launched.")
