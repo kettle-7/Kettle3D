@@ -1,20 +1,15 @@
 # The class used to save, load and query data from sections of a world.
 from os import system # system(String command) runs a batch command, yay for Java-style function definitions :~)
-
-try:
-    import original_pickle as gherkin
-except ModuleNotFoundError:
-    import lib.original_pickle as gherkin
-
 import lib.launcherbase as laucherbase
 from lib.launcherbase import directory
 from sys import platform, path
 from os.path import normpath
 import lib.block as block
 from lib.block import *
+import json as gherkin
 from os import getenv
 
-class newchunk:
+class newchunk(chunk):
 	def __init__(self, world, xpos, ypos, zpos, isground, renderer):
 		self.xpos = xpos
 		self.ypos = ypos
@@ -40,9 +35,9 @@ class newchunk:
 			'zpos' : self.zpos
 		}
 		
-		self.newfile = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"), 'xb')
-		print("Created file %s." % directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"))
-		gherkin.dump(self.mapmap, self.newfile)
+		self.newfile = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".json"), 'x')
+		print("Created file %s." % directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".json"))
+		self.newfile.write(gherkin.dumps(self.mapmap))
 		self.newfile.close()
 		pass
 	def save(self, world):
@@ -53,8 +48,8 @@ class newchunk:
 			'zpos' : self.zpos
 		}
 		
-		self.file = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"), 'wb')
-		gherkin.dump(self.mapmap, self.file)
+		self.file = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".json"), 'w')
+		self.file.write(gherkin.dumps(self.mapmap))
 		self.file.close()
 		pass
 	pass
@@ -75,8 +70,8 @@ class newchunk:
 
 class chunk:
 	def load(self, world, renderer):
-		self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'rb')
-		self.mapmap = pickle.load(self.file)
+		self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".json", 'r')
+		self.mapmap = gherkin.loads(self.file.read())
 		self.file.close()
 		self.chunkmap = self.mapmap['chunkmap']
 		self.xpos = self.mapmap['xpos']
@@ -99,8 +94,8 @@ class chunk:
 			'zpos' : self.zpos
 		}
 		
-		self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'wb')
-		gherkin.dump(self.mapmap, self.file)
+		self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'w')
+		self.file.write(gherkin.dumps(self.mapmap))
 		self.file.close()
 		pass
 	pass
@@ -125,5 +120,3 @@ class chunk:
 		self.__delete__()
 		pass
 	pass
-
-# That's it for now...
