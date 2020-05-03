@@ -83,6 +83,12 @@ class new_World:
 				pass
 			pass
 		pass
+
+	def is_move_valid(self):
+		if self.worldmap[int(self.playerx / 16)][int(self.playery / 16)][self.playerz / 16].chunkmap[int(self.playerx % 16)][int(self.playery % 16)][int(self.playerz % 16)].blocktype != 'air':
+			return False
+		else:
+			return True
 	pass
 
 class World:
@@ -136,4 +142,11 @@ class World:
 		self.save()
 		self.__delete__()
 		pass
+	
+	def is_move_valid(self):
+		if self.worldmap[int(self.playerx / 16)][int(self.playery / 16)][self.playerz / 16].chunkmap[int(self.playerx % 16)][int(self.playery % 16)][int(self.playerz % 16)].blocktype != 'air':
+			return False
+		else:
+			return True
+	pass
 	pass
