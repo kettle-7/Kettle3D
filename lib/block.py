@@ -22,11 +22,11 @@ class Block():
 	def lender(self, renderer):
 		self.model = renderer.loader.loadModel(self.blockpath) # Make sure to add these variables to any children
 		self.model.reparentTo(renderer.render)
-		self.model.setPos(absx * 64, absz * 64, absy * 64) # Y and Z are reversed. This is intentional.
+		self.model.setPos(self.absx * 64, self.absz * 64, self.absy * 64) # Y and Z are reversed. This is intentional.
 		pass
 	def unlender(self, chunk):
 		self.model.removenode()
-		chunk.chunkmap[xpos][ypos][zpos] = self
+		chunk.chunkmap[self.xpos][self.ypos][self.zpos] = self
 		self.__delete__()
 		pass
 	pass
@@ -61,7 +61,7 @@ class concrete(Block):
 		self.blockpath = 'assets/concrete'
 		self.lender(renderer)
 
-class glass_wall(concrete):
+class glass_wall(Block):
 	def __init__(self, chunk, xpos, ypos, zpos, renderer, facing, half, third): # blockpath is expected to be provided within this class. Extra parameters are allowed such as blockstates.
 		self.absx = chunk.xpos * 16 + xpos
 		self.absy = chunk.ypos * 16 + ypos
