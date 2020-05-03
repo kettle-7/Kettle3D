@@ -37,6 +37,7 @@ class concrete(Block):
 		self.absx = chunk.xpos * 16 + xpos
 		self.absy = chunk.ypos * 16 + ypos
 		self.absz = chunk.zpos * 16 + zpos
+		self.chunk = chunk
 		super().__init__(self.chunk, self.absx, self.absy, self.absz, blockpath=Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/concrete.egg")
 		self.blocktype = 'concrete'
 		self.xpos = xpos
