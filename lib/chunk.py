@@ -34,7 +34,7 @@ class newchunk:
 			'zpos' : self.zpos
 		}
 		
-		self.newfile = open(directory + normpath("data/") + world.name + normpath("/chunk") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'xb')
+		self.newfile = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"), 'xb')
 		pickle.dump(self.mapmap, self.newfile)
 		self.newfile.close()
 		pass
@@ -46,7 +46,7 @@ class newchunk:
 			'zpos' : self.zpos
 		}
 		
-		self.file = open(directory + normpath("data/") + world.name + normpath("/chunk") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'wb')
+		self.file = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat"), 'wb')
 		pickle.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
@@ -68,7 +68,7 @@ class newchunk:
 
 class chunk:
 	def load(self, world, renderer):
-		self.file = open(directory + normpath("data/") + world.name + normpath("/chunk") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'rb')
+		self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
 		self.chunkmap = self.mapmap['chunkmap']
@@ -92,7 +92,7 @@ class chunk:
 			'zpos' : self.zpos
 		}
 		
-		self.file = open(directory + normpath("data/") + world.name + normpath("/chunk") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'wb')
+		self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".dat", 'wb')
 		pickle.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
