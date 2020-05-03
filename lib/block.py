@@ -7,7 +7,7 @@ import lib.launcherbase as launcherbase
 from panda3d.core import Filename
 
 class Block(ShowBase):
-	def __init__(self, xpos, ypos, zpos, blockpath):
+	def __init__(self, chunk, xpos, ypos, zpos, blockpath):
 		super().__init__()
 		self.model = self.loader.loadModel(blockpath) # Make sure to add these variables to any children
 		self.model.reparentTo(self.render)
@@ -37,13 +37,12 @@ class concrete(Block):
 		self.absx = chunk.xpos * 16 + xpos
 		self.absy = chunk.ypos * 16 + ypos
 		self.absz = chunk.zpos * 16 + zpos
-		super().__init__(self.absx, self.absy, self.absz, blockpath=Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/concrete.egg")
+		super().__init__(self.chunk, self.absx, self.absy, self.absz, blockpath=Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/concrete.egg")
 		self.blocktype = 'concrete'
 		self.xpos = xpos
 		self.ypos = ypos
 		self.zpos = zpos
 		self.blockpath = 'assets/concrete'
-		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64)))
 	def destroy(self, chunk):
 		self.removenode()
 		xpos = self.xpos
@@ -83,5 +82,3 @@ class glass_wall(concrete):
 		self.removenode()
 		chunk.chunkmap[xpos][ypos][zpos] = self
 		self.__delete__()
-
-# That's it for now...
