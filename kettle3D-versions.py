@@ -229,7 +229,6 @@ if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
 if not {"path" : "versions/d2005a.py", "version" : 9} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2005a.py', version=9)
 
-
 print("2 files and 2 versions downloaded with no errors :)")
 
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
@@ -248,7 +247,7 @@ def play():
 	play_canvas.pack()
 	play_canvas.create_text(150, 12, text="Development Versions:", font=('Helvetica', 20))
 	v1btn = Button(play_tk, text="Play 20.04 build A", command=launch("d2004a"))
-	v1btn = Button(play_tk, text="Play 20.05 build A", command=launch("d2005a"))
+	v1btn = Button(play_tk, text="Play 20.05 build A", command=launch)
 	v1btn.pack()
 	play_tk.update_idletasks()
 	play_tk.update()
@@ -256,7 +255,7 @@ def play():
 	tk.update()
 
 def launch(vsn='d2005a'):
-	try:
+	if True:
 		global play_tk
 		play_tk.destroy()
 		play_tk = tkdummy()
@@ -272,7 +271,8 @@ def launch(vsn='d2005a'):
 			version.d2005a.launch_k3d()
 		else:
 			print("Sorry, the launcher needs a bit of revision. :(")
-	except ModuleNotFoundError:
+	#except ModuleNotFoundError:
+	if False:
 		err_tk = Tk()
 		err_canvas = Canvas(err_tk, width=300, height=25)
 		err_canvas.pack()
