@@ -228,6 +228,8 @@ if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2004a.py', version=6)
 if not {"path" : "versions/d2005a.py", "version" : 9} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2005a.py', version=9)
+if not {"path" : "lib/original_pickle.py", "version" : 1} in files["txt"]:
+	downloadfile = txtfile(path='lib/original_pickle.py', version=1)
 
 print("2 files and 2 versions downloaded with no errors :)")
 
