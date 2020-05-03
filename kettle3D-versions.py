@@ -240,6 +240,9 @@ filelistfile.close
 tk.configure(bg='#47ad73')
 launcherbackground = PhotoImage(file=directory + background1.winpath)
 
+def launch2004a():
+	launch('d2004a')
+
 def play():
 	isplayopen = True
 	play_tk = Tk()
@@ -248,7 +251,7 @@ def play():
 	play_canvas = Canvas(play_tk, width=300, height=25)
 	play_canvas.pack()
 	play_canvas.create_text(150, 12, text="Development Versions:", font=('Helvetica', 20))
-	v1btn = Button(play_tk, text="Play 20.04 build A", command=lambda: launch("d2004a"))
+	v1btn = Button(play_tk, text="Play 20.04 build A", command=launch2004a)
 	v1btn = Button(play_tk, text="Play 20.05 build A", command=launch)
 	v1btn.pack()
 	play_tk.update_idletasks()
