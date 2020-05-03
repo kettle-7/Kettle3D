@@ -9,6 +9,7 @@ import pickle
 
 class newchunk:
 	def __init__(self, world, xpos, ypos, zpos, isground):
+		renderer = world.renderer
 		self.xpos = xpos
 		self.ypos = ypos
 		self.zpos = zpos
@@ -19,9 +20,9 @@ class newchunk:
 				self.chunkmap[blockx].append([])
 				for blockz in range(0, 16):
 					if isground:
-						self.chunkmap[blockx][blocky].append(block.concrete(self, blockx, blocky, blockz))
+						self.chunkmap[blockx][blocky].append(block.concrete(self, blockx, blocky, blockz, renderer))
 					else:
-						self.chunkmap[blockx][blocky].append(block.concrete(self, blockx, blocky, blockz))
+						self.chunkmap[blockx][blocky].append(block.air(self, blockx, blocky, blockz, renderer))
 					pass
 				pass
 			pass
@@ -50,9 +51,23 @@ class newchunk:
 		self.file.close()
 		pass
 	pass
+	
+	def hidechunk(self, world, renderer): # Used so that when a player gets too far away from a chunk, the chunk removes all of its nodes.
+		self.save(world)    # Useful so that the user's RAM doesn't get too full. You can re-load the chunk with load(world)
+		
+		for blockx in self.chunkmap:
+			for blocky in self.chunkmap[blockx]:
+				for blockz in self.chunkmap[blockx][blocky]:
+					self.chunkmap[blockx][blocky][blockz].unlender(renderer)
+					pass
+				pass
+			pass
+		self.__delete__()
+		pass
+	pass
 
 class chunk:
-	def load(self, world):
+	def load(self, world, renderer):
 		self.file = open(directory + normpath("data/") + world.name + normpath("/chunk") + self.xpos + "_" + self.ypos + "_" + self.zpos + ".dat", 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
@@ -63,7 +78,7 @@ class chunk:
 		for blockx in self.chunkmap:
 			for blocky in self.chunkmap[blockx]:
 				for blockz in self.chunkmap[blockx][blocky]:
-					self.chunkmap[blockx][blocky][blockz].lender()
+					self.chunkmap[blockx][blocky][blockz].lender(renderer)
 					pass
 				pass
 			pass
@@ -83,20 +98,20 @@ class chunk:
 		pass
 	pass
 	
-	def __init__(self, world, x, y, z):
+	def __init__(self, world, x, y, z, renderer):
 		self.xpos = x
 		self.ypos = y
 		self.zpos = z
-		self.load(world)
+		self.load(world, renderer)
 		pass
 	
-	def hidechunk(self, world): # Used so that when a player gets too far away from a chunk, the chunk removes all of its nodes.
+	def hidechunk(self, world, renderer): # Used so that when a player gets too far away from a chunk, the chunk removes all of its nodes.
 		self.save(world)    # Useful so that the user's RAM doesn't get too full. You can re-load the chunk with load(world)
 		
 		for blockx in self.chunkmap:
 			for blocky in self.chunkmap[blockx]:
 				for blockz in self.chunkmap[blockx][blocky]:
-					self.chunkmap[blockx][blocky][blockz].unlender()
+					self.chunkmap[blockx][blocky][blockz].unlender(renderer)
 					pass
 				pass
 			pass
