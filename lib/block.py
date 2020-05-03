@@ -11,7 +11,24 @@ class Block(ShowBase):
 		super().__init__()
 		self.model = self.loader.loadModel(blockpath) # Make sure to add these variables to any children
 		self.model.reparentTo(self.render)
-		self.model.setPos(xpos * 64, zpos * 64, ypos * 64) # Y and Z are reversed. This is intentional.
+		self.model.setPos(absx * 64, absx * 64, absx * 64) # Y and Z are reversed. This is intentional.
+		pass
+	
+	def destroy(self, chunk):
+		self.removenode()
+		xpos = self.xpos
+		ypos = self.ypos
+		zpos = self.zpos
+		chunk.chunkmap[xpos][ypos][zpos] = air(chunk, xpos, ypos, zpos)
+		pass
+	def lender(self):
+		self.reparentTo(self.render)
+		self.scene.setPos(xpos, zpos, ypos)
+		pass
+	def unlender(self, chunk):
+		self.removenode()
+		chunk.chunkmap[xpos][ypos][zpos] = self
+		self.__delete__()
 		pass
 	pass
 
