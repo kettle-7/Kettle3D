@@ -2,6 +2,7 @@
 
 from os import system # system(String command) runs a batch command
 import lib.launcherbase as laucherbase
+from lib.launcherbase import directory
 from os.path import normpath
 import lib.block as block
 from lib.block import *
