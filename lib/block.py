@@ -47,54 +47,36 @@ class air():
 		pass
 
 class concrete(Block):
-	def __init__(self, chunk, xpos, ypos, zpos): # blockpath is expected to be provided within this class. Extra parameters are allowed such as blockstates.
+	def __init__(self, chunk, xpos, ypos, zpos, renderer): # blockpath is expected to be provided within this class. Extra parameters are allowed such as blockstates.
 		self.absx = chunk.xpos * 16 + xpos
 		self.absy = chunk.ypos * 16 + ypos
 		self.absz = chunk.zpos * 16 + zpos
 		self.chunk = chunk
-		super().__init__(self.chunk, self.absx, self.absy, self.absz, blockpath=Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/concrete.egg")
 		self.blocktype = 'concrete'
 		self.xpos = xpos
 		self.ypos = ypos
 		self.zpos = zpos
 		self.blockpath = 'assets/concrete'
-	def destroy(self, chunk):
-		self.removenode()
-		xpos = self.xpos
-		ypos = self.ypos
-		zpos = self.zpos
-		chunk.chunkmap[xpos][ypos][zpos] = air(chunk, xpos, ypos, zpos)
-		pass
-	def lender(self):
-		self.reparentTo(self.render)
-		self.scene.setPos(xpos, zpos, ypos)
-	def unlender(self, chunk):
-		self.removenode()
-		chunk.chunkmap[xpos][ypos][zpos] = self
-		self.__delete__()
+		self.lender(renderer)
 
 class glass_wall(concrete):
-	def __init__(self, chunk, xpos, ypos, zpos, facing, half, third): # blockpath is expected to be provided within this class. Extra parameters are allowed such as blockstates.
+	def __init__(self, chunk, xpos, ypos, zpos, renderer, facing, half, third): # blockpath is expected to be provided within this class. Extra parameters are allowed such as blockstates.
 		self.absx = chunk.xpos * 16 + xpos
 		self.absy = chunk.ypos * 16 + ypos
 		self.absz = chunk.zpos * 16 + zpos
 		self.chunk = chunk
-		Block.__init__(self.absx, self.absy, self.absz, Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/glass_" + half + third + ".egg")
 		self.blocktype = 'glass_wall'
 		self.xpos = xpos
 		self.ypos = ypos
 		self.zpos = zpos
 		self.facing = facing
-		self.blockpath = 'assets/glass'
-		self.setHpr(facing * 90, 0, 0)
-		self.reparentTo(render)
-		self.collision_box = CollisionBox((Point3(self.posx, self.posz, self.posy), Point3(self.posx * 64 + 64, self.posz * 64 + 64, self.posy * 64 + 64)))
+		self.blockpath = Filename.fromOsSpecific(launcherbase.directory).getFullpath() + "/assets/glass_wall_" + half + third + ".egg"
 		pass
 	
-	def lender(self):
-		self.reparentTo(self.render)
-		self.scene.setPos(xpos, zpos, ypos)
-	def unlender(self, chunk):
-		self.removenode()
-		chunk.chunkmap[xpos][ypos][zpos] = self
-		self.__delete__()
+	def lender(self, renderer):
+		self.model = renderer.loader.loadModel(self.blockpath) # Make sure to add these variables to any children
+		self.model.reparentTo(self.render)
+		self.model.setPos(self.absx * 64, self.absz * 64, self.absy * 64) # Y and Z are reversed. This is intentional.
+		self.model.setHpr(self.facing * 90, 0, 0)
+		pass
+	pass
