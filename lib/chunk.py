@@ -8,8 +8,7 @@ from lib.block import *
 import pickle
 
 class newchunk:
-	def __init__(self, world, xpos, ypos, zpos, isground):
-		renderer = world.renderer
+	def __init__(self, world, xpos, ypos, zpos, isground, renderer):
 		self.xpos = xpos
 		self.ypos = ypos
 		self.zpos = zpos
