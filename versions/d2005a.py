@@ -1,4 +1,5 @@
 from direct.showbase.ShowBase import ShowBase
+from panda3d.bullet import BulletWorld
 from urllib.request import urlopen
 from urllib.error import URLError
 from os.path import normpath
@@ -166,10 +167,9 @@ class App(ShowBase):
 	def __init__(self):
 		ShowBase.__init__(self)
 		base.disableMouse()
-		self.taskMgr.add(self.mousewatchtask, "MouseWatchTask")
 		pass
 	
-	def mousewatchtask(self, task):
+	def mousewatchtask(self):
 		global worldin
 		if base.mouseWatcherNode.hasMouse():
 			x = base.mouseWatcherNode.getMouseX()
@@ -179,12 +179,10 @@ class App(ShowBase):
 		
 	pass
 
-def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here.
+def launch_k3d(self=None, world='world', lanhost=False): # worlds etc. need to be passed in as parameters here.
 	# The code below executes when you open the version with the launcher.
 	
 	print("Kettle3D development version d20-05 build A launched.")
-	
-	#This version currently doesn't do anything - it's like that for a reason.
 	
 	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")):
 		worldin = world.World('world')
@@ -196,3 +194,4 @@ def launch_k3d(self=None): # worlds etc. need to be passed in as parameters here
 	while True:
 		taskMgr.step
 		time.sleep(1 / 24)
+		k3d_window.mousewatchtask
