@@ -3,18 +3,16 @@ from os import system # system(String command) runs a batch command, yay for Jav
 import lib.launcherbase as laucherbase
 from lib.launcherbase import directory
 from sys import platform, path
+import lib.gherkin as gherkin
 from os.path import normpath
 import lib.block as block
 from lib.block import *
-import json as gherkin
 from os import getenv
 
 class chunk:
     def load(self, world, renderer):
-        self.file = open(
-            directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(
-                self.zpos) + ".json", 'r')
-        self.mapmap = gherkin.loads(self.file.read())
+        self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".chunk", 'rb')
+        self.mapmap = gherkin.load(self.file.read(), renderer)
         self.file.close()
         self.chunkmap = self.mapmap['chunkmap']
         self.xpos = self.mapmap['xpos']
@@ -37,10 +35,8 @@ class chunk:
             'zpos': self.zpos
         }
 
-        self.file = open(
-            directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(
-                self.zpos) + ".dat", 'w')
-        self.file.write(gherkin.dumps(self.mapmap))
+        self.file = open(directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".chunk", 'wb')
+        gherkin.dump(self.mapmap, self.file)
         self.file.close()
         pass
 
@@ -53,10 +49,8 @@ class chunk:
         self.load(world, renderer)
         pass
 
-    def hidechunk(self, world,
-                  renderer):  # Used so that when a player gets too far away from a chunk, the chunk removes all of its nodes.
-        self.save(
-            world)  # Useful so that the user's RAM doesn't get too full. You can re-load the chunk with load(world)
+    def hidechunk(self, world,renderer):  # Used so that when a player gets too far away from a chunk, the chunk removes all of its nodes.
+        self.save(world)                  # Useful so that the user's RAM doesn't get too full. You can re-load the chunk with load(world)
 
         for blockx in self.chunkmap:
             for blocky in self.chunkmap[blockx]:
@@ -96,9 +90,9 @@ class newchunk(chunk):
 			'zpos' : self.zpos
 		}
 		
-		self.newfile = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".json"), 'x')
-		print("Created file %s." % directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".json"))
-		self.newfile.write(gherkin.dumps(self.mapmap))
+		self.newfile = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".chunk"), 'xb')
+		print("Created file %s." % directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".chunk"))
+		gherkin.dump(self.mapmap, self.newfile)
 		self.newfile.close()
 		pass
 	def save(self, world):
@@ -109,8 +103,8 @@ class newchunk(chunk):
 			'zpos' : self.zpos
 		}
 		
-		self.file = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".json"), 'w')
-		self.file.write(gherkin.dumps(self.mapmap))
+		self.file = open(directory + normpath("data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".chunk"), 'wb')
+		gherkin.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
 	pass
