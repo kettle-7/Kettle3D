@@ -67,8 +67,8 @@ try:
 except(EOFError, FileNotFoundError, OSError):
 	try:
 		filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
-		files = {# This is the filearray. It stores all the information needed to find other files, whether binary or normal text.
-			"binary" : [
+		files = {       # This is the filearray. It stores all the information needed to find other files, whether
+			"binary" : [# binary or normal text.
 				{# This is a file entry as provided by the downloadfile class. This entry belongs to the file array itself.
 					"path" : "assets/files.dat",
 					"version" : 1
