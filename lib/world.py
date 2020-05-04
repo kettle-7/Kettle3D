@@ -91,6 +91,8 @@ class new_World:
 			return True
 	pass
 
+
+# noinspection PyAttributeOutsideInit
 class World:
 	def __init__(self, name, renderer): # This should load the World from where you left off.
 		self.name = name
@@ -129,9 +131,9 @@ class World:
 		self.playerx = self.mapmap['playerx']
 		self.playery = self.mapmap['playery']
 		self.playerz = self.mapmap['playerz']
-		for chunkx in range(playerx / 16 - 5, playerx / 16 + 6): # Load chunks
-			for chunky in range(playery / 16 - 5, playery / 16 + 6):
-				for chunkz in range(playerz / 16 - 5, playerz / 16 + 6):
+		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6): # Load chunks
+			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
+				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
 					lch = chunk(self, chunkx, chunky, chunkz, renderer)
 					pass
 				pass
@@ -140,14 +142,15 @@ class World:
 	
 	def quit(self, renderer):
 		self.save()
-		for chunkx in range(playerx / 16 - 5, playerx / 16 + 6): # Load chunks
-			for chunky in range(playery / 16 - 5, playery / 16 + 6):
-				for chunkz in range(playerz / 16 - 5, playerz / 16 + 6):
+		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6):
+			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
+				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
 					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
 					pass
 				pass
 			pass
 		pass
+		# noinspection PyUnresolvedReferences
 		self.__delete__()
 		pass
 	
