@@ -112,9 +112,9 @@ class newchunk(chunk):
 	def hidechunk(self, world, renderer): # Used so that when a player gets too far away from a chunk, the chunk removes all of its nodes.
 		self.save(world)    # Useful so that the user's RAM doesn't get too full. You can re-load the chunk with load(world)
 		
-		for blockx in self.chunkmap:
-			for blocky in self.chunkmap[blockx]:
-				for blockz in self.chunkmap[blockx][blocky]:
+		for blockx in range(0, 16):
+			for blocky in range(0, 16):
+				for blockz in range(0, 16):
 					self.chunkmap[blockx][blocky][blockz].unlender(renderer)
 					pass
 				pass
