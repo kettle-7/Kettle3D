@@ -41,6 +41,11 @@ C:\Program Files\Kettle3D>ppython kettle3D-updater.py
 
 ----------------------------------------------------------
 
+## Note
+Please note that Kettle3D's world generation system is very inefficient. I will eventually post the files for an empty world on GitHub, but at the moment I'm still finalising it.
+
+If it takes about half an hour for your computer to generate the world, your computer is fast. I'll try and fix this when I can.
+
 # How did I make it?
 Kettle3D was programmed using Batch, Python and Tcl. The 3D rendering engine uses Panda3D, OpenGL, OpenAL and C++.
 
