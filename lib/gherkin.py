@@ -1,4 +1,5 @@
 # A module used to save and load classes. SPECIFIC TO CLASSES USED BY KETTLE3D. DOES NOT WORK ON OTHER OBJECTS!
+# Hopefully it works.
 
 import pickle
 try:
