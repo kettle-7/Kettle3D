@@ -149,6 +149,7 @@ except URLError:
 	err_tk.update()
 #try:
 downloadfile = txtfile(path='lib/original_pickle.py', version=1)
+gherkinmodule = txtfile(path='lib/gherkin.py', version=1)
 #except URLError:
 #	err_tk = Tk()
 #	err_canvas = Canvas(err_tk, width=300, height=25)
