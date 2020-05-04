@@ -38,9 +38,8 @@ class new_World:
 					pass
 				pass
 			pass
-		
-		print(directory + normpath("data/") + self.name + ".dat")
-		self.newfile = open(directory + normpath("data/" + self.name + ".dat"), 'xb') # Create world file - saves everything but chunks.
+
+		self.newfile = open(directory + normpath("data/" + self.name + ".world"), 'xb') # Create world file - saves everything but chunks.
 		self.newfile.close()
 		self.save()
 		pass
@@ -56,14 +55,13 @@ class new_World:
 			"playery" : self.playery,
 			"playerz" : self.playerz
 		}
-		
-		print(directory + normpath("data/") + self.name + ".dat")
-		self.file = open(directory + normpath("data/" + self.name + ".dat"), 'xb')
+
+		self.file = open(directory + normpath("data/" + self.name + ".world"), 'wb')
 		pickle.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
 	
-	def load(self):
+	def load(self, renderer):
 		print(directory + normpath("data/") + self.name + ".dat")
 		self.file = open(directory + normpath("data/" + self.name + ".dat"), 'rb')
 		self.mapmap = pickle.load(self.file)
@@ -77,17 +75,17 @@ class new_World:
 		self.playerx = self.mapmap['playerx']
 		self.playery = self.mapmap['playery']
 		self.playerz = self.mapmap['playerz']
-		for chunkx in range(playerx / 16 - 5, playerx / 16 + 6): # Load chunks
-			for chunky in range(playery / 16 - 5, playery / 16 + 6):
-				for chunkz in range(playerz / 16 - 5, playerz / 16 + 6):
-					lch = chunk(self, chunkx, chunky, chunkz, renderer)
+		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6): # Load chunks
+			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
+				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
+					self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
 					pass
 				pass
 			pass
 		pass
 
 	def is_move_valid(self):
-		if self.worldmap[int(self.playerx / 16)][int(self.playery / 16)][self.playerz / 16].chunkmap[int(self.playerx % 16)][int(self.playery % 16)][int(self.playerz % 16)].blocktype != 'air':
+		if self.worldmap[int(self.playerx / 16)][int(self.playery / 16)][int(self.playerz / 16)].chunkmap[int(self.playerx % 16)][int(self.playery % 16)][int(self.playerz % 16)].blocktype != 'air':
 			return False
 		else:
 			return True
