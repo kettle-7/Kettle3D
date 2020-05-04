@@ -10,13 +10,14 @@ versionlist = {
 }
 
 # Updates need to be posted above with syntax as such:
-# Developement versions go under "dev" and releases under "stable."
+# Development versions go under "dev" and releases under "stable."
 # dev[0][0] is the version number; 1 is the first version, 2 the second etc.
 # The string contained within the list is this:
 # ['d' for dev | None for 'stable'] + <year released> + '-' + <month released> + <one-letter build name>.
 # Please only add a single-letter build name corresponding to the order in which that month's versions were made.
 # Feel free to make a pull request - put your version in the list. DO NOT MARK IT AS STABLE UNTIL I HAVE TESTED IT.
-# Put the programming for the version in Kettle3D/versions/d2004a.py. Add a txtfile object for all the text files, along with .py etc.
+# Put the programming for the version in Kettle3D/versions/d2004a.py. Add a txtfile object for all the text files,
+# along with .py etc.
 # Initialise the textfile under the play function. Make sure to add all required txtfiles and binaryfiles as well.
 
 from urllib.request import urlopen
@@ -25,7 +26,6 @@ from os.path import normpath
 from sys import platform
 from tkinter import *
 from os import getenv
-from os import getcwd
 import pickle
 import time
 import sys
@@ -156,7 +156,7 @@ class binaryfile():
 			except URLError:
 				print("Couldn't update file. Maybe try checking your internet connection?")
 		except(FileNotFoundError, OSError):
-			self.newcontent = open(directory + winpath, 'xb')
+			self.newcontent = open(directory + self.winpath, 'xb')
 			print("File %s created successfully." % path)
 			try:
 				self.onlinecontent = urlopen("https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read()
@@ -172,6 +172,8 @@ class binaryfile():
 		finally:
 			self.newcontent.close()
 
+
+# noinspection PyPep8Naming
 class imagefile:
 	def __init__(self, path, version): # Image for download
 		self.path = path
