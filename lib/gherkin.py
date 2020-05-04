@@ -67,6 +67,10 @@ def load(file, renderer=None, type='chunk'):
                     blockmap = filemap['chunkmap'][blockx][blocky][blockz]
                     if blockmap['blocktype'] == 'glass_wall': # Just in case an instance of Glass Wall gets passed into this function
                         mapmap['chunkmap'][blockx][blocky].append(block.concrete(cdummy, blockx, blocky, blockz, renderer, blockmap['facing'], blockmap['half'], blockmap['third']))
+                    elif blockmap['blocktype'] == 'concrete':
+                        mapmap['chunkmap'][blockx][blocky].append(block.concrete(cdummy, blockx, blocky, blockz, renderer))
+                    else:
+                        mapmap['chunkmap'][blockx][blocky].append(block.concrete(cdummy, blockx, blocky, blockz, renderer))
                     pass
                 pass
             pass
