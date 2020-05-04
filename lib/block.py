@@ -25,7 +25,7 @@ class Block():
 		self.model.setPos(self.absx * 64, self.absz * 64, self.absy * 64) # Y and Z are reversed. This is intentional.
 		pass
 	def unlender(self, chunk):
-		self.model.removenode()
+		self.model.node.removenode()
 		chunk.chunkmap[self.xpos][self.ypos][self.zpos] = self
 		self.__delete__()
 		pass
@@ -46,6 +46,9 @@ class air():
 		pass
 	
 	def lender(self):
+		pass
+
+	def unlender(self):
 		pass
 
 class concrete(Block):

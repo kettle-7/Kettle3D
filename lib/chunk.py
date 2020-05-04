@@ -18,9 +18,9 @@ class chunk:
         self.xpos = self.mapmap['xpos']
         self.ypos = self.mapmap['ypos']
         self.zpos = self.mapmap['zpos']
-        for blockx in self.chunkmap:
-            for blocky in self.chunkmap[blockx]:
-                for blockz in self.chunkmap[blockx][blocky]:
+        for blockx in range(0, 16):
+            for blocky in range(0, 16):
+                for blockz in range(0, 16):
                     self.chunkmap[blockx][blocky][blockz].lender(renderer)
                     pass
                 pass
