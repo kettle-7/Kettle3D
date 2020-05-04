@@ -31,7 +31,7 @@ def dump(obj, file, type='chunk'):
                         block.half = 0
                         block.third = 0
                     blockmap = {
-                        'blocktype' : block.blocktype
+                        'blocktype' : block.blocktype,
                         'states' : {
                             'facing' : block.facing,
                             'half' : block.half,
