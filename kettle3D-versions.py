@@ -18,7 +18,7 @@ versionlist = {
 # Feel free to make a pull request - put your version in the list. DO NOT MARK IT AS STABLE UNTIL I HAVE TESTED IT.
 # Put the programming for the version in Kettle3D/versions/d2004a.py. Add a txtfile object for all the text files,
 # along with .py etc.
-# Initialise the textfile under the play function. Make sure to add all required txtfiles and binaryfiles as well.
+# Initialise the txtfile under the play function. Make sure to add all required txtfiles and binaryfiles as well.
 
 from urllib.request import urlopen
 from urllib.error import URLError
