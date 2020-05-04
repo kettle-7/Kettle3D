@@ -62,7 +62,7 @@ def load(file, renderer=None, type='chunk'):
         for blockx in range(0, 16):
             mapmap[chunkmap].append([])
             for blocky in range(0, 16):
-                mapmap.['chunkmap'][blockx]append([])
+                mapmap['chunkmap'][blockx].append([])
                 for blockz in range(0, 16):
                     blockmap = filemap['chunkmap'][blockx][blocky][blockz]
                     if blockmap['blocktype'] == 'glass_wall': # Just in case an instance of Glass Wall gets passed into this function
