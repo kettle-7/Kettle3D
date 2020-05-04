@@ -22,9 +22,9 @@ def dump(obj, file, type='chunk'):
             'zpos' : obj['zpos']
         }
         for blockx in range(0, 16):
-            mapmap.append([])
+            mapmap['chunkmap'].append([])
             for blocky in range(0, 16):
-                mapmap[blockx].append([])
+                mapmap['chunkmap'][blockx].append([])
                 for blockz in range(0, 16):
                     block = obj.chunkmap[blockx][blocky][blockz]
                     if block.blocktype != 'glass_wall': # Just in case an instance of Glass Wall gets passed into this function
@@ -39,7 +39,7 @@ def dump(obj, file, type='chunk'):
                             'third' : block.third
                         }
                     }
-                    mapmap[blockx][blocky].append(blockmap)
+                    mapmap['chunkmap'][blockx][blocky].append(blockmap)
                     pass
                 pass
             pass
@@ -61,7 +61,7 @@ def load(file, renderer=None, type='chunk'):
         cdummy = chunkdummy(mapmap['xpos'], mapmap['ypos'], mapmap['zpos'])
 
         for blockx in range(0, 16):
-            mapmap[chunkmap].append([])
+            mapmap['chunkmap'].append([])
             for blocky in range(0, 16):
                 mapmap['chunkmap'][blockx].append([])
                 for blockz in range(0, 16):
