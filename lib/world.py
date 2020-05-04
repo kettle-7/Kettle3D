@@ -8,7 +8,7 @@ import pickle
 from lib.block import air, concrete
 
 class new_World:
-	def __init__(self, name, renderer, size=[16, 128, 16]): # This should generate a cube of concrete and a cube of air on top of it.
+	def __init__(self, name, renderer, size=[8, 4, 8]): # This should generate a cube of concrete and a cube of air on top of it.
 		system('cd "' + directory + "data" + '"')
 		print("Executed command %s" % 'cd "' + directory + "data" + '"')
 		system('md "' + name + '"')
