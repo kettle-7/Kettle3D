@@ -26,7 +26,7 @@ def dump(obj, file, type='chunk'):
             for blocky in range(0, 16):
                 mapmap['chunkmap'][blockx].append([])
                 for blockz in range(0, 16):
-                    block = obj.chunkmap[blockx][blocky][blockz]
+                    block = obj['chunkmap'][blockx][blocky][blockz]
                     if block.blocktype != 'glass_wall': # Just in case an instance of Glass Wall gets passed into this function
                         block.facing = 0
                         block.half = 0
