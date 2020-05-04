@@ -17,9 +17,9 @@ def dump(obj, file, type='chunk'):
     if type == 'chunk':
         mapmap = {
             'chunkmap' : [],
-            'xpos' : obj.xpos,
-            'ypos' : obj.ypos,
-            'zpos' : obj.zpos
+            'xpos' : obj['xpos'],
+            'ypos' : obj['ypos'],
+            'zpos' : obj['zpos']
         }
         for blockx in range(0, 16):
             mapmap.append([])
