@@ -1,5 +1,6 @@
 from direct.showbase.ShowBase import ShowBase
 from panda3d.bullet import BulletWorld
+from direct.gui.DirectGui import *
 from urllib.request import urlopen
 from urllib.error import URLError
 from os.path import normpath
@@ -195,8 +196,6 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 	
 	k3d_window = App()
 
-	worldin = None
-	
 	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")):
 		global worldin
 		worldin = world.World('world', k3d_window)
