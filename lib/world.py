@@ -2,10 +2,9 @@
 
 from os import system # system(String command) runs a batch command. Java function syntax :~)
 from lib.launcherbase import directory
+import lib.launcherbase
 from lib.chunk import *
-from lib.block import *
 import pickle
-from lib.block import air, concrete
 
 class new_World:
 	def __init__(self, name, renderer, size=[8, 4, 8]): # This should generate a cube of concrete and a cube of air on top of it.
@@ -23,6 +22,8 @@ class new_World:
 		self.playery = 0
 		self.playerz = 0
 		self.worldmap = []
+		self.newfile = open(directory + normpath("data/" + self.name + ".world"), 'xb') # Create world file - saves everything but chunks.
+		self.newfile.close()
 		for chunkx in range(0, size[0]):
 			self.worldmap.append([])
 			for chunky in range(0, size[1] - 1):
@@ -39,9 +40,6 @@ class new_World:
 					pass
 				pass
 			pass
-
-		self.newfile = open(directory + normpath("data/" + self.name + ".world"), 'xb') # Create world file - saves everything but chunks.
-		self.newfile.close()
 		self.save()
 		pass
 	
