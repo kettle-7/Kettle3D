@@ -27,7 +27,7 @@ class Block():
 	def unlender(self, chunk):
 		self.model.removeNode()
 		chunk.chunkmap[self.xpos][self.ypos][self.zpos] = self
-		self.__delete__()
+		del self
 		pass
 	pass
 

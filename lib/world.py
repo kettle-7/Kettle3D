@@ -106,7 +106,7 @@ class new_World:
 				pass
 			pass
 		pass
-		self.__delete__()
+		del self
 		pass
 	pass
 
@@ -182,7 +182,7 @@ class World:
 				pass
 			pass
 		pass
-		self.__delete__()
+		del self
 		pass
 
 	def loadchunks(self, renderer): # Unloads all chunks, and then loads the ones close to the player

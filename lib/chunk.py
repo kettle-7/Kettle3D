@@ -59,7 +59,7 @@ class chunk:
                     pass
                 pass
             pass
-        self.__delete__()
+        del self
         pass
 
     pass
@@ -119,6 +119,6 @@ class newchunk(chunk):
 					pass
 				pass
 			pass
-		self.__delete__()
+		del self
 		pass
 	pass
