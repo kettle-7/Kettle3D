@@ -194,15 +194,17 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 	print("Kettle3D development version d20-05 build A launched.")
 	
 	k3d_window = App()
+
+	worldin = None
 	
 	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")):
+		global worldin
 		worldin = world.World('world', k3d_window)
 	else:
+		global worldin
 		worldin = world.new_World('world', k3d_window)
-
-	k3d_window = App()
 	
 	while True:
-		taskMgr.step
+		taskMgr.step()
 		time.sleep(1 / 24)
-		k3d_window.mousewatchtask
+		k3d_window.mousewatchtask()
