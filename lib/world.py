@@ -7,7 +7,7 @@ from lib.chunk import *
 import pickle
 
 class new_World:
-	def __init__(self, name, renderer, size=[1, 1, 1]): # This should generate a cube of concrete and a cube of air on top of it.
+	def __init__(self, name, renderer, size=[8, 4, 8]): # This should generate a cube of concrete and a cube of air on top of it.
 		system('cd "' + directory + "data" + '"')
 		print("Executed command %s" % 'cd "' + directory + "data" + '"')
 		system('md "' + name + '"')
@@ -24,7 +24,23 @@ class new_World:
 		self.worldmap = []
 		self.newfile = open(directory + normpath("data/" + self.name + ".world"), 'xb') # Create world file - saves everything but chunks.
 		self.newfile.close()
-		self.worldmap = [[newchunk(self, 0, 0, 0, True, renderer)], [newchunk(self, 0, 1, 0, False, renderer)]]
+		self.save()
+		for chunkx in range(0, size[0]):
+			self.worldmap.append([])
+			for chunky in range(0, size[1]):
+				self.worldmap[chunkx].append([])
+				for chunkz in range(0, size[2]):
+					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, True, renderer))
+					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
+					pass
+				pass
+			for chunky in range(size[1], size[1] * 2):
+				self.worldmap[chunkx].append([])
+				for chunkz in range(0, size[2]):
+					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, False, renderer))
+					pass
+				pass
+			pass
 		self.save()
 		pass
 	
