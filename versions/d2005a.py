@@ -1,3 +1,4 @@
+from direct.task.TaskManagerGlobal import taskMgr
 from direct.showbase.ShowBase import ShowBase
 from panda3d.bullet import BulletWorld
 from direct.gui.DirectGui import *
