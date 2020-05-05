@@ -16,7 +16,7 @@ class new_World:
 		self.displayname = name
 		self.size = size
 		self.sizex = size[0]
-		self.sizey = size[1]
+		self.sizey = size[1] * 2
 		self.sizez = size[2]
 		self.playerx = 0
 		self.playery = 0
