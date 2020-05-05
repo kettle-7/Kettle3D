@@ -25,9 +25,7 @@ class new_World:
 		self.newfile = open(directory + normpath("data/" + self.name + ".world"), 'xb') # Create world file - saves everything but chunks.
 		self.newfile.close()
 		self.save()
-		self.worldmap = [[], []]
-		self.worldmap[0][0].append(newchunk(self, chunkx, chunky, chunkz, True, renderer))
-		self.worldmap[0][1].append(newchunk(self, chunkx, chunky, chunkz, False, renderer))
+		self.worldmap = [[newchunk(self, 0, 0, 0, True, renderer)], [newchunk(self, 0, 1, 0, False, renderer)]]
 		self.save()
 		pass
 	
