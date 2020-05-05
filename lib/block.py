@@ -25,7 +25,7 @@ class Block():
 		self.model.setPos(self.absx * 64, self.absz * 64, self.absy * 64) # Y and Z are reversed. This is intentional.
 		pass
 	def unlender(self, chunk):
-		self.model.node.removenode()
+		self.model.removeNode()
 		chunk.chunkmap[self.xpos][self.ypos][self.zpos] = self
 		self.__delete__()
 		pass
