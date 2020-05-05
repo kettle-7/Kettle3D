@@ -55,7 +55,7 @@ class chunk:
         for blockx in self.chunkmap:
             for blocky in self.chunkmap[blockx]:
                 for blockz in self.chunkmap[blockx][blocky]:
-                    self.chunkmap[blockx][blocky][blockz].unlender(renderer)
+                    self.chunkmap[blockx][blocky][blockz].unlender(self)
                     pass
                 pass
             pass
@@ -115,7 +115,7 @@ class newchunk(chunk):
 		for blockx in range(0, 16):
 			for blocky in range(0, 16):
 				for blockz in range(0, 16):
-					self.chunkmap[blockx][blocky][blockz].unlender(renderer)
+					self.chunkmap[blockx][blocky][blockz].unlender(self)
 					pass
 				pass
 			pass
