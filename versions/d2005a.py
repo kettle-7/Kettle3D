@@ -199,6 +199,8 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 		worldin = world.World('world', k3d_window)
 	else:
 		worldin = world.new_World('world', k3d_window)
+
+	k3d_window = App()
 	
 	while True:
 		taskMgr.step
