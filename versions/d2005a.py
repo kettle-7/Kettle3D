@@ -21,7 +21,7 @@ directory = None
 if platform.startswith('win32') or platform.startswith('cygwin'): # do windows-specific things
 	directory = getenv("appdata") + "\\Kettle3D\\"
 	sys.path[0] = getenv("appdata") + "\\Kettle3D"
-if platform.startswith('darwin'): #do apple-specific things
+if platform.startswith('darwin'): # do apple-specific things
 	directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
 	sys.path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
 	sys.path.append(getenv("HOME") + "/Library/Developer/Panda3D")
@@ -43,7 +43,7 @@ temp_files = {
 }
 
 class txtfile():
-	def __init__(self, path, version, newcontent=None): # file for download
+	def __init__(self, path, version=1, newcontent=None): # file for download
 		self.path = path
 		self.version = version
 		self.winpath = normpath(self.path)
@@ -80,7 +80,7 @@ class txtfile():
 			self.newcontent.close()
 
 class imagefile:
-	def __init__(self, path, version): # Image for download
+	def __init__(self, path, version=1): # Image for download
 		self.path = path
 		self.version = version
 		winpath = normpath(path)
@@ -100,77 +100,19 @@ class imagefile:
 		except URLError:
 			print("Couldn't download file. Maybe try checking your internet connection?")
 
-print("Have 4 files to check or download.")
+print("Have 8 files to check or download.")
 
-try:
-	download_file = txtfile(path='lib/launcherbase.py', version=3)
-except URLError:
-	err_tk = Tk()
-	err_canvas = Canvas(err_tk, width=300, height=25)
-	err_canvas.pack()
-	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-	err_tk.update()
-try:
-	download_file = txtfile(path='lib/world.py', version=1)
-except URLError:
-	err_tk = Tk()
-	err_canvas = Canvas(err_tk, width=300, height=25)
-	err_canvas.pack()
-	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-	err_tk.update()
-try:
-	download_file = txtfile(path='assets/concrete.egg', version=1)
-except URLError:
-	err_tk = Tk()
-	err_canvas = Canvas(err_tk, width=300, height=25)
-	err_canvas.pack()
-	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-	err_tk.update()
-try:
-	download_file = imagefile(path='assets/concrete.png', version=1)
-except URLError:
-	err_tk = Tk()
-	err_canvas = Canvas(err_tk, width=300, height=25)
-	err_canvas.pack()
-	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-	err_tk.update()
-try:
-	download_file = txtfile(path='lib/chunk.py', version=1)
-except URLError:
-	err_tk = Tk()
-	err_canvas = Canvas(err_tk, width=300, height=25)
-	err_canvas.pack()
-	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-	err_tk.update()
-try:
-	download_file = txtfile(path='lib/block.py', version=2)
-except URLError:
-	err_tk = Tk()
-	err_canvas = Canvas(err_tk, width=300, height=25)
-	err_canvas.pack()
-	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-	err_tk.update()
-#try:
+download_file = txtfile(path='lib/launcherbase.py', version=3)
+download_file = txtfile(path='lib/world.py', version=1)
+download_file = txtfile(path='assets/concrete.egg', version=1)
+download_file = imagefile(path='assets/concrete.png', version=1)
+download_file = imagefile(path='assets/generating_level.png', version=1)
+download_file = txtfile(path='lib/chunk.py', version=1)
+download_file = txtfile(path='lib/block.py', version=2)
 gherkin_module = txtfile(path='lib/gherkin.py', version=1)
-#except URLError:
-#	err_tk = Tk()
-#	err_canvas = Canvas(err_tk, width=300, height=25)
-#	err_canvas.pack()
-#	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-#	err_tk.update()
+import lib.world as world
 
-if True:
-#try:
-	import lib.launcherbase as launcherbase
-	import lib.block as block
-	import lib.world as world
-	import lib.chunk as chunk
-#except ModuleNotFoundError:
-#	err_tk = Tk()
-#	err_canvas = Canvas(err_tk, width=300, height=25)
-#	err_canvas.pack()
-#	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-#	err_tk.update()
+print("8 files were found or downloaded successfully.")
 
 # All versions need the above code.
 
@@ -194,20 +136,21 @@ class App(ShowBase):
 
 def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need to be passed in as parameters here.
 	# The code below executes when you open the version with the launcher.
-	
+	print('')
 	print("Kettle3D development version d20-05 build A launched.")
-	
+	print('')
 	k3d_window = App()
 
 	coverImage = OnscreenImage(image=directory + '/assets/generating_level.png', pos=(0, 0, 0))
+	loading_bar = DirectWaitBar(text="", value=0, pos=(0, 0, 0))
 
 	if os.path.exists(directory + normpath("data/" + worldname + ".dat")):
-		worldin = world.World(worldname, k3d_window)
+		worldin = world.World(worldname, k3d_window, lb=loading_bar)
 	else:
-		worldin = world.new_World(worldname, k3d_window)
+		worldin = world.new_World(worldname, k3d_window, lb=loading_bar)
 
 	coverImage.destroy()
-	
+
 	while True:
 		taskMgr.step()
 		time.sleep(1 / 24)

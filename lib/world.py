@@ -7,7 +7,7 @@ from lib.chunk import *
 import pickle
 
 class new_World:
-	def __init__(self, name, renderer, size=[8, 4, 8]): # This should generate a cube of concrete and a cube of air on top of it.
+	def __init__(self, name, renderer, size=[8, 4, 8], lb=None): # This should generate a cube of concrete and a cube of air on top of it.
 		system('cd "' + directory + "data" + '"')
 		print("Executed command %s" % 'cd "' + directory + "data" + '"')
 		system('md "' + name + '"')
@@ -32,6 +32,7 @@ class new_World:
 				for chunkz in range(0, size[2]):
 					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, True, renderer))
 					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
+					lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz
 					pass
 				pass
 			for chunky in range(size[1], size[1] * 2):
@@ -110,8 +111,8 @@ class new_World:
 	pass
 
 # noinspection PyAttributeOutsideInit
-class World:
-	def __init__(self, name, renderer): # This should load the World from where you left off.
+class World: # ** is the Python exponent operator, not ^
+	def __init__(self, name, renderer, lb=None): # This should load the World from where you left off.
 		self.name = name
 		self.worldmap = []
 		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6): # Generate worldmap
@@ -122,6 +123,7 @@ class World:
 					self.worldmap[chunkx][chunky].append(None)
 					self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
 					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
+					lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz
 					pass
 				pass
 			pass
