@@ -1,3 +1,4 @@
+from direct.gui.OnscreenImage import OnscreenImage
 from direct.task.TaskManagerGlobal import taskMgr
 from direct.showbase.ShowBase import ShowBase
 from panda3d.bullet import BulletWorld
@@ -182,13 +183,12 @@ class App(ShowBase):
 		base.disableMouse()
 		pass
 	
-	def mousewatchtask(self):
-		global worldin
+	def mousewatchtask(self, worldin):
 		if base.mouseWatcherNode.hasMouse():
 			x = base.mouseWatcherNode.getMouseX()
 			y = base.mouseWatcherNode.getMouseY()
 			self.camera.setHpr(x, y, 0)
-		self.camera.setPos(worldin.playerx, worldin.playerz, worldin.playery)
+		self.camera.setPos(worldin.playerx, worldin.playerz, worldin.playery + 96)
 		
 	pass
 
@@ -199,12 +199,16 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 	
 	k3d_window = App()
 
-	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")):
+	coverImage = OnscreenImage(image=directory + '/assets/generating_level.png', pos=(0, 0, 0))
+
+	if os.path.exists(directory + normpath("data/" + worldname + ".dat")):
 		worldin = world.World(worldname, k3d_window)
 	else:
 		worldin = world.new_World(worldname, k3d_window)
+
+	coverImage.destroy()
 	
 	while True:
 		taskMgr.step()
 		time.sleep(1 / 24)
-		k3d_window.mousewatchtask()
+		k3d_window.mousewatchtask(worldin)
