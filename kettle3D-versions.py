@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0, would you like the bag deep fried? :~)
+# Kettle3D Launcher v1.0, I really need better punchlines :~)
 
 versionlist = {
 	"dev" : [

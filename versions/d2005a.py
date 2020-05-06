@@ -102,7 +102,7 @@ class imagefile:
 print("Have 4 files to check or download.")
 
 try:
-	downloadfile = txtfile(path='lib/launcherbase.py', version=3)
+	download_file = txtfile(path='lib/launcherbase.py', version=3)
 except URLError:
 	err_tk = Tk()
 	err_canvas = Canvas(err_tk, width=300, height=25)
@@ -110,7 +110,7 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 try:
-	downloadfile = txtfile(path='lib/world.py', version=1)
+	download_file = txtfile(path='lib/world.py', version=1)
 except URLError:
 	err_tk = Tk()
 	err_canvas = Canvas(err_tk, width=300, height=25)
@@ -118,7 +118,7 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 try:
-	downloadfile = txtfile(path='assets/concrete.egg', version=1)
+	download_file = txtfile(path='assets/concrete.egg', version=1)
 except URLError:
 	err_tk = Tk()
 	err_canvas = Canvas(err_tk, width=300, height=25)
@@ -126,7 +126,7 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 try:
-	downloadfile = imagefile(path='assets/concrete.png', version=1)
+	download_file = imagefile(path='assets/concrete.png', version=1)
 except URLError:
 	err_tk = Tk()
 	err_canvas = Canvas(err_tk, width=300, height=25)
@@ -134,7 +134,7 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 try:
-	downloadfile = txtfile(path='lib/chunk.py', version=1)
+	download_file = txtfile(path='lib/chunk.py', version=1)
 except URLError:
 	err_tk = Tk()
 	err_canvas = Canvas(err_tk, width=300, height=25)
@@ -142,7 +142,7 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 try:
-	downloadfile = txtfile(path='lib/block.py', version=2)
+	download_file = txtfile(path='lib/block.py', version=2)
 except URLError:
 	err_tk = Tk()
 	err_canvas = Canvas(err_tk, width=300, height=25)
@@ -150,8 +150,7 @@ except URLError:
 	err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 	err_tk.update()
 #try:
-downloadfile = txtfile(path='lib/original_pickle.py', version=1)
-gherkinmodule = txtfile(path='lib/gherkin.py', version=1)
+gherkin_module = txtfile(path='lib/gherkin.py', version=1)
 #except URLError:
 #	err_tk = Tk()
 #	err_canvas = Canvas(err_tk, width=300, height=25)
@@ -174,6 +173,9 @@ if True:
 
 # All versions need the above code.
 
+global worldin
+worldin = None
+
 class App(ShowBase):
 	def __init__(self):
 		ShowBase.__init__(self)
@@ -186,7 +188,7 @@ class App(ShowBase):
 			x = base.mouseWatcherNode.getMouseX()
 			y = base.mouseWatcherNode.getMouseY()
 			self.camera.setHpr(x, y, 0)
-		self.camera.setPos(world.playerx, world.playerz, world.playery)
+		self.camera.setPos(worldin.playerx, worldin.playerz, worldin.playery)
 		
 	pass
 
@@ -198,11 +200,9 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 	k3d_window = App()
 
 	if os.path.exists(directory + normpath("data/" + 'world' + ".dat")):
-		global worldin
-		worldin = world.World('world', k3d_window)
+		worldin = world.World(worldname, k3d_window)
 	else:
-		global worldin
-		worldin = world.new_World('world', k3d_window)
+		worldin = world.new_World(worldname, k3d_window)
 	
 	while True:
 		taskMgr.step()
