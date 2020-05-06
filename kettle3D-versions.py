@@ -1,8 +1,9 @@
-# Kettle3D Launcher v1.0, would you like a bag with your order? :~)
+# Kettle3D Launcher v1.0, would you like the bag deep fried? :~)
 
 versionlist = {
 	"dev" : [
-		[1, 'd20.04a']
+		[1, 'deprecated'],
+		[2, 'd2005a']
 	],
 	"stable" : [
 		#none yet...
@@ -228,14 +229,14 @@ if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
 	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
 if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
 	downloadfile = txtfile(path='versions/d2004a.py', version=6)
-if not {"path" : "versions/d2005a.py", "version" : 9} in files["txt"]:
-	downloadfile = txtfile(path='versions/d2005a.py', version=9)
+if not {"path" : "versions/d2005a.py", "version" : 10} in files["txt"]:
+	downloadfile = txtfile(path='versions/d2005a.py', version=10)
 
 print("2 files and 2 versions downloaded with no errors :)")
 
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
 pickle.dump(files, filelistfile)
-filelistfile.close
+filelistfile.close()
 
 tk.configure(bg='#47ad73')
 launcherbackground = PhotoImage(file=directory + background1.winpath)
@@ -266,28 +267,23 @@ def launch(vsn='d2005a'):
 		play_tk = tkdummy()
 		isplayopen = False
 		versionstr = "versions." + vsn
-		if vsn == 'd2004a':
-			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
-			version = __import__("versions", fromlist=['d2004a'])
-			version.d2004a.launch_k3d()
-		elif vsn == 'd2005a':
+		if vsn == 'd2005a':
 			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
 			version = __import__("versions", fromlist=['d2005a'])
 			version.d2005a.launch_k3d()
 		else:
 			print("Sorry, the launcher needs a bit of revision. :(")
-	#except ModuleNotFoundError:
-	if False:
-		err_tk = Tk()
-		err_canvas = Canvas(err_tk, width=300, height=25)
-		err_canvas.pack()
-		err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
-		err_tk.update()
+#	except ModuleNotFoundError:
+#		err_tk = Tk()
+#		err_canvas = Canvas(err_tk, width=300, height=25)
+#		err_canvas.pack()
+#		err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
+#		err_tk.update()
 
 playbtn = Button(tk, text="PLAY", command=play)
 playbtn.pack()
 closebtn = Button(tk, text="Cancel", command=tk.destroy)
-closebtn.pack
+closebtn.pack()
 
 backgroundImage = canvas.create_image(0, 0, image=launcherbackground, anchor=NW)
 

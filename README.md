@@ -8,7 +8,6 @@ Kettle3D is designed to allow you to construct the skyscraper of your dreams, th
 Although the game itself is in early stages of development, a Windows 10 64-bit installer and a OS X 32-bit/64-bit installer are available - this installs the 3D rendering engine and the launcher, which updates itself every time you use it.
 
 # Installation Instructions
-Even though I haven't finished the first version of Kettle3D yet, you can still get the installer and launcher so that when I do release it, you can get it right away.
 
 ## For Windows 10
 You can download the Windows 10 installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0/Kettle3D.Windows.10.Installer.64bit.bat)
