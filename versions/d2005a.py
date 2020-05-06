@@ -4,6 +4,7 @@ from direct.showbase.ShowBase import ShowBase
 from panda3d.bullet import BulletWorld
 from direct.gui.DirectGui import *
 from urllib.request import urlopen
+from panda3d.core import Filename
 from urllib.error import URLError
 from os.path import normpath
 from direct.task import Task
@@ -141,7 +142,7 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 	print('')
 	k3d_window = App()
 
-	coverImage = OnscreenImage(image=Filename.fromOsSpecific(launcherbase.directory).getFullpath() + 'assets/generating_level.png', pos=(0, 0, 0))
+	coverImage = OnscreenImage(image=Filename.fromOsSpecific(directory).getFullpath() + 'assets/generating_level.png', pos=(0, 0, 0))
 	loading_bar = DirectWaitBar(text="", value=0, pos=(0, 0, 0))
 
 	if os.path.exists(directory + normpath("data/" + worldname + ".dat")):
