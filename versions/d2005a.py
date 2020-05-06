@@ -141,7 +141,7 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 	print('')
 	k3d_window = App()
 
-	coverImage = OnscreenImage(image=directory + '/assets/generating_level.png', pos=(0, 0, 0))
+	coverImage = OnscreenImage(image=Filename.fromOsSpecific(launcherbase.directory).getFullpath() + 'assets/generating_level.png', pos=(0, 0, 0))
 	loading_bar = DirectWaitBar(text="", value=0, pos=(0, 0, 0))
 
 	if os.path.exists(directory + normpath("data/" + worldname + ".dat")):
