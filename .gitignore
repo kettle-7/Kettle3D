@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # Kettle3D 'Do Not Touch'
-.test/
+test/
 
 # PyCharm Metadata
 .idea/
