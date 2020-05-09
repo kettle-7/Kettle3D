@@ -111,23 +111,22 @@ class new_World:
 	pass
 
 # noinspection PyAttributeOutsideInit
-class World: # ** is the Python exponent operator, not ^
+class World: # ** is the Python exponent operator, not ^ - Kettle
 	def __init__(self, name, renderer, lb=None): # This should load the World from where you left off.
 		self.name = name
 		self.worldmap = []
-		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6): # Generate worldmap
+		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
+		self.mapmap = pickle.load(self.file)
+		self.file.close()
+		for map_entry in range(0, self.mapmap['playerx']):
 			self.worldmap.append([])
-			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
-				self.worldmap[chunkx].append([])
-				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
-					self.worldmap[chunkx][chunky].append(None)
-					self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
-					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
-					lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz
+			for map_entry2 in range(0, self.mapmap['playery']):
+				self.worldmap.append([])
+				for map_entry3 in range(0, self.mapmap['playerz']):
+					self.worldmap.append('')
 					pass
 				pass
 			pass
-		pass
 		self.load(renderer)
 		pass
 	
