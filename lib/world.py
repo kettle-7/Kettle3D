@@ -8,10 +8,10 @@ import pickle
 
 class new_World:
 	def __init__(self, name, renderer, size=[8, 4, 8], lb=None): # This should generate a cube of concrete and a cube of air on top of it.
-		system('cd "' + directory + "data" + '"')
 		print("Executed command %s" % 'cd "' + directory + "data" + '"')
-		system('md "' + name + '"')
+		system('cd "' + directory + "data" + '"')
 		print("Executed command %s" % 'md "' + name + '"')
+		system('md "' + name + '"')
 		self.name = name
 		self.displayname = name
 		self.size = size
@@ -165,7 +165,8 @@ class World: # ** is the Python exponent operator, not ^ - Kettle
 		for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)): # Load chunks
 			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
 				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
-					self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
+					if chunkx >= 0 and chunky >= 0 and chunkz >= 0:
+						self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
 					pass
 				pass
 			pass
