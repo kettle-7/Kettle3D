@@ -181,7 +181,6 @@ class World: # ** is the Python exponent operator, not ^ - Kettle
 					pass
 				pass
 			pass
-		pass
 		del self
 		pass
 
