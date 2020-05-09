@@ -166,7 +166,6 @@ class World: # ** is the Python exponent operator, not ^ - Kettle
 			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
 				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
 					self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
-					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
 					pass
 				pass
 			pass

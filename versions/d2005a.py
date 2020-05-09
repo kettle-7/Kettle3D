@@ -142,18 +142,34 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 	print('')
 	k3d_window = App()
 
+	if self == 0:
+		pass
+
+	runtime = 0
+	if runtime != 0:
+		print('There is something fishy going on here...')
+	start_time = time.time()
+
 	coverImage = OnscreenImage(image=Filename.fromOsSpecific(directory).getFullpath() + 'assets/generating_level.png', pos=(0, 0, 0))
 	loading_bar = DirectWaitBar(text="", value=0, pos=(0, 0, 0))
 
 	print("Looking for file %s." % normpath(directory + "data/" + worldname + ".world"))
 	if os.path.exists(normpath(directory + "data/" + worldname + ".world")):
-		worldin = world.World(worldname, k3d_window, lb=loading_bar)
+		k3d_window.worldin = world.World(worldname, k3d_window, lb=loading_bar)
 	else:
-		worldin = world.new_World(worldname, k3d_window, lb=loading_bar)
+		k3d_window.worldin = world.new_World(worldname, k3d_window, lb=loading_bar)
 
 	coverImage.destroy()
 
+	old_loop = 0
+
 	while True:
+		runtime = time.time() - start_time
+		loop = int(runtime)
 		taskMgr.step()
 		time.sleep(1 / 24)
 		k3d_window.mousewatchtask(worldin)
+		if loop > old_loop:
+			k3d_window.worldin.load(k3d_window)
+			old_loop = loop
+			pass
