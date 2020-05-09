@@ -18,9 +18,9 @@ class new_World:
 		self.sizex = size[0]
 		self.sizey = size[1] * 2
 		self.sizez = size[2]
-		self.playerx = 0
-		self.playery = 0
-		self.playerz = 0
+		self.playerx = self.sizex / 2
+		self.playery = self.sizey
+		self.playerz = self.sizez / 2
 		self.worldmap = []
 		self.newfile = open(directory + normpath("data/" + self.name + ".world"), 'xb') # Create world file - saves everything but chunks.
 		self.newfile.close()
@@ -162,9 +162,9 @@ class World: # ** is the Python exponent operator, not ^ - Kettle
 		self.playerx = self.mapmap['playerx']
 		self.playery = self.mapmap['playery']
 		self.playerz = self.mapmap['playerz']
-		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6): # Load chunks
-			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
-				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
+		for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)): # Load chunks
+			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
+				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
 					self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
 					pass
 				pass
