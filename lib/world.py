@@ -170,7 +170,7 @@ class World: # ** is the Python exponent operator, not ^ - Kettle
 							self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
 						except IndexError:
 							print("There was an error at the following indexes:")
-							print("%s, %s, %s" % chunkx, chunky, chunkz)
+							print("%s, %s, %s" % (chunkx, chunky, chunkz))
 					pass
 				pass
 			pass
