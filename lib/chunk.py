@@ -15,7 +15,7 @@ class chunk:
         self.file = open(
             directory + normpath("data/" + world.name + "/chunk_") + str(self.xpos) + "_" + str(self.ypos) + "_" + str(
                 self.zpos) + ".chunk", 'rb')
-        self.mapmap = gherkin.load(self.file.read(), renderer)
+        self.mapmap = gherkin.load(self.file, renderer)
         self.file.close()
         self.chunkmap = self.mapmap['chunkmap']
         self.xpos = self.mapmap['xpos']
