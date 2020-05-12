@@ -15,7 +15,7 @@ If you see this:
 ![Image](https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/assets/chromes-security-policy.png "Chrome's Security Policy")  
 then that means Chrome's security policy is working. What this means is that Google Chrome (if you're using it) has a policy that stops you from downloading apps that you might not know about. If you click 'Keep' then it'll go away.
 
-Right-click on it (in File Explorer) and click 'Run as Administrator.'
+Double-click on it in File Explorer. If it crashes then you'll have to right-click it and click 'Run as Administrator'. You might need the Admin password for this.
 
 Kettle3D should be in your Start Menu. It will have a picture of two gears as its logo. If you like, you can download Kettle3D.ico and set it as the icon.
 1) Right-click on Kettle3D in your Start Menu, and then click 'Open file location'
@@ -24,7 +24,8 @@ Kettle3D should be in your Start Menu. It will have a picture of two gears as it
 4) Browse to the folder where you downloaded Kettle3D.ico
 
 ## For Mac OS X
-You can download the OS X installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0.1/Kettle3D.OS.X.Installer.sh)
+You can download the OS X installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0.1/Kettle3D.OS.X.Installer.sh)  
+Double-click it in your Downloads folder. You'll probably need the Admin password. Yes, that means you'll need to see Andy.
 
 The installer will download the Panda installer, but you'll have to manually install it.
 There will be a file called Kettle3D.command on your desktop - double-click on it to open Kettle3D.
