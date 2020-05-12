@@ -10,7 +10,10 @@ Although the game itself is in early stages of development, a Windows 10 64-bit 
 # Installation Instructions
 
 ## For Windows 10
-You can download the Windows 10 installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0.1/Kettle3D.Windows.Installer.bat)
+You can download the Windows 10 installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0.1/Kettle3D.Windows.Installer.bat)  
+If you see this:  
+![Image](https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/assets/chromes-security-policy.png "Chrome's Security Policy")  
+then that means Chrome's security policy is working. What this means is that Google Chrome (if you're using it) has a policy that stops you from downloading apps that you might not know about. If you click 'Keep' then it'll go away.
 
 Right-click on it (in File Explorer) and click 'Run as Administrator.'
 
