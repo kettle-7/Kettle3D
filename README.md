@@ -45,16 +45,8 @@ Hopefully this works - my computer's a Windows.
 
 Please note that you'll need to have installed Panda for the game to work. The Panda installer is contained in the Kettle3D installer - it'll open when you install Kettle3D on Windows 10, and it'll download the Mac installer to HOME/Downloads on OS X.
   
-When you launch Kettle3D, a black window with white text will appear. This is the command line. It will display the game's output log. It'll look a little like this:
-
-----------------------------------------------------------
-
-Microsoft Windows [Version 10.0.18362.778]  
-(c) 2019 Microsoft Corporation. All rights reserved.  
-C:\WINDOWS\system32>cd C:\Program Files\Kettle3D  
-C:\Program Files\Kettle3D>ppython kettle3D-updater.py
-
-----------------------------------------------------------
+When you launch Kettle3D, a black window with white text will appear. This is the command line. It will display the game's output log. It'll look a little like this:  
+![Image](https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/assets/windows_command_line.png "Kettle3D Command Window")
 
 ## Note
 Please note that Kettle3D's world generation system is very inefficient. I will eventually post the files for an empty world on GitHub, but at the moment I'm still finalising it.  
