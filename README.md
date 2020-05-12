@@ -10,7 +10,7 @@ Although the game itself is in early stages of development, a Windows 10 64-bit 
 # Installation Instructions
 
 ## For Windows 10
-You can download the Windows 10 installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0/Kettle3D.Windows.10.Installer.64bit.bat)
+You can download the Windows 10 installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0.1/Kettle3D.Windows.Installer.bat)
 
 Right-click on it (in File Explorer) and click 'Run as Administrator.'
 
@@ -21,8 +21,7 @@ Kettle3D should be in your Start Menu. It will have a picture of two gears as it
 4) Browse to the folder where you downloaded Kettle3D.ico
 
 ## For Mac OS X
-You can download the OS X installer [here.]
-(https://github.com/Kettle3D/Kettle3D/releases/download/v1.0/Kettle3D.Mac.OS.X.Installer.32-bit.sh)
+You can download the OS X installer [here.](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0.1/Kettle3D.OS.X.Installer.sh)
 
 The installer will download the Panda installer, but you'll have to manually install it.
 There will be a file called Kettle3D.command on your desktop - double-click on it to open Kettle3D.
