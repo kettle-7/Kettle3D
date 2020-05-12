@@ -278,8 +278,9 @@ def launch(vsn='d2005a'):
 		versionstr = "versions." + vsn
 		if vsn == 'd2005a':
 			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
-			version = __import__("versions", fromlist=['d2005a'])
-			version.d2005a.launch_k3d()
+			# version = __import__("versions", fromlist=['d2005a'])
+			# version.d2005a.launch_k3d()
+			print("The launch was interrupted :(")
 		else:
 			print("Sorry, the launcher needs a bit of revision. :(")
 #	except ModuleNotFoundError:
