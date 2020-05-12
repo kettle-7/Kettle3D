@@ -12,15 +12,6 @@ versionlist = {
 
 '''
 Updates need to be posted above with syntax as such:
-Development versions go under "dev" and releases under "stable."
-dev[0][0] is the version number; 1 is the first version, 2 the second etc.
-The string contained within the list is this:
-['d' for dev | None for 'stable'] + <year released> + '-' + <month released> + <one-letter build name>.
-Please only add a single-letter build name corresponding to the order in which that month's versions were made.
-Feel free to make a pull request - put your version in the list. DO NOT MARK IT AS STABLE UNTIL I HAVE TESTED IT.
-Put the programming for the version in Kettle3D/versions/d2005b.py. Add a txtfile object for all the text files,
-along with .py etc.
-Initialise the txtfile under the play function. Make sure to add all required txtfiles and binaryfiles as well.
 '''
 
 from urllib.request import urlopen
@@ -221,7 +212,7 @@ play_tk = tkdummy()
 tk = Tk()
 tk.title("Kettle3D Launcher")
 tk.wm_attributes("-topmost", 1)
-tk.configure(bg='black')
+tk.configure(bg='#47ad73')
 canvas = Canvas(tk, width=500, height=500, bd=0, highlightthickness=0)
 canvas.pack()
 tk.update()
@@ -232,14 +223,10 @@ print("The launcher window opened successfully.")
 
 print("Have 2 files and 2 versions to check or download...")
 
-if not {"path" : "lib/launcherbase.py", "version" : 4} in files["txt"]:
-	downloadfile = txtfile(path='lib/launcherbase.py', version=4)
-if not {"path" : "assets/k3dlauncher1.png", "version" : 1} in files["image"]:
-	background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
-if not {"path" : "versions/d2004a.py", "version" : 6} in files["txt"]:
-	downloadfile = txtfile(path='versions/d2004a.py', version=6)
-if not {"path" : "versions/d2005a.py", "version" : 10} in files["txt"]:
-	downloadfile = txtfile(path='versions/d2005a.py', version=10)
+downloadfile = txtfile(path='lib/launcherbase.py', version=4)
+background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
+downloadfile = txtfile(path='versions/d2004a.py', version=6)
+downloadfile = txtfile(path='versions/d2005a.py', version=10)
 
 print("2 files and 2 versions downloaded with no errors :)")
 
@@ -247,7 +234,6 @@ filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
 pickle.dump(files, filelistfile)
 filelistfile.close()
 
-tk.configure(bg='#47ad73')
 launcherbackground = PhotoImage(file=directory + background1.winpath)
 
 def launch2004a():
@@ -278,9 +264,8 @@ def launch(vsn='d2005a'):
 		versionstr = "versions." + vsn
 		if vsn == 'd2005a':
 			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
-			# version = __import__("versions", fromlist=['d2005a'])
-			# version.d2005a.launch_k3d()
-			print("The launch was interrupted :(")
+			version = __import__("versions", fromlist=['d2005a'])
+			version.d2005a.launch_k3d()
 		else:
 			print("Sorry, the launcher needs a bit of revision. :(")
 #	except ModuleNotFoundError:
