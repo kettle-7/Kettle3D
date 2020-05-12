@@ -95,6 +95,7 @@ parameter the game will crash though.
 		self.playerx = self.mapmap['playerx']
 		self.playery = self.mapmap['playery']
 		self.playerz = self.mapmap['playerz']
+		print(self.worldmap)
 		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6):  # Generate worldmap
 			self.worldmap.append([])
 			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
