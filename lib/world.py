@@ -166,11 +166,15 @@ class World: # ** is the Python exponent operator, not ^ - Kettle
 			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
 				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
 					if chunkx >= 0 and chunky >= 0 and chunkz >= 0:
+<<<<<<< HEAD
 						try:
 							self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
 						except IndexError:
 							print("There was an error at the following indexes:")
 							print("%s, %s, %s" % (chunkx, chunky, chunkz))
+=======
+						self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
+>>>>>>> parent of 0146837... Added debug
 					pass
 				pass
 			pass
