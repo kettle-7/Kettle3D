@@ -49,18 +49,15 @@ When you launch Kettle3D, a black window with white text will appear. This is th
 
 ----------------------------------------------------------
 
-Microsoft Windows [Version 10.0.18362.778]
-(c) 2019 Microsoft Corporation. All rights reserved.
-
-C:\WINDOWS\system32>cd C:\Program Files\Kettle3D
-
+Microsoft Windows [Version 10.0.18362.778]  
+(c) 2019 Microsoft Corporation. All rights reserved.  
+C:\WINDOWS\system32>cd C:\Program Files\Kettle3D  
 C:\Program Files\Kettle3D>ppython kettle3D-updater.py
 
 ----------------------------------------------------------
 
 ## Note
-Please note that Kettle3D's world generation system is very inefficient. I will eventually post the files for an empty world on GitHub, but at the moment I'm still finalising it.
-
+Please note that Kettle3D's world generation system is very inefficient. I will eventually post the files for an empty world on GitHub, but at the moment I'm still finalising it.  
 If it takes about half an hour for your computer to generate the world, your computer is fast. I'll try and fix this when I can.
 
 # How did I make it?
