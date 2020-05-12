@@ -198,6 +198,7 @@ Other parameters like size and displayname are included in the world file.
 		self.playerx = self.mapmap['playerx']
 		self.playery = self.mapmap['playery']
 		self.playerz = self.mapmap['playerz']
+		print(self.worldmap)
 		for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)): # Load chunks
 			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
 				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
