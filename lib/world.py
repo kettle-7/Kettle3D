@@ -1,6 +1,7 @@
 # This library isn't done yet.
 
 from os import system # system(String command) runs a batch command. Java function syntax :~)
+from direct.task.TaskManagerGlobal import taskMgr
 from lib.launcherbase import directory
 import lib.launcherbase
 from lib.chunk import *
@@ -52,12 +53,14 @@ parameter the game will crash though.
 					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, True, renderer))
 					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
 					lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz / 2
+					taskMgr.step()
 					pass
 				pass
 			for chunky in range(size[1], size[1] * 2):
 				self.worldmap[chunkx].append([])
 				for chunkz in range(0, size[2]):
 					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, False, renderer))
+					taskMgr.step()
 					pass
 				pass
 			pass
@@ -102,6 +105,7 @@ parameter the game will crash though.
 				self.worldmap[chunkx].append([])
 				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
 					self.worldmap[chunkx][chunky].append(chunk(self, abs(chunkx), abs(chunky), abs(chunkz), renderer))
+					taskMgr.step()
 					pass
 				pass
 			pass
@@ -160,6 +164,7 @@ Other parameters like size and displayname are included in the world file.
 				for map_entry3 in range(0, self.mapmap['playerz']):
 					self.worldmap.append('')
 					lb['value'] = 100 / self.sizex / self.sizey / self.sizez * map_entry * map_entry2 * map_entry3 / 2
+					taskMgr.step()
 					pass
 				pass
 			pass
@@ -199,16 +204,20 @@ Other parameters like size and displayname are included in the world file.
 		self.playery = self.mapmap['playery']
 		self.playerz = self.mapmap['playerz']
 		self.worldmap = []
-		for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)): # Load chunks
+		for chunkx in range(0, 11): # Load chunks
 			print(self.worldmap)
 			self.worldmap.append([])
-			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
+			for chunky in range(0, 11):
 				print(self.worldmap)
 				self.worldmap[chunkx].append([])
-				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
+				for chunkz in range(0, 11):
 					self.worldmap[chunkx][chunky].append('')
 					if chunkx >= 0 and chunky >= 0 and chunkz >= 0:
-						self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
+						x = int(self.playerx / 16 - 5) + chunkx
+						y = int(self.playery / 16 - 5) + chunky
+						z = int(self.playerx / 16 - 5) + chunkz
+						self.worldmap[chunkx][chunky][chunkz] = chunk(self, x, y, z, renderer)
+						taskMgr.step()
 					pass
 				pass
 			pass
@@ -220,6 +229,7 @@ Other parameters like size and displayname are included in the world file.
 			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
 				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
 					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
+					taskMgr.step()
 					pass
 				pass
 			pass
@@ -240,6 +250,7 @@ Other parameters like size and displayname are included in the world file.
 			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
 				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
 					self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
+					taskMgr.step()
 					pass
 				pass
 			pass
