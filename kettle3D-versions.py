@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0, I really need better punchlines :~)
+# Kettle3D Launcher v1.0, plastic's bad for turtles :~)
 
 versionlist = {
 	"dev" : [
@@ -12,6 +12,30 @@ versionlist = {
 
 '''
 Updates need to be posted above with syntax as such:
+
+dev:
+
+[version_number, version_file]
+
+version_number is an integer that tells Kettle3D what order the versions come in -- 1 is the first version, 2 is the 
+second etc.
+
+version_file is the name of the file within ./versions that the version is in. Put 'deprecated' if the version is not
+for use. The name for the version should be something like 'd2005b' -- d for development, 20 for the year, 05 for the
+month (May), and 'a' because it is build A. The build name should be a single lowercase letter from a to z corresponding
+to the order in which that month's versions were made.
+
+stable:
+
+[version_number, version_file]
+
+version_number is just as above. Note that if version 1 and 2 are dev versions, then if I make a stable release, then
+it'll be version 3. This is so that the launcher can list the versions in the order that they were made. This feature is
+planned.
+
+version_file is as above, except the name should follow semantic versioning, starting with 1.0, then 1.1, and so on. If
+a release is not big enough to require a new version number, name it 1.3a etc. Unlike with dev versions, the version
+number has nothing to do with the month it was released, just the order.
 '''
 
 from urllib.request import urlopen
