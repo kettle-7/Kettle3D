@@ -212,12 +212,12 @@ Other parameters like size and displayname are included in the world file.
 				self.worldmap[chunkx].append([])
 				for chunkz in range(0, 11):
 					self.worldmap[chunkx][chunky].append('')
+					x = int(self.playerx / 16 - 5) + chunkx
+					y = int(self.playery / 16 - 5) + chunky
+					z = int(self.playerx / 16 - 5) + chunkz
 					if x >= 0 and y >= 0 and z >= 0:
-						x = int(self.playerx / 16 - 5) + chunkx
-						y = int(self.playery / 16 - 5) + chunky
-						z = int(self.playerx / 16 - 5) + chunkz
 						self.worldmap[chunkx][chunky][chunkz] = chunk(self, x, y, z, renderer)
-						taskMgr.step()
+					taskMgr.step()
 					pass
 				pass
 			pass
