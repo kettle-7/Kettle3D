@@ -38,9 +38,10 @@ Follow these instructions if the desktop shortcut the installer made didn't work
 4) When Automator opens, select **Application**.
 5) Click **Choose**.
 6) Click **Actions** and scroll down to **Run Shell Script**. Tip: the list's in alphabetical order.
-7) Where it says *cat* off to the right, delete it and replace it with this:
+7) Drag it into the window off to the right.
+8) Where it says *cat* off to the right, delete it and replace it with this:
 `/bin/bash $HOME/Library/Application Support/Kettle3D/Kettle3D.sh` (all one line)
-8) Click **File > Save** and enter *Kettle3D* as the name. When it asks you where you want to save it, choose either your Desktop or the Applications folder on your computer.
+9) Click **File > Save** and enter *Kettle3D* as the name. When it asks you where you want to save it, choose either your Desktop or the Applications folder on your computer.
 
 Hopefully this works - my computer's a Windows.
 
