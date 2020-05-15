@@ -171,7 +171,7 @@ def launch_k3d(self=None, worldname='world', lanhost=False): # worlds etc. need 
 		loop = int(runtime)
 		taskMgr.step()
 		time.sleep(1 / 24)
-		k3d_window.mousewatchtask(worldin)
+		k3d_window.mousewatchtask(k3d_window.worldin)
 		if loop > old_loop:
 			k3d_window.worldin.load(k3d_window)
 			old_loop = loop
