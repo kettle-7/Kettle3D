@@ -17,7 +17,7 @@ if platform.startswith('win32') or platform.startswith('cygwin'): # do windows-s
 if platform.startswith('darwin'): # do apple-specific things
 	directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
 	sys.path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
-	sys.path.append(getenv("HOME") + "/Library/Developer/Panda3D")
+	sys.path.append("/Library/Developer/Panda3D")
 from direct.gui.OnscreenImage import OnscreenImage
 from direct.task.TaskManagerGlobal import taskMgr
 from direct.showbase.ShowBase import ShowBase
