@@ -36,6 +36,10 @@ a {
  height: 50px;
 }
 
+#footer {
+ background-color: #47ad73;
+}
+
 .headertext {
  color: #ffffff !important;
  font-family: Calibri, "Comic Sans MS", "Comic Sans", Arial, sans-serif;
@@ -117,8 +121,12 @@ Not sure which one to pick? Go for the 32/64-bit one.<br>
 Go <a href="https://kettle3d.github.io/Kettle3D/#installation-instructions">here</a> to view the installation instruction.
 </p>
 </div>
+<div id="footer" style=" position: absolute; left: 0px; height: 50px; "></div>
 <script>
 document.getElementById("header").style.width = window.innerWidth + "px";
+document.getElementById("footer").style.width = window.innerWidth + "px";
+var footerHeight = new String(Number(document.getElementById("mainContent").offsetHeight) + 50) + "px";
+document.getElementById("footer").style.top = footerHeight;
 </script>
 </body>
 </html>
