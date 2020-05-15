@@ -30,28 +30,48 @@ a {
 #header {
  background-color: #47ad73;
  position: absolute;
- height: 35px;
+ left: 0px;
+ top: 0px;
+ height: 50px;
 }
 
 .headertext {
- color: #ffffff;
+ color: #ffffff !important;
  font-family: Calibri, "Comic Sans MS", "Comic Sans", Arial, sans-serif;
  font-weight: 450;
+ display: inline;
+ text-decoration-line: none !important;
 }
 
-#eph {
- position: absolute;
- left: 5px;
- top: -5px;
- color: #ffffff
+.headertext:visited {
+ color: #ffffff !important;
  font-family: Calibri, "Comic Sans MS", "Comic Sans", Arial, sans-serif;
  font-weight: 450;
+ text-decoration-line: none !important;
+}
+
+.headertext:hover {
+ color: #ffffff !important;
+ font-family: Calibri, "Comic Sans MS", "Comic Sans", Arial, sans-serif;
+ font-weight: 450;
+ text-decoration-line: none !important;
 }
 
 #maincontent {
  position: absolute;
  left: 5px;
- top: 35px;
+ top: 50px;
+}
+
+#eph {
+ position: absolute;
+ top: -12px;
+ left: 5px;
+}
+
+.phe {
+ color: #ffffff;
+ text-decoration-line: none;
 }
 </style>
  <meta charset='utf-8' />
@@ -62,7 +82,7 @@ a {
 </head>
 <body>
 <div id="header">
-<h1 class="headertext", id="eph">Kettle3D</h1>
+<h1 class="headertext", id="eph"><a href="https://kettle3d.github.io/Kettle3D", class="phe headertext">Kettle3D</a> | <a href="https://github.com/Kettle3D/Kettle3D/", class="phe headertext">Source Code</a> | <a class="phe headertext">Downloads</a></h1>
 </div>
 <div id="maincontent">
 <article itemprop="text">
