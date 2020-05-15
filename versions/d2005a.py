@@ -1,13 +1,5 @@
-from direct.gui.OnscreenImage import OnscreenImage
-from direct.task.TaskManagerGlobal import taskMgr
-from direct.showbase.ShowBase import ShowBase
-from panda3d.bullet import BulletWorld
-from direct.gui.DirectGui import *
-from urllib.request import urlopen
-from panda3d.core import Filename
 from urllib.error import URLError
 from os.path import normpath
-from direct.task import Task
 from sys import platform
 from os import getenv
 from os import getcwd
@@ -26,6 +18,14 @@ if platform.startswith('darwin'): # do apple-specific things
 	directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
 	sys.path[0] = getenv("HOME") + "/Library/Application Support/Kettle3D"
 	sys.path.append(getenv("HOME") + "/Library/Developer/Panda3D")
+from direct.gui.OnscreenImage import OnscreenImage
+from direct.task.TaskManagerGlobal import taskMgr
+from direct.showbase.ShowBase import ShowBase
+from panda3d.bullet import BulletWorld
+from direct.gui.DirectGui import *
+from urllib.request import urlopen
+from panda3d.core import Filename
+from direct.task import Task
 
 class file_dummy():
 	def open(self, a=None, b=None, c=None):
@@ -101,7 +101,9 @@ class imagefile:
 		except URLError:
 			print("Couldn't download file. Maybe try checking your internet connection?")
 
+print("")
 print("Have 8 files to check or download.")
+print("")
 
 download_file = txtfile(path='lib/launcherbase.py', version=3)
 download_file = txtfile(path='lib/world.py', version=1)
@@ -113,6 +115,7 @@ download_file = txtfile(path='lib/block.py', version=2)
 gherkin_module = txtfile(path='lib/gherkin.py', version=1)
 import lib.world as world
 
+print("")
 print("8 files were found or downloaded successfully.")
 
 # All versions need the above code.
