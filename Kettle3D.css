@@ -1,25 +1,59 @@
 h1 {
- font-family: Arial, Helvetica, sans-serif;
+ font-family: Calibri, "Comic Sans", Arial, Helvetica, sans-serif;
  font-size: 30px;
 }
 
 h2 {
- font-family: Arial, Helvetica, sans-serif;
+ font-family: Calibri, "Comic Sans", Arial, Helvetica, sans-serif;
  font-size: 22px;
 }
 
 h3 {
- font-family: Arial, Helvetica, sans-serif;
+ font-family: Calibri, "Comic Sans", Arial, Helvetica, sans-serif;
 }
 
 p {
- font-family: "Comic Sans MS", Arial, Helvetica, sans-serif;
+ font-family: "Comic Sans MS", "Comic Sans", Arial, Helvetica, sans-serif;
 }
 
 li {
- font-family: "Comic Sans MS", Arial, Helvetica, sans-serif;
+ font-family: "Comic Sans MS", "Comic Sans", Arial, Helvetica, sans-serif;
 }
 
 a {
- font-family: "Comic Sans MS";
+ font-family: "Comic Sans MS", "Comic Sans";
+}
+
+#header {
+ background-color: #47ad73;
+ position: absolute;
+ left: 0px;
+ top: 0px;
+ height: 50px;
+}
+
+#footer {
+ background-color: #47ad73;
+}
+
+.headertext {
+ color: #ffffff !important;
+ font-family: Calibri, "Comic Sans MS", "Comic Sans", Arial, sans-serif;
+ font-weight: 450;
+ display: inline;
+ text-decoration-line: none !important;
+}
+
+.headertext:visited {
+ color: #ffffff !important;
+ font-family: Calibri, "Comic Sans MS", "Comic Sans", Arial, sans-serif;
+ font-weight: 450;
+ text-decoration-line: none !important;
+}
+
+.headertext:hover {
+ color: #ffffff !important;
+ font-family: Calibri, "Comic Sans MS", "Comic Sans", Arial, sans-serif;
+ font-weight: 450;
+ text-decoration-line: none !important;
 }
