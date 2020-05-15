@@ -43,7 +43,7 @@ temp_files = {
 	'image' : []
 }
 
-class txtfile():
+class txtfile:
 	def __init__(self, path, version=1, newcontent=None): # file for download
 		self.path = path
 		self.version = version
@@ -129,12 +129,12 @@ class App(ShowBase):
 		base.disableMouse()
 		pass
 	
-	def mousewatchtask(self, worldin):
+	def mousewatchtask(self, worldy):
 		if base.mouseWatcherNode.hasMouse():
 			x = base.mouseWatcherNode.getMouseX()
 			y = base.mouseWatcherNode.getMouseY()
 			self.camera.setHpr(x, y, 0)
-		self.camera.setPos(worldin.playerx, worldin.playerz, worldin.playery + 96)
+		self.camera.setPos(worldy.playerx, worldy.playerz, worldy.playery + 96)
 		
 	pass
 

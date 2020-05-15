@@ -1,9 +1,7 @@
 # This library isn't done yet.
 
-from os import system # system(String command) runs a batch command. Java function syntax :~)
+from os import system
 from direct.task.TaskManagerGlobal import taskMgr
-from lib.launcherbase import directory
-import lib.launcherbase
 from lib.chunk import *
 import pickle
 
@@ -68,6 +66,7 @@ parameter the game will crash though.
 		pass
 	
 	def save(self):
+		"""Save level to disk for future access"""
 		self.mapmap = {
 			"name" : self.name,
 			"displayname" : self.displayname,
@@ -85,11 +84,12 @@ parameter the game will crash though.
 		pass
 	
 	def load(self, renderer):
+		"""Load level from disk"""
 		print(directory + normpath("data/") + self.name + ".dat")
 		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
-		
+
 		self.name = self.mapmap['name']
 		self.displayname = self.mapmap['displayname']
 		self.sizex = self.mapmap['sizex']
@@ -183,14 +183,12 @@ Other parameters like size and displayname are included in the world file.
 			"playerz" : self.playerz
 		}
 		
-		print(directory + normpath("data/") + self.name + ".world")
 		self.file = open(directory + normpath("data/" + self.name + ".world"), 'wb')
 		pickle.dump(self.mapmap, self.file)
 		self.file.close()
 		pass
 	
 	def load(self, renderer):
-		print(directory + normpath("data/") + self.name + ".world")
 		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
