@@ -157,6 +157,11 @@ Other parameters like size and displayname are included in the world file.
 		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
+
+		self.sizex = self.mapmap['sizex']
+		self.sizey = self.mapmap['sizey']
+		self.sizez = self.mapmap['sizez']
+
 		for map_entry in range(0, int(self.mapmap['playerx'])):
 			self.worldmap.append([])
 			for map_entry2 in range(0, int(self.mapmap['playery'])):
