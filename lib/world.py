@@ -26,10 +26,10 @@ painstakingly slow the world generation process is. Look, I tried. The default v
 parameter the game will crash though.
 	"""
 	def __init__(self, name, renderer, size=(8, 4, 8), lb=None):
-		print("Executed command %s" % 'cd "' + directory + "data" + '"')
-		system('cd "' + directory + "data" + '"')
-		print("Executed command %s" % 'md "' + name + '"')
-		system('md "' + name + '"')
+		print("Executed command %s" % 'cd "' + directory + '"')
+		system('cd "' + directory + '"')
+		print("Executed command %s" % 'md "' + normpath("data/" + name + '"'))
+		system('md "' + normpath("data/" + name + '"'))
 		self.name = name
 		self.displayname = name
 		self.size = size
