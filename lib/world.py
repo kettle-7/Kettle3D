@@ -50,7 +50,10 @@ parameter the game will crash though.
 				for chunkz in range(0, size[2]):
 					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, True, renderer))
 					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
-					lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz / 2
+					try:
+						lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz / 2
+					except ZeroDivisionError:
+						pass
 					taskMgr.step()
 					pass
 				pass
@@ -58,6 +61,10 @@ parameter the game will crash though.
 				self.worldmap[chunkx].append([])
 				for chunkz in range(0, size[2]):
 					self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, False, renderer))
+					try:
+						lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz / 2
+					except ZeroDivisionError:
+						pass
 					taskMgr.step()
 					pass
 				pass

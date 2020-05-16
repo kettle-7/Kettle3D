@@ -2,8 +2,7 @@
 
 versionlist = {
 	"dev": [
-		[1, 'deprecated'],
-		[2, 'd2005a']
+		[0, 'd2005a', 'alpha-dev 20.05 build A']
 	],
 	"stable": [
 		# none yet...
@@ -38,7 +37,7 @@ a release is not big enough to require a new version number, name it 1.3a etc. U
 number has nothing to do with the month it was released, just the order.
 '''
 
-from panda3d.core import ConfigVariableString
+from panda3d.core import ConfigVariableString, ConfigVariableInt
 from urllib.request import urlopen
 from urllib.error import URLError
 from os.path import normpath
@@ -135,7 +134,7 @@ except(EOFError, FileNotFoundError, OSError):
 		settings = {  # This is the preferences file. It stores all of the user's settings.
 			"config": {
 				"index": ["fullscreen", "log_level", "c++_log_level", "gl_log_level", "world", "username"],
-				"fullscreen": "#t",
+				"fullscreen": 1,
 				"log_level": "warning",
 				"c++_log_level": "warning",
 				"gl_log_level": "warning",
@@ -151,7 +150,7 @@ except(EOFError, FileNotFoundError, OSError):
 		settings = {  # This is the preferences file. It stores all of the user's settings.
 			"config": {
 				"index": ["fullscreen", "log_level", "c++_log_level", "gl_log_level", "world", "username"],
-				"fullscreen": "#t",
+				"fullscreen": 1,
 				"log_level": "warning",
 				"c++_log_level": "warning",
 				"gl_log_level": "warning",
@@ -163,6 +162,11 @@ except(EOFError, FileNotFoundError, OSError):
 		pickle.dump(settings, settingsfile)
 		print("Successfully created a new preferences file.")
 		settingsfile.close()
+		
+
+if settings['config']['fullscreen'] == '#t' or settings['config']['fullscreen'] == '#f':
+	print('User setting \'fullscreen\' was invalid :~(')
+	settings['config']['fullscreen'] = 1
 
 
 class txtfile:
@@ -312,7 +316,7 @@ cllBtn = None
 gllBtn = None
 
 title = ConfigVariableString('window-title', 'Kettle3D')
-fullscreen = ConfigVariableString('fullscreen', settings["config"]["fullscreen"])
+fullscreen = ConfigVariableInt('fullscreen', settings["config"]["fullscreen"])
 notify_level = ConfigVariableString('default-directnotify-level', settings['config']["log_level"])
 c_notify_level = ConfigVariableString('notify-level', settings['config']["c++_log_level"])
 glgsg_notify_level = ConfigVariableString('notify-level-glgsg', settings['config']['gl_log_level'])
@@ -374,9 +378,9 @@ def unoptions1():
 
 
 def oo(aye):
-	if aye == "#t" or aye is True:
+	if aye == "#t" or aye is True or aye == 1:
 		return "ON"
-	elif aye == "#f" or aye is False:
+	elif aye == "#f" or aye is False or aye == 0:
 		return "OFF"
 
 
@@ -397,6 +401,7 @@ def toggle_log_level(log_type):
 			l = 'warning'
 		settings['config']['gl_log_level'] = l
 		gllBtn.config(text='OpenGL Log Output Level: %s' % l)
+		glgsg_notify_level.setValue(l)
 		pass
 	elif log_type == 'c++':
 		l = settings['config']['c++_log_level']
@@ -414,6 +419,7 @@ def toggle_log_level(log_type):
 			l = 'warning'
 		settings['config']['c++_log_level'] = l
 		cllBtn.config(text='C++ Log Output Level: %s' % l)
+		c_notify_level.setValue(l)
 		pass
 	elif log_type == 'python':
 		l = settings['config']['log_level']
@@ -427,17 +433,20 @@ def toggle_log_level(log_type):
 			l = 'warning'
 		settings['config']['log_level'] = l
 		llBtn.config(text='Game Log Output Level: %s' % l)
+		notify_level.setValue(l)
 		pass
 	pass
 
 
 def toggle_fullscreen():
-	if settings["config"]['fullscreen'] == '#t':
-		settings['config']["fullscreen"] = "#f"
+	if settings["config"]['fullscreen'] == 1:
+		settings['config']["fullscreen"] = 0
 		fullscreenBtn.config(text="Fullscreen: OFF")
+		fullscreen.setValue(0)
 	else:
-		settings['config']["fullscreen"] = "#t"
+		settings['config']["fullscreen"] = 1
 		fullscreenBtn.config(text="Fullscreen: ON")
+		fullscreen.setValue(1)
 	pass
 
 
