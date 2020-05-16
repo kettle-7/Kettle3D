@@ -556,11 +556,8 @@ optionsbtn.pack()
 backgroundImage = canvas.create_image(0, 0, image=launcherbackground, anchor=NW)
 
 while True:
-	try:
-		tk.update_idletasks()
-		tk.update()
-	except TclError:
-		pass
+	tk.update_idletasks()
+	tk.update()
 	try:
 		play_tk.update_idletasks()
 		play_tk.update()
