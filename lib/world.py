@@ -116,7 +116,7 @@ parameter the game will crash though.
 		pass
 
 	def is_move_valid(self, x, y, z):
-		if self.worldmap[int(x / 16)][int(y / 16)][z / 16)].chunkmap[int(x % 16)][int(y % 16)][int( \
+		if self.worldmap[int(x / 16)][int(y / 16)][int(z / 16)].chunkmap[int(x % 16)][int(y % 16)][int(
 				z % 16)].blocktype != 'air':
 			return False
 		else:
