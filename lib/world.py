@@ -99,11 +99,11 @@ parameter the game will crash though.
 		self.playery = self.mapmap['playery']
 		self.playerz = self.mapmap['playerz']
 		print(self.worldmap)
-		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6):  # Generate worldmap
+		for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)):  # Generate worldmap
 			self.worldmap.append([])
-			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
+			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
 				self.worldmap[chunkx].append([])
-				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
+				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
 					self.worldmap[chunkx][chunky].append(chunk(self, abs(chunkx), abs(chunky), abs(chunkz), renderer))
 					taskMgr.step()
 					pass
@@ -168,7 +168,7 @@ Other parameters like size and displayname are included in the world file.
 				self.worldmap.append([])
 				for map_entry3 in range(0, int(self.mapmap['playerz'])):
 					self.worldmap.append('')
-					lb['value'] = 100 / self.sizex / self.sizey / self.sizez * map_entry * map_entry2 * map_entry3 / 2
+					lb['value'] = (self.sizex / map_entry * self.sizey * self.sizez + self.sizey / map_entry2 * self.sizez + self.sizez / map_entry3) * 50
 					taskMgr.step()
 					pass
 				pass
