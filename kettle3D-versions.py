@@ -183,8 +183,7 @@ class txtfile:
 			try:
 				self.onlinecontent = urlopen(
 					"https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
-				if self.oldcontent != self.onlinecontent and self.onlinecontent is not None and \
-						self.onlinecontent.strip() != '':
+				if self.oldcontent != self.onlinecontent and self.onlinecontent is not None and self.onlinecontent.strip() != '':
 					self.newcontent.write(self.onlinecontent)
 					print("Successfully updated file.")
 				else:
