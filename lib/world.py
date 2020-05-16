@@ -1,13 +1,13 @@
 # This library isn't done yet.
 
-from os import system
 from direct.task.TaskManagerGlobal import taskMgr
 from lib.chunk import *
+from os import system
 import pickle
 
 
 class new_World:
-    """
+	"""
 class new_World(name, renderer, size, lb)
 
 This should generate a cube of concrete with a cube of air on top of it.
@@ -27,127 +27,119 @@ painstakingly slow the world generation process is. Look, I tried. The default v
 parameter the game will crash though.
 	"""
 
-    def __init__(self, name, renderer, size=(8, 4, 8), lb=None):
-        print("Executed command %s" % 'cd "' + directory + '"')
-        system('cd "' + directory + '"')
-        print("Executed command %s" % 'md "' + normpath("data/" + name + '"'))
-        system('md "' + normpath("data/" + name + '"'))
-        self.name = name
-        self.displayname = name
-        self.size = size
-        self.sizex = size[0]
-        self.sizey = size[1] * 2
-        self.sizez = size[2]
-        self.playerx = self.sizex / 2
-        self.playery = self.sizey
-        self.playerz = self.sizez / 2
-        self.worldmap = []
-        self.newfile = open(directory + normpath("data/" + self.name + ".world"),
-                            'xb')  # Create world file - saves everything but chunks.
-        self.newfile.close()
-        self.save()
-        for chunkx in range(0, size[0]):
-            self.worldmap.append([])
-            for chunky in range(0, size[1]):
-                self.worldmap[chunkx].append([])
-                for chunkz in range(0, size[2]):
-                    self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, True, renderer))
-                    self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
-                    try:
-                        lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz / 2
-                    except ZeroDivisionError:
-                        pass
-                    taskMgr.step()
-                    pass
-                pass
-            for chunky in range(size[1], size[1] * 2):
-                self.worldmap[chunkx].append([])
-                for chunkz in range(0, size[2]):
-                    self.worldmap[chunkx][chunky].append(newchunk(self, chunkx, chunky, chunkz, False, renderer))
-                    try:
-                        lb['value'] = 100 / self.sizex / self.sizey / self.sizez * chunkx * chunky * chunkz / 2
-                    except ZeroDivisionError:
-                        pass
-                    taskMgr.step()
-                    pass
-                pass
-            pass
-        self.save()
-        pass
+	def __init__(self, name, renderer, size=(8, 4, 8), lb=None):
+		print("Executed command %s" % 'cd "' + directory + '"')
+		system('cd "' + directory + '"')
+		print("Executed command %s" % 'md "' + normpath("data/" + name + '"'))
+		system('md "' + normpath("data/" + name + '"'))
+		self.name = name
+		self.displayname = name
+		self.size = size
+		self.sizex = size[0]
+		self.sizey = size[1] * 2
+		self.sizez = size[2]
+		self.playerx = self.sizex / 2
+		self.playery = self.sizey
+		self.playerz = self.sizez / 2
+		self.worldmap = {}
+		self.newfile = open(directory + normpath("data/" + self.name + ".world"),
+							'xb')  # Create world file - saves everything but chunks.
+		self.newfile.close()
+		self.save()
+		bar = 0
+		for chunkx in range(0, size[0]):
+			self.worldmap[chunkx] = {}
+			for chunky in range(0, size[1]):
+				self.worldmap[chunkx][chunky] = {}
+				for chunkz in range(0, size[2]):
+					self.worldmap[chunkx][chunky][chunkz] = newchunk(self, chunkx, chunky, chunkz, True, renderer)
+					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
+					bar += 1
+					lb['value'] = 100 / (self.sizex * self.sizey * self.sizez) * bar
+					taskMgr.step()
+					pass
+				pass
+			for chunky in range(size[1], size[1] * 2):
+				self.worldmap[chunkx][chunky] = {}
+				for chunkz in range(0, size[2]):
+					self.worldmap[chunkx][chunky][chunkz] = newchunk(self, chunkx, chunky, chunkz, False, renderer)
+					bar += 1
+					lb['value'] = 100 / (self.sizex * self.sizey * self.sizez) * bar
+					taskMgr.step()
+					pass
+				pass
+			pass
+		self.save()
+		pass
 
-    def save(self):
-        """Save level to disk for future access"""
-        self.mapmap = {
-            "name": self.name,
-            "displayname": self.displayname,
-            "sizex": self.sizex,
-            "sizey": self.sizey,
-            "sizez": self.sizez,
-            "playerx": self.playerx,
-            "playery": self.playery,
-            "playerz": self.playerz
-        }
+	def save(self):
+		"""Save level to disk for future access"""
+		self.mapmap = {
+			"name": self.name,
+			"displayname": self.displayname,
+			"sizex": self.sizex,
+			"sizey": self.sizey,
+			"sizez": self.sizez,
+			"playerx": self.playerx,
+			"playery": self.playery,
+			"playerz": self.playerz
+		}
 
-        self.file = open(directory + normpath("data/" + self.name + ".world"), 'wb')
-        pickle.dump(self.mapmap, self.file)
-        self.file.close()
-        pass
+		self.file = open(directory + normpath("data/" + self.name + ".world"), 'wb')
+		pickle.dump(self.mapmap, self.file)
+		self.file.close()
+		pass
 
-    def load(self, renderer):
-        """Load level from disk"""
-        print(directory + normpath("data/") + self.name + ".dat")
-        self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
-        self.mapmap = pickle.load(self.file)
-        self.file.close()
+	def load(self, renderer):
+		"""Load level from disk"""
+		print(directory + normpath("data/") + self.name + ".dat")
+		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
+		self.mapmap = pickle.load(self.file)
+		self.file.close()
 
-        self.name = self.mapmap['name']
-        self.displayname = self.mapmap['displayname']
-        self.sizex = self.mapmap['sizex']
-        self.sizey = self.mapmap['sizey']
-        self.sizez = self.mapmap['sizez']
-        self.playerx = self.mapmap['playerx']
-        self.playery = self.mapmap['playery']
-        self.playerz = self.mapmap['playerz']
-        print(self.worldmap)
-        for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)):  # Generate worldmap
-            self.worldmap.append([])
-            for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
-                self.worldmap[chunkx].append([])
-                for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
-                    self.worldmap[chunkx][chunky].append(chunk(self, abs(chunkx), abs(chunky), abs(chunkz), renderer))
-                    taskMgr.step()
-                    pass
-                pass
-            pass
-        pass
+		self.name = self.mapmap['name']
+		self.displayname = self.mapmap['displayname']
+		self.sizex = self.mapmap['sizex']
+		self.sizey = self.mapmap['sizey']
+		self.sizez = self.mapmap['sizez']
+		self.playerx = self.mapmap['playerx']
+		self.playery = self.mapmap['playery']
+		self.playerz = self.mapmap['playerz']
+		for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)):  # Generate worldmap
+			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
+				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
+					self.worldmap[chunkx][chunky][chunkz] = chunk(self, abs(chunkx), abs(chunky), abs(chunkz), renderer)
+					taskMgr.step()
+					pass
+				pass
+			pass
+		pass
 
-    def is_move_valid(self):
-        if self.worldmap[int(self.playerx / 16)][int(self.playery / 16)][int(self.playerz / 16)].chunkmap[
-            int(self.playerx % 16)][int(self.playery % 16)][int(self.playerz % 16)].blocktype != 'air':
-            return False
-        else:
-            return True
-        pass
+	def is_move_valid(self, x, y, z):
+		if self.worldmap[int(x / 16)][int(y / 16)][z / 16)].chunkmap[int(x % 16)][int(y % 16)][int( \
+				z % 16)].blocktype != 'air':
+			return False
+		else:
+			return True
+		pass
 
-    def quit(self, renderer):
-        self.save()
-        for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)):
-            for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
-                for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
-                    self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
-                    pass
-                pass
-            pass
-        pass
-        del self
-        pass
-
-    pass
+	def quit(self, renderer):
+		self.save()
+		for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)):
+			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
+				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
+					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
+					pass
+				pass
+			pass
+		del self
+		pass
+	pass
 
 
 # noinspection PyAttributeOutsideInit
 class World:  # ** is the Python exponent operator, not ^ - Kettle
-    """
+	"""
 class World(name, renderer, lb)
 
 This will load the world from the previous game session.
@@ -165,120 +157,112 @@ parameter the game will crash though.
 Other parameters like size and displayname are included in the world file.
 	"""
 
-    def __init__(self, name, renderer, lb=None):  # This should load the World from where you left off.
-        self.name = name
-        self.worldmap = []
-        self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
-        self.mapmap = pickle.load(self.file)
-        self.file.close()
+	def __init__(self, name, renderer, lb=None):  # This should load the World from where you left off.
+		self.name = name
+		self.worldmap = {}
+		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
+		self.mapmap = pickle.load(self.file)
+		self.file.close()
 
-        self.sizex = self.mapmap['sizex']
-        self.sizey = self.mapmap['sizey']
-        self.sizez = self.mapmap['sizez']
+		self.sizex = self.mapmap['sizex']
+		self.sizey = self.mapmap['sizey']
+		self.sizez = self.mapmap['sizez']
+		self.load(renderer)
+		pass
 
-        for map_entry in range(0, int(self.mapmap['playerx'])):
-            self.worldmap.append([])
-            for map_entry2 in range(0, int(self.mapmap['playery'])):
-                self.worldmap.append([])
-                for map_entry3 in range(0, int(self.mapmap['playerz'])):
-                    self.worldmap.append('')
-                    lb['value'] = (self.sizex / (map_entry + 1) * self.sizey * self.sizez + self.sizey /
-                                   (map_entry2 + 1) * self.sizez + self.sizez / (map_entry3 + 1)) * 50
-                    taskMgr.step()
-                    pass
-                pass
-            pass
-        self.load(renderer)
-        pass
+	def save(self):
+		self.mapmap = {
+			"name": self.name,
+			"displayname": self.displayname,
+			"sizex": self.sizex,
+			"sizey": self.sizey,
+			"sizez": self.sizez,
+			"playerx": self.playerx,
+			"playery": self.playery,
+			"playerz": self.playerz
+		}
 
-    def save(self):
-        self.mapmap = {
-            "name": self.name,
-            "displayname": self.displayname,
-            "sizex": self.sizex,
-            "sizey": self.sizey,
-            "sizez": self.sizez,
-            "playerx": self.playerx,
-            "playery": self.playery,
-            "playerz": self.playerz
-        }
+		self.file = open(directory + normpath("data/" + self.name + ".world"), 'wb')
+		pickle.dump(self.mapmap, self.file)
+		self.file.close()
+		pass
 
-        self.file = open(directory + normpath("data/" + self.name + ".world"), 'wb')
-        pickle.dump(self.mapmap, self.file)
-        self.file.close()
-        pass
+	def load(self, renderer, lb=None):
+		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
+		self.mapmap = pickle.load(self.file)
+		self.file.close()
 
-    def load(self, renderer):
-        self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
-        self.mapmap = pickle.load(self.file)
-        self.file.close()
+		self.name = self.mapmap['name']
+		self.displayname = self.mapmap['displayname']
+		self.sizex = self.mapmap['sizex']
+		self.sizey = self.mapmap['sizey']
+		self.sizez = self.mapmap['sizez']
+		self.playerx = self.mapmap['playerx']
+		self.playery = self.mapmap['playery']
+		self.playerz = self.mapmap['playerz']
+		self.worldmap = {}
+		bar = 50
+		for chunkx in range(0, 11):  # Load chunks
+			self.worldmap[str(chunkx)] = {}
+			for chunky in range(0, 11):
+				self.worldmap[str(chunkx)][str(chunky)] = {}
+				for chunkz in range(0, 11):
+					x = int(self.playerx / 16 - 5) + chunkx
+					y = int(self.playery / 16 - 5) + chunky
+					z = int(self.playerx / 16 - 5) + chunkz
+					print("Loading chunk %s, %s, %s" % (x, y, z))
+					if x >= 0 and y >= 0 and z >= 0:
+						bar += 1
+						self.worldmap[str(chunkx)][str(chunky)][str(chunkz)] = chunk(self, x, y, z, renderer)
+						try:
+							lb['value'] = (100 / (11 * 11 * 11)) * bar
+						except:
+							pass
+					taskMgr.step()
+					pass
+				pass
+			pass
+		pass
 
-        self.name = self.mapmap['name']
-        self.displayname = self.mapmap['displayname']
-        self.sizex = self.mapmap['sizex']
-        self.sizey = self.mapmap['sizey']
-        self.sizez = self.mapmap['sizez']
-        self.playerx = self.mapmap['playerx']
-        self.playery = self.mapmap['playery']
-        self.playerz = self.mapmap['playerz']
-        self.worldmap = []
-        for chunkx in range(0, 11):  # Load chunks
-            self.worldmap.append([])
-            for chunky in range(0, 11):
-                self.worldmap[chunkx].append([])
-                for chunkz in range(0, 11):
-                    self.worldmap[chunkx][chunky].append('')
-                    x = int(self.playerx / 16 - 5) + chunkx
-                    y = int(self.playery / 16 - 5) + chunky
-                    z = int(self.playerx / 16 - 5) + chunkz
-                    print("Loading chunk %s, %s, %s" % (x, y, z))
-                    if x >= 0 and y >= 0 and z >= 0:
-                        self.worldmap[chunkx][chunky][chunkz] = chunk(self, x, y, z, renderer)
-                    taskMgr.step()
-                    pass
-                pass
-            pass
-        pass
+	def quit(self, renderer):
+		self.save()
+		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6):
+			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
+				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
+					self.worldmap[str(chunkx)][str(chunky)][str(chunkz)].hidechunk(self, renderer)
+					taskMgr.step()
+					pass
+				pass
+			pass
+		del self
+		pass
 
-    def quit(self, renderer):
-        self.save()
-        for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6):
-            for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
-                for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
-                    self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
-                    taskMgr.step()
-                    pass
-                pass
-            pass
-        del self
-        pass
+	def loadchunks(self, renderer):  # Unloads all chunks, and then loads the ones close to the player
+		for chunkx in range(0, self.sizex):
+			for chunky in range(0, self.sizey):
+				for chunkz in range(0, self.sizez):
+					if chunkx <= self.playerx * 16 - 5 or chunkx >= self.playerx * 16 + 6:
+						self.worldmap[chunkx][chunky][chunkz].hidechunk()
+					elif chunky <= self.playery * 16 - 5 or chunky >= self.playery * 16 + 6:
+						self.worldmap[chunkx][chunky][chunkz].hidechunk()
+					elif chunkz <= self.playerz * 16 - 5 or chunkz >= self.playerz * 16 + 6:
+						self.worldmap[chunkx][chunky][chunkz].hidechunk()
+		for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6):  # Load chunks
+			for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
+				for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
+					self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
+					taskMgr.step()
+					pass
+				pass
+			pass
+		pass
 
-    def loadchunks(self, renderer):  # Unloads all chunks, and then loads the ones close to the player
-        for chunkx in range(0, self.sizex):
-            for chunky in range(0, self.sizey):
-                for chunkz in range(0, self.sizez):
-                    if chunkx <= self.playerx * 16 - 5 or chunkx >= self.playerx * 16 + 6:
-                        self.worldmap[chunkx][chunky][chunkz].hidechunk()
-                    elif chunky <= self.playery * 16 - 5 or chunky >= self.playery * 16 + 6:
-                        self.worldmap[chunkx][chunky][chunkz].hidechunk()
-                    elif chunkz <= self.playerz * 16 - 5 or chunkz >= self.playerz * 16 + 6:
-                        self.worldmap[chunkx][chunky][chunkz].hidechunk()
-        for chunkx in range(self.playerx / 16 - 5, self.playerx / 16 + 6):  # Load chunks
-            for chunky in range(self.playery / 16 - 5, self.playery / 16 + 6):
-                for chunkz in range(self.playerz / 16 - 5, self.playerz / 16 + 6):
-                    self.worldmap[chunkx][chunky][chunkz] = chunk(self, chunkx, chunky, chunkz, renderer)
-                    taskMgr.step()
-                    pass
-                pass
-            pass
-        pass
+	def is_move_valid(self):
+		if self.worldmap[int(self.playerx / 16)][int(self.playery / 16)][self.playerz / 16].chunkmap[
+			int(self.playerx % 16)][int(self.playery % 16)][int(self.playerz % 16)].blocktype != 'air':
+			return False
+		else:
+			return True
+		pass
 
-    def is_move_valid(self):
-        if self.worldmap[int(self.playerx / 16)][int(self.playery / 16)][self.playerz / 16].chunkmap[
-            int(self.playerx % 16)][int(self.playery % 16)][int(self.playerz % 16)].blocktype != 'air':
-            return False
-        else:
-            return True
-        pass
-
-    pass
+	pass
