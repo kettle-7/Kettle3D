@@ -49,7 +49,6 @@ from tkinter.ttk import Combobox
 from os import getenv, getcwd
 from os.path import normpath
 from sys import platform
-from lib.tools import *
 from tkinter import *
 import pickle
 import time
@@ -175,6 +174,11 @@ except(EOFError, FileNotFoundError, OSError):
 if settings['config']['fullscreen'] == '#t' or settings['config']['fullscreen'] == '#f':
 	print('User setting \'fullscreen\' was invalid :~(')
 	settings['config']['fullscreen'] = 1
+
+try:
+	plop = settings['config']['version']
+except KeyError:
+	settings['config']['version'] = 'alpha-dev 20.05 build A'
 
 
 class txtfile:
@@ -338,6 +342,9 @@ downloadfile = txtfile(path='lib/launcherbase.py', version=4)
 background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
 downloadfile = txtfile(path='versions/d2004a.py', version=6)
 downloadfile = txtfile(path='versions/d2005a.py', version=10)
+tdf = txtfile(path='lib/tools.py', version='parseInt')
+
+from lib.tools import *
 
 print('')
 print("2 files and 2 versions downloaded with no errors :)")
@@ -352,7 +359,7 @@ launcherbackground = PhotoImage(file=directory + background1.winpath)
 
 def play():
 	van = settings['config']['version'].strip()
-	vsn = parseRawInt(van)
+	vsn = str(parseRawInt(van))
 	if van.startswith('alpha-dev'):
 		vsn = 'd' + vsn
 	if van.endswith('A') or van.endswith('a'):
@@ -544,7 +551,8 @@ def options2():
 	username_label.pack()
 	username_entry.pack()
 
-	versionPicker = Combobox(tk, textvariable=versionVar, values=displayVersionList)
+	versionPicker = Combobox(tk, textvariable=versionVar, values=displayVersionList, state="readonly")
+	versionPicker.pack()
 
 	backBtn = Button(tk, text="Done", command=unoptions)
 	backBtn.pack()
