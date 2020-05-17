@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0, Mr. T pities the fool :~)
+# Kettle3D Launcher v1.0, Just how many of these do I really need? :~)
 
 versionlist = {
 	"dev": [
