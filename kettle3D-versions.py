@@ -1,4 +1,4 @@
-# Kettle3D Launcher v1.0, plastic's bad for turtles :~)
+# Kettle3D Launcher v1.0, Mr. T pities the fool :~)
 
 versionlist = {
 	"dev": [
@@ -8,6 +8,11 @@ versionlist = {
 		# none yet...
 	]
 }
+
+displayVersionList = []
+
+for v in versionlist["dev"]:
+	displayVersionList.append(v[2])
 
 '''
 Updates need to be posted above with syntax as such:
@@ -40,10 +45,12 @@ number has nothing to do with the month it was released, just the order.
 from panda3d.core import ConfigVariableString, ConfigVariableInt
 from urllib.request import urlopen
 from urllib.error import URLError
+from tkinter.ttk import Combobox
+from os import getenv, getcwd
 from os.path import normpath
 from sys import platform
+from lib.tools import *
 from tkinter import *
-from os import getenv, getcwd
 import pickle
 import time
 import sys
@@ -139,7 +146,8 @@ except(EOFError, FileNotFoundError, OSError):
 				"c++_log_level": "warning",
 				"gl_log_level": "warning",
 				"world": 'world',
-				"username": "player"
+				"username": "player",
+				"version": 'alpha-dev 20.05 build A'
 			}
 		}
 		settingsfile = open(directory + normpath("assets/settings.dat"), 'wb')
@@ -155,14 +163,14 @@ except(EOFError, FileNotFoundError, OSError):
 				"c++_log_level": "warning",
 				"gl_log_level": "warning",
 				"world": 'world',
-				"username": "player"
+				"username": "player",
+				"version": 'alpha-dev 20.05 build A'
 			}
 		}
 		settingsfile = open(directory + normpath("assets/settings.dat"), 'xb')
 		pickle.dump(settings, settingsfile)
 		print("Successfully created a new preferences file.")
 		settingsfile.close()
-		
 
 if settings['config']['fullscreen'] == '#t' or settings['config']['fullscreen'] == '#f':
 	print('User setting \'fullscreen\' was invalid :~(')
@@ -308,8 +316,8 @@ canvas = Canvas(tk, width=500, height=500, bd=0, highlightthickness=0)
 canvas.pack()
 tk.update()
 
-#username_entry = None
-#world_entry = None
+# username_entry = None
+# world_entry = None
 llBtn = None
 cllBtn = None
 gllBtn = None
@@ -341,33 +349,24 @@ filelistfile.close()
 
 launcherbackground = PhotoImage(file=directory + background1.winpath)
 
+
 def play():
-	global play_tk
-	play_tk = Tk()
-	play_tk.title("Versions - Kettle3D Launcher")
-	play_tk.wm_attributes("-topmost", 1)
-	play_canvas = Canvas(play_tk, width=300, height=25)
-	play_canvas.pack()
-	play_canvas.create_text(150, 12, text="Development Versions:", font=('Helvetica', 20))
-	v1btn = Button(play_tk, text="Play 20.05 build A", command=launch)
-	v1btn.pack()
-	play_tk.update_idletasks()
-	play_tk.update()
-	tk.update_idletasks()
-	tk.update()
+	van = settings['config']['version'].strip()
+	vsn = parseRawInt(van)
+	if van.startswith('alpha-dev'):
+		vsn = 'd' + vsn
+	if van.endswith('A') or van.endswith('a'):
+		vsn += 'a'
+	launch(vsn)
 
 
 def launch(vsn='d2005a'):
-	if True:
-		play_tk.destroy()
-		tk.destroy()
-		versionstr = "versions." + vsn
-		if vsn == 'd2005a':
-			print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
-			version = __import__("versions", fromlist=['d2005a'])
-			version.d2005a.launch_k3d(worldname=settings['config']['world'])
-		else:
-			print("Sorry, the launcher needs a bit of revision. :(")
+	play_tk.destroy()
+	tk.destroy()
+	versionstr = "versions." + vsn
+	print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
+	version = __import__("versions", fromlist=[vsn])
+	eval('version.%s.launch_k3d(worldname=settings["config"]["world"])' % vsn)
 
 
 def unoptions1():
@@ -462,7 +461,7 @@ def unoptions2():
 	canvas.pack()
 	tk.update()
 
-	playbtn = Button(tk, text="PLAY", command=play)
+	playbtn = Button(tk, text="PLAY (%s)" % settings['config']['version'], command=play)
 	playbtn.pack()
 	optionsbtn = Button(tk, text="Options", command=options)
 	optionsbtn.pack()
@@ -476,6 +475,7 @@ def unoptions2():
 		settings['config']['world'] = worldVar.get()
 	if userVar.get() is not None and userVar.get() != '':
 		settings['config']['username'] = userVar.get()
+	settings['config']['version'] = versionVar.get()
 
 	settingsfile = open(directory + normpath("assets/settings.dat"), 'wb')
 	pickle.dump(settings, settingsfile)
@@ -509,7 +509,7 @@ def options2():
 	tk.title("Kettle3D Launcher")
 	fullscreenBtn = Button(tk, text="Fullscreen: %s" % oo(settings['config']['fullscreen']), command=toggle_fullscreen)
 	fullscreenBtn.pack()
-	global llBtn, cllBtn, gllBtn, worldVar, userVar
+	global llBtn, cllBtn, gllBtn, worldVar, userVar, versionVar, world_label, username_label
 	llBtn = Button(tk, text='Game Log Output Level: %s' % settings['config']['log_level'],
 				   command=lambda: toggle_log_level('python'))
 	llBtn.pack()
@@ -527,6 +527,13 @@ def options2():
 	userVar.set(settings['config']['username'])
 	worldVar = StringVar()
 	worldVar.set(settings['config']['world'])
+	versionVar = StringVar()
+	versionVar.set(settings['config']['version'])
+	try:
+		versionVar.set(settings['config']['version'])
+	except KeyError:
+		versionVar.set('alpha-dev 20.05 build A')
+		settings['config']['version'] = 'alpha-dev 20.05 build A'
 
 	global world_entry
 	world_entry = Entry(tk, textvariable=worldVar)
@@ -536,6 +543,8 @@ def options2():
 	world_entry.pack()
 	username_label.pack()
 	username_entry.pack()
+
+	versionPicker = Combobox(tk, textvariable=versionVar, values=displayVersionList)
 
 	backBtn = Button(tk, text="Done", command=unoptions)
 	backBtn.pack()
@@ -553,7 +562,7 @@ def options():
 #		err_canvas.create_text(150, 13, text="The game crashed. :(", font=('Helvetica', 20))
 #		err_tk.update()
 
-playbtn = Button(tk, text="PLAY", command=play)
+playbtn = Button(tk, text="PLAY (%s)" % settings['config']['version'], command=play)
 playbtn.pack()
 optionsbtn = Button(tk, text="Options", command=options)
 optionsbtn.pack()
