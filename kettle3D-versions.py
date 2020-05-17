@@ -308,8 +308,8 @@ canvas = Canvas(tk, width=500, height=500, bd=0, highlightthickness=0)
 canvas.pack()
 tk.update()
 
-username_entry = None
-world_entry = None
+#username_entry = None
+#world_entry = None
 llBtn = None
 cllBtn = None
 gllBtn = None
@@ -472,10 +472,10 @@ def unoptions2():
 	c_notify_level.setValue(settings['config']["c++_log_level"])
 	glgsg_notify_level.setValue(settings['config']['gl_log_level'])
 
-	if world_entry.get() is not None and world_entry.get() != '':
-		settings['config']['world'] = world_entry.get()
-	if world_entry.get() is not None and world_entry.get() != '':
-		settings['config']['username'] = username_entry.get()
+	if worldVar.get() is not None and worldVar.get() != '':
+		settings['config']['world'] = worldVar.get()
+	if userVar.get() is not None and userVar.get() != '':
+		settings['config']['username'] = userVar.get()
 
 	settingsfile = open(directory + normpath("assets/settings.dat"), 'wb')
 	pickle.dump(settings, settingsfile)
@@ -509,7 +509,7 @@ def options2():
 	tk.title("Kettle3D Launcher")
 	fullscreenBtn = Button(tk, text="Fullscreen: %s" % oo(settings['config']['fullscreen']), command=toggle_fullscreen)
 	fullscreenBtn.pack()
-	global llBtn, cllBtn, gllBtn
+	global llBtn, cllBtn, gllBtn, worldVar, userVar
 	llBtn = Button(tk, text='Game Log Output Level: %s' % settings['config']['log_level'],
 				   command=lambda: toggle_log_level('python'))
 	llBtn.pack()
@@ -523,10 +523,15 @@ def options2():
 	world_label = Label(tk, text="World name:")
 	username_label = Label(tk, text="Username:")
 
+	userVar = StringVar()
+	userVar.set(settings['config']['username'])
+	worldVar = StringVar()
+	worldVar.set(settings['config']['world'])
+
 	global world_entry
-	world_entry = Entry(tk)
+	world_entry = Entry(tk, textvariable=worldVar)
 	global username_entry
-	username_entry = Entry(tk)
+	username_entry = Entry(tk, textvariable=userVar)
 	world_label.pack()
 	world_entry.pack()
 	username_label.pack()
