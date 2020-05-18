@@ -32,7 +32,7 @@ class Block:
 		pass
 	pass
 
-class air():
+class air:
 	def __init__(self, chunk, xpos, ypos, zpos, renderer): # air is a ghost block; it doesn't have a model.
 		self.blocktype = 'air'
 		self.xpos = xpos
@@ -46,10 +46,10 @@ class air():
 	def destroy(self, chunk):
 		pass
 	
-	def lender(self):
+	def lender(self, renderer):
 		pass
 
-	def unlender(self):
+	def unlender(self, chunk):
 		pass
 
 class concrete(Block):
