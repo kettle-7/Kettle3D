@@ -94,7 +94,7 @@ parameter the game will crash though.
 
 	def load(self, renderer):
 		"""Load level from disk"""
-		fileManagerOutputLog.debug(directory + normpath("data/") + self.name + ".dat")
+		fileManagerOutputLog.debug(directory + normpath("data/" + self.name + ".dat"))
 		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
@@ -110,8 +110,10 @@ parameter the game will crash though.
 		for chunkx in range(int(self.playerx / 16 - 5), int(self.playerx / 16 + 6)):  # Generate worldmap
 			for chunky in range(int(self.playery / 16 - 5), int(self.playery / 16 + 6)):
 				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
-					self.worldmap[chunkx][chunky][chunkz] = chunk(self, abs(chunkx), abs(chunky), abs(chunkz), renderer)
+					if chunkx >= 0 and chunky >= 0 and chunkz >= 0:
+						self.worldmap[str(chunkx)][str(chunky)][int(chunkz)] = chunk(self, abs(chunkx), abs(chunky), abs(chunkz), renderer)
 					taskMgr.step()
+					renderer.mouseWatchTask(renderer.worldin)
 					pass
 				pass
 			pass
