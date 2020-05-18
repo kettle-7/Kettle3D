@@ -1,14 +1,16 @@
 # The class used to save, load and query data from sections of a world.
-from os import system  # system(String command) runs a batch command, yay for Java-style function definitions :~)
+
+from direct.directnotify.DirectNotify import DirectNotify
 import lib.launcherbase as laucherbase
 from lib.launcherbase import directory
 from sys import platform, path
+from os import getenv, system
 import lib.gherkin as gherkin
 from os.path import normpath
 import lib.block as block
 from lib.block import *
-from os import getenv
 
+fileManagerOutputLog = DirectNotify().newCategory("file manager")
 
 class chunk:
     def load(self, world, renderer):
@@ -97,7 +99,7 @@ class newchunk(chunk):
         self.newfile = open(directory + normpath(
             "data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".chunk"),
                             'xb')
-        print("Created file %s." % directory + normpath(
+        fileManagerOutputLog.debug("Created file %s." % directory + normpath(
             "data/" + world.name + "/chunk_" + str(self.xpos) + "_" + str(self.ypos) + "_" + str(self.zpos) + ".chunk"))
         gherkin.dump(self.mapmap, self.newfile)
         self.newfile.close()

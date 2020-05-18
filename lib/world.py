@@ -1,10 +1,12 @@
 # This library isn't done yet.
 
+from direct.directnotify.DirectNotify import DirectNotify
 from direct.task.TaskManagerGlobal import taskMgr
 from lib.chunk import *
 from os import system
 import pickle
 
+fileManagerOutputLog = DirectNotify().newCategory("file manager")
 
 class new_World:
 	"""
@@ -28,9 +30,9 @@ parameter the game will crash though.
 	"""
 
 	def __init__(self, name, renderer, size=(8, 4, 8), lb=None):
-		print("Executed command %s" % 'cd "' + directory + '"')
+		fileManagerOutputLog.debug("Executed command %s" % 'cd "' + directory + '"')
 		system('cd "' + directory + '"')
-		print("Executed command %s" % 'md "' + normpath("data/" + name + '"'))
+		fileManagerOutputLog.debug("Executed command %s" % 'md "' + normpath("data/" + name + '"'))
 		system('md "' + normpath("data/" + name + '"'))
 		self.name = name
 		self.displayname = name
@@ -92,7 +94,7 @@ parameter the game will crash though.
 
 	def load(self, renderer):
 		"""Load level from disk"""
-		print(directory + normpath("data/") + self.name + ".dat")
+		fileManagerOutputLog.debug(directory + normpath("data/") + self.name + ".dat")
 		self.file = open(directory + normpath("data/" + self.name + ".world"), 'rb')
 		self.mapmap = pickle.load(self.file)
 		self.file.close()
