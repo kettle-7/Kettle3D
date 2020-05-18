@@ -1,3 +1,4 @@
+from direct.directnotify.DirectNotify import DirectNotify
 from urllib.error import URLError
 from os.path import normpath
 from sys import platform
@@ -17,12 +18,15 @@ if platform.startswith('darwin'):  # do apple-specific things
     directory = getenv("HOME") + "/Library/Application Support/Kettle3D/"
     sys.path[0] = getcwd()
     sys.path.append("/Library/Developer/Panda3D")
-from direct.gui import OnscreenImage
 from direct.task.TaskManagerGlobal import taskMgr
 from direct.showbase.ShowBase import ShowBase
+from direct.gui import OnscreenImage
 from direct.gui.DirectGui import *
 from urllib.request import urlopen
 from panda3d.core import Filename
+
+fileManagerOutputLog = DirectNotify().newCategory("file manager")
+catchAllOutputLog = DirectNotify().newCategory("Kettle3D")
 
 
 class file_dummy:
@@ -52,28 +56,28 @@ class txtfile:
         self.version = version
         self.winpath = normpath(self.path)
         self.newcontent = newcontent
-        print("Looking for file %s..." % path)
+        fileManagerOutputLog.debug("Looking for file %s..." % path)
         try:
             self.newcontent = open(directory + self.winpath, 'w')
             self.oldcontent = open(directory + self.winpath, 'r')
-            print("File %s found successfully." % path)
+            fileManagerOutputLog.debug("File %s found successfully." % path)
             try:
                 self.onlinecontent = urlopen(
                     "https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
                 if self.oldcontent != self.onlinecontent:
                     self.newcontent.write(self.onlinecontent)
-                    print("Successfully updated file.")
+                    fileManagerOutputLog.debug("Successfully updated file.")
                 else:
-                    print("File matches.")
+                    fileManagerOutputLog.debug("File matches.")
             except URLError:
-                print("Couldn't update file. Maybe try checking your internet connection?")
+                fileManagerOutputLog.warning("Couldn't update file. Maybe try checking your internet connection?")
         except(FileNotFoundError, OSError):
             self.newcontent = open(directory + self.winpath, 'x')
-            print("File %s created successfully." % path)
+            fileManagerOutputLog.debug("File %s created successfully." % path)
             try:
                 self.onlinecontent = urlopen(
                     "https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
-                print("Successfully downloaded file.")
+                fileManagerOutputLog.debug("Successfully downloaded file.")
                 fae = {
                     "path": self.path,
                     "version": self.version
@@ -81,7 +85,7 @@ class txtfile:
                 temp_files["txt"].append(fae)
                 self.newcontent.write(self.onlinecontent)
             except URLError:
-                print("Couldn't download file. Maybe try checking your internet connection?")
+                fileManagerOutputLog.warning("Couldn't download file. Maybe try checking your internet connection?")
         finally:
             self.newcontent.close()
 
@@ -92,7 +96,7 @@ class imagefile:
         self.version = version
         winpath = normpath(path)
         self.winpath = winpath
-        print("Looking for file %s" % path)
+        fileManagerOutputLog.debug("Looking for file %s" % path)
         try:
             img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).read()
             with open(directory + winpath, 'wb') as handler:
@@ -103,13 +107,13 @@ class imagefile:
                 "version": self.version
             }
             temp_files["image"].append(fae)
-            print("File %s downloaded successfully." % self.path)
+            fileManagerOutputLog.debug("File %s downloaded successfully." % self.path)
         except URLError:
-            print("Couldn't download file. Maybe try checking your internet connection?")
+            fileManagerOutputLog.warning("Couldn't download file. Maybe try checking your internet connection?")
 
 
 print("")
-print("Have 8 files to check or download.")
+fileManagerOutputLog.debug("Have 8 files to check or download.")
 print("")
 
 download_file = txtfile(path='lib/launcherbase.py', version=3)
@@ -123,7 +127,7 @@ gherkin_module = txtfile(path='lib/gherkin.py', version=1)
 import lib.world as world
 
 print("")
-print("8 files were found or downloaded successfully.")
+fileManagerOutputLog.debug("8 files were found or downloaded successfully.")
 
 # All versions need the above code.
 

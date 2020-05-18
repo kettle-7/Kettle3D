@@ -43,6 +43,7 @@ number has nothing to do with the month it was released, just the order.
 '''
 
 from panda3d.core import ConfigVariableString, ConfigVariableInt
+from direct.directnotify.DirectNotify import DirectNotify
 from urllib.request import urlopen
 from urllib.error import URLError
 from tkinter.ttk import Combobox
@@ -65,6 +66,8 @@ if platform.startswith('darwin'):  # do apple-specific things
 	sys.path[0] = getcwd()
 	sys.path.append(getenv("HOME") + "/Library/Developer/Panda3D")
 
+fileManagerOutputLog = DirectNotify().newCategory("file manager")
+catchAllOutputLog = DirectNotify().newCategory("Kettle3D launcher")
 
 class file_dummy:
 	def open(self, a=None, b=None, c=None):
@@ -82,16 +85,8 @@ class file_dummy:
 
 try:
 	filelistfile = open(directory + normpath("assets/files.dat"), 'rb')
-	tempfiles = pickle.load(filelistfile)
-	if "image" in tempfiles:
-		files = tempfiles
-	else:
-		files = {
-			"txt": tempfiles["txt"],
-			"binary": tempfiles["binary"],
-			"image": []
-		}
-	print("Successfully retrieved file array.")
+	files = pickle.load(filelistfile)
+	fileManagerOutputLog.debug("Successfully retrieved the file array.")
 	filelistfile.close()
 except(EOFError, FileNotFoundError, OSError):
 	try:
@@ -110,7 +105,7 @@ except(EOFError, FileNotFoundError, OSError):
 			]
 		}
 		pickle.dump(files, filelistfile)
-		print("Successfully created a new filearray.")
+		fileManagerOutputLog.debug("Successfully created a new file array.")
 		filelistfile.close()
 	except(FileNotFoundError, OSError):
 		filelistfile = open(directory + normpath("assets/files.dat"), 'xb')
@@ -127,13 +122,13 @@ except(EOFError, FileNotFoundError, OSError):
 			"image": []
 		}
 		pickle.dump(files, filelistfile)
-		print("Successfully created a new filearray.")
+		fileManagerOutputLog.debug("Successfully created a new file array.")
 		filelistfile.close()
 
 try:
 	settingsfile = open(directory + normpath("assets/settings.dat"), 'rb')
 	settings = pickle.load(settingsfile)
-	print("Successfully retrieved preferences file.")
+	fileManagerOutputLog.debug("Successfully retrieved preferences file.")
 	settingsfile.close()
 except(EOFError, FileNotFoundError, OSError):
 	try:
@@ -151,7 +146,7 @@ except(EOFError, FileNotFoundError, OSError):
 		}
 		settingsfile = open(directory + normpath("assets/settings.dat"), 'wb')
 		pickle.dump(settings, settingsfile)
-		print("Successfully created a new preferences file.")
+		fileManagerOutputLog.debug("Successfully created a new preferences file.")
 		settingsfile.close()
 	except(FileNotFoundError, OSError):
 		settings = {  # This is the preferences file. It stores all of the user's settings.
@@ -168,11 +163,11 @@ except(EOFError, FileNotFoundError, OSError):
 		}
 		settingsfile = open(directory + normpath("assets/settings.dat"), 'xb')
 		pickle.dump(settings, settingsfile)
-		print("Successfully created a new preferences file.")
+		fileManagerOutputLog.debug("Successfully created a new preferences file.")
 		settingsfile.close()
 
 if settings['config']['fullscreen'] == '#t' or settings['config']['fullscreen'] == '#f':
-	print('User setting \'fullscreen\' was invalid :~(')
+	catchAllOutputLog.warning('User setting \'fullscreen\' was invalid :~(')
 	settings['config']['fullscreen'] = 1
 
 try:
@@ -187,28 +182,28 @@ class txtfile:
 		self.version = version
 		self.winpath = normpath(self.path)
 		self.newcontent = newcontent
-		print("Looking for file %s..." % path)
+		fileManagerOutputLog.debug("Looking for file %s..." % path)
 		try:
 			self.newcontent = open(directory + self.winpath, 'w')
 			self.oldcontent = open(directory + self.winpath)
-			print("File %s found successfully." % path)
+			fileManagerOutputLog.debug("File %s found successfully." % path)
 			try:
 				self.onlinecontent = urlopen(
 					"https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
 				if self.oldcontent != self.onlinecontent and self.onlinecontent is not None and self.onlinecontent.strip() != '':
 					self.newcontent.write(self.onlinecontent)
-					print("Successfully updated file.")
+					fileManagerOutputLog.debug("Successfully updated file.")
 				else:
-					print("File matches.")
+					fileManagerOutputLog.debug("File matches.")
 			except URLError:
-				print("Couldn't update file. Maybe try checking your internet connection?")
+				fileManagerOutputLog.warning("Couldn't update file. Maybe try checking your internet connection?")
 		except(FileNotFoundError, OSError):
 			self.newcontent = open(directory + self.winpath, 'x')
-			print("File %s created successfully." % path)
+			fileManagerOutputLog.debug("File %s created successfully." % path)
 			try:
 				self.onlinecontent = urlopen(
 					"https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
-				print("Successfully downloaded file.")
+				fileManagerOutputLog.debug("Successfully downloaded file.")
 				fae = {
 					"path": self.path,
 					"version": self.version
@@ -216,7 +211,7 @@ class txtfile:
 				files["txt"].append(fae)
 				self.newcontent.write(self.onlinecontent)
 			except URLError:
-				print("Couldn't download file. Maybe try checking your internet connection?")
+				fileManagerOutputLog.warning("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
 			self.newcontent.close()
 
@@ -226,28 +221,28 @@ class binaryfile:
 		self.path = path
 		self.version = version
 		self.winpath = normpath(self.path)
-		print("Looking for file %s..." % path)
+		fileManagerOutputLog.debug("Looking for file %s..." % path)
 		try:
 			self.newcontent = open(directory + self.winpath, 'wb')
 			self.oldcontent = open(directory + self.winpath, 'rb')
-			print("File %s found successfully." % path)
+			fileManagerOutputLog.debug("File %s found successfully." % path)
 			try:
 				self.onlinecontent = urlopen(
 					"https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read()
 				if self.oldcontent != self.onlinecontent:
 					self.newcontent.write(self.onlinecontent)
-					print("Successfully updated file.")
+					fileManagerOutputLog.debug("Successfully updated file.")
 				else:
-					print("File matches.")
+					fileManagerOutputLog.debug("File matches.")
 			except URLError:
-				print("Couldn't update file. Maybe try checking your internet connection?")
+				fileManagerOutputLog.warning("Couldn't update file. Maybe try checking your internet connection?")
 		except(FileNotFoundError, OSError):
 			self.newcontent = open(directory + self.winpath, 'xb')
-			print("File %s created successfully." % path)
+			fileManagerOutputLog.debug("File %s created successfully." % path)
 			try:
 				self.onlinecontent = urlopen(
 					"https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read()
-				print("Successfully downloaded file.")
+				fileManagerOutputLog.debug("Successfully downloaded file.")
 				fae = {
 					"path": self.path,
 					"version": self.version
@@ -255,7 +250,7 @@ class binaryfile:
 				files["binary"].append(fae)
 				self.newcontent.write(self.onlinecontent)
 			except URLError:
-				print("Couldn't download file. Maybe try checking your internet connection?")
+				fileManagerOutputLog.warning("Couldn't download file. Maybe try checking your internet connection?")
 		finally:
 			self.newcontent.close()
 
@@ -269,7 +264,7 @@ class imagefile:
 		self.version = version
 		winpath = normpath(path)
 		self.winpath = winpath
-		print("Looking for file %s" % path)
+		fileManagerOutputLog.debug("Looking for file %s" % path)
 		try:
 			img_data = urlopen("https://github.com/Kettle3D/Kettle3D/raw/master/" + path).read()
 			with open(directory + winpath, 'wb') as handler:
@@ -280,9 +275,9 @@ class imagefile:
 				"version": self.version
 			}
 			files["image"].append(fae)
-			print("File %s downloaded successfully." % self.path)
+			fileManagerOutputLog.debug("File %s downloaded successfully." % self.path)
 		except URLError:
-			print("Couldn't download file. Maybe try checking your internet connection?")
+			fileManagerOutputLog.warning("Couldn't download file. Maybe try checking your internet connection?")
 
 
 class tkdummy:
@@ -334,9 +329,9 @@ glgsg_notify_level = ConfigVariableString('notify-level-glgsg', settings['config
 
 files = pickle.load(open(directory + normpath("assets/files.dat"), 'rb'))
 
-print("The launcher window opened successfully.")
+catchAllOutputLog.debug("The launcher window opened successfully.")
 
-print("Have 2 files and 2 versions to check or download...")
+fileManagerOutputLog.debug("Have 2 files and 2 versions to check or download...")
 
 downloadfile = txtfile(path='lib/launcherbase.py', version=4)
 background1 = imagefile(path='assets/k3dlauncher1.gif', version=1)
@@ -347,7 +342,7 @@ tdf = txtfile(path='lib/tools.py', version='parseInt')
 from lib.tools import *
 
 print('')
-print("2 files and 2 versions downloaded with no errors :)")
+fileManagerOutputLog.debug("2 files and 2 versions downloaded with no errors :)")
 print('')
 
 filelistfile = open(directory + normpath("assets/files.dat"), 'wb')
@@ -371,7 +366,7 @@ def launch(vsn='d2005a'):
 	play_tk.destroy()
 	tk.destroy()
 	versionstr = "versions." + vsn
-	print("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
+	catchAllOutputLog.info("Attempting to launch version %s at %s." % (versionstr, time.asctime()))
 	version = __import__("versions", fromlist=[vsn])
 	eval('version.%s.launch_k3d(worldname=settings["config"]["world"])' % vsn)
 
@@ -486,7 +481,7 @@ def unoptions2():
 
 	settingsfile = open(directory + normpath("assets/settings.dat"), 'wb')
 	pickle.dump(settings, settingsfile)
-	print("Updated %s's preferences." % settings['config']['username'])
+	catchAllOutputLog.debug("Updated %s's preferences." % settings['config']['username'])
 	settingsfile.close()
 
 	global launcherbackground
