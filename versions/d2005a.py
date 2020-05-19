@@ -166,17 +166,11 @@ def launch_k3d(self=None, worldname='world', lanhost=False):  # worlds etc. need
         print('There is something fishy going on here...')
     start_time = time.time()
 
-    coverImage = OnscreenImage(image=Filename.fromOsSpecific(directory).getFullpath() + '/assets/generating_level.png',
-                               pos=(0, 0, 0))
-    loading_bar = DirectWaitBar(text="", value=0, pos=(0, 0, 0))
-
     print("Looking for file %s." % normpath(directory + "data/" + worldname + ".world"))
     if os.path.exists(normpath(directory + "data/" + worldname + ".world")):
-        k3d_window.worldin = world.World(worldname, k3d_window, lb=loading_bar)
+        k3d_window.worldin = world.World(worldname, k3d_window)
     else:
-        k3d_window.worldin = world.new_World(worldname, k3d_window, lb=loading_bar)
-
-    coverImage.destroy()
+        k3d_window.worldin = world.new_World(worldname, k3d_window)
 
     old_loop = 0
 

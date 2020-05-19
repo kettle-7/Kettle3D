@@ -58,6 +58,7 @@ parameter the game will crash though.
 					self.worldmap[chunkx][chunky][chunkz].hidechunk(self, renderer)
 					bar += 1
 					lb['value'] = 100 / (self.sizex * self.sizey * self.sizez) * bar
+					renderer.mouseWatchTask(renderer.worldin)
 					taskMgr.step()
 					pass
 				pass
@@ -67,6 +68,7 @@ parameter the game will crash though.
 					self.worldmap[chunkx][chunky][chunkz] = newchunk(self, chunkx, chunky, chunkz, False, renderer)
 					bar += 1
 					lb['value'] = 100 / (self.sizex * self.sizey * self.sizez) * bar
+					renderer.mouseWatchTask(renderer.worldin)
 					taskMgr.step()
 					pass
 				pass
@@ -112,8 +114,8 @@ parameter the game will crash though.
 				for chunkz in range(int(self.playerz / 16 - 5), int(self.playerz / 16 + 6)):
 					if chunkx >= 0 and chunky >= 0 and chunkz >= 0:
 						self.worldmap[str(chunkx)][str(chunky)][int(chunkz)] = chunk(self, abs(chunkx), abs(chunky), abs(chunkz), renderer)
-					taskMgr.step()
 					renderer.mouseWatchTask(renderer.worldin)
+					taskMgr.step()
 					pass
 				pass
 			pass
