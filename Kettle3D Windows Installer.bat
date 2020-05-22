@@ -18,7 +18,7 @@ set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
 echo Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
 echo sLinkFile = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Kettle3D.lnk" >> %SCRIPT%
 echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%
-echo oLink.TargetPath = "%APPDATA%\Kettle3D\Kettle3D.bat" >> %SCRIPT%
+echo oLink.TargetPath = "C:\Program Files\Kettle3D\Kettle3D.exe" >> %SCRIPT%
 echo oLink.Save >> %SCRIPT%
 
 cscript /nologo %SCRIPT%
