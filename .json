@@ -1,0 +1,18 @@
+{
+	"latest version": "alpha-dev 20.05 build A",
+	"number of versions": 1,
+	"all versions" : {
+		"dev" : [
+			[0, "d2005a", "alpha-dev 20.05 build A"]
+		],
+		"stable" : [
+			
+		]
+	},
+	"extensions": [],
+	"demo extension" : {
+		"type" : "python",
+		"file" : "assets/test.py",
+		"location" : "mainloop"
+	}
+}

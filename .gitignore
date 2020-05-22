@@ -9,6 +9,9 @@ test/
 # PyCharm Metadata
 .idea/
 
+# Visual Studio Metadata
+.vs/
+
 # C extensions
 *.so
 

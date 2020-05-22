@@ -19,7 +19,7 @@ Updates need to be posted above with syntax as such:
 
 dev:
 
-[version_number, version_file]
+[version_number, version_file, display_name]
 
 version_number is an integer that tells Kettle3D what order the versions come in -- 1 is the first version, 2 is the 
 second etc.
@@ -28,6 +28,8 @@ version_file is the name of the file within ./versions that the version is in. P
 for use. The name for the version should be something like 'd2005b' -- d for development, 20 for the year, 05 for the
 month (May), and 'a' because it is build A. The build name should be a single lowercase letter from a to z corresponding
 to the order in which that month's versions were made.
+
+display_name is the name that gets displayed in the version picker.
 
 stable:
 
