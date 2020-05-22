@@ -275,5 +275,3 @@ def fishScriptLine(script, args=()):
     else:
         print("CommandError: Unknown command: %s" % script[0])
     pass
-
-fishScript()
