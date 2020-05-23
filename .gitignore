@@ -5,6 +5,8 @@ __pycache__/
 
 # Kettle3D 'Do Not Touch'
 test/
+Kettle3D/
+Kettle3D Installer/
 
 # PyCharm Metadata
 .idea/
