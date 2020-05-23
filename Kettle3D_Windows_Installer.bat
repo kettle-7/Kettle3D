@@ -7,7 +7,7 @@ md data
 md lib
 md version
 
-cd %ProgramFiles%
+cd C:\Program Files\
 md Kettle3D
 cd Kettle3D
 md runtime
@@ -22,6 +22,7 @@ powershell "Invoke-WebRequest https://www.panda3d.org/download/panda3d-1.10.6/Pa
 panda_installer.exe
 
 powershell "Invoke-WebRequest https://github.com/Kettle3D/Kettle3D/raw/master/binaries/windows/Kettle3D.exe -o "C:\Program Files\Kettle3D\Kettle3D.exe""
+powershell "Invoke-WebRequest https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/scripts/main.bat -o "C:\Program Files\Kettle3D\scripts\main.bat""
 
 set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
 
