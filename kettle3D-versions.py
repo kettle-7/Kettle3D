@@ -44,10 +44,10 @@ number has nothing to do with the month it was released, just the order.
 
 from panda3d.core import ConfigVariableString, ConfigVariableInt
 from direct.directnotify.DirectNotify import DirectNotify
+from os import getenv, getcwd, system
 from urllib.request import urlopen
 from urllib.error import URLError
 from tkinter.ttk import Combobox
-from os import getenv, getcwd
 from os.path import normpath
 from sys import platform
 from tkinter import *
@@ -300,6 +300,36 @@ class tkdummy:
 
 	pass
 
+def update():
+	global tk, canvas
+	tk.destroy()
+	tk = Tk()
+	canvas = Canvas(tk, width=1000, height=40)
+	txt = canvas.create_text(500, 20, text="Kettle3D is updating...", font=("Arial", 18))
+	tk.update()
+	installer_file = binaryfile(path="Kettle3DWindowsInstaller.exe", version=0)
+	appdata = getenv("appdata")
+	system("\"%s\"" % appdata + "\\Kettle3D\\Kettle3DWindowsInstaller.exe")
+	canvas.itemconfig(txt, text="Kettle3D has finished updating. Please exit and re-enter Kettle3D.")
+	tk.update()
+	while True:
+		tk.update()
+		pass
+	pass
+
+if sys.platform.startswith("win32") or sys.platform.startswith("cygwin"):
+	global tk, canvas, updateBtn
+	tk = Tk()
+	canvas = Canvas(tk, width=1000, height=40)
+	canvas.pack()
+	tk.title("Update Kettle3D")
+	tk.wm_attributes("-topmost", 1)
+	canvas.create_text(500, 10, text="Kettle3D is out of date. Click on the button below to update to a newest version.", font=("Arial", 18))
+	canvas.create_text(500, 30, text="NOTE: This will take a LOOOOOONG time and will involve re-installing Kettle3D.", font=("Arial", 18))
+	updateBtn = Button(tk, text="Update Kettle3D", command=update)
+	updateBtn.pack()
+	while True:
+		tk.update()
 
 isdiropen = False
 isplayopen = False
