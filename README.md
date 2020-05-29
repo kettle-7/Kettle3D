@@ -16,7 +16,7 @@ Please note that Kettle3D's world generation system is very inefficient. I will 
 If it takes about half an hour for your computer to generate the world, your computer is fast. I'll try and fix this when I can.
 
 # How did I make it?
-Kettle3D was programmed using Batch, Python and Tcl. The 3D rendering engine uses Panda3D, OpenGL, OpenAL and C++.
+Kettle3D is currently being re-programmed using C#. It is switching to Unity3D for the rendering engine.
 
 # DISCLAIMER
 Please note that while every effort has been put into this game to ensure that users get a good experience, Kettle3D will not accept any responsibility for buildings prototyped on this game and built without confirmation that building codes are met. While this game allows you to simulate gravity and lateral loads, they may not mimic reality and are purely for amusement. Basically, don't use this game as an architecture guide.
