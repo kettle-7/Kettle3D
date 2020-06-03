@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Confidential or unneccessary files
+game/Kettle3D_Data
+game/MonoBleedingEdge
+game/UnityCrashHandler64.exe
+
 # Kettle3D 'Do Not Touch'
 test/
 Kettle3D/
