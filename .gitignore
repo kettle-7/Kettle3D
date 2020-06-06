@@ -1,5 +1,13 @@
 # Unity Stuff
+game/UnityCrashHandler32.exe
 game/UnityCrashHandler64.exe
+*.meta
+game/Library
+game/Logs
+game/Packages
+game/ProjectSettings
+game/Temp
 
 # Visual Studio Metadata
 .vs/
+.vscode/
