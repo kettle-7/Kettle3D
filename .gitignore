@@ -11,3 +11,6 @@ game/Temp
 # Visual Studio Metadata
 .vs/
 .vscode/
+
+# This one gets included in the executables anyway.
+System.Text.Json.dll
