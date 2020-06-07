@@ -14,3 +14,6 @@ game/Temp
 
 # This one gets included in the executables anyway.
 System.Text.Json.dll
+
+Kettle3D Installer (not production-ready)
+installer/
