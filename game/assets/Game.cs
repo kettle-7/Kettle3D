@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
+using System.Windows;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
@@ -15,14 +16,15 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        var array = new int[16];
         List<GameObject> worldmap = new List<GameObject>();
-        foreach (var item in array)
+        for (var item = -32f; item < 32f; item++)
         {
-            foreach (var item2 in array)
+            for (var item2 = -32f; item < 32f; item2++)
             {
                 // Instantiate with the given coordinates and no rotation.
-                worldmap.Add(Instantiate(ConcreteModel, new Vector3(item, -1.5f, item2), Quaternion.identity));
+                var dis = Instantiate(GrassModel, new Vector3(item, -1f, item2), Quaternion.identity);
+                // dis.transform.Translate(item, 0f, item2);
+                worldmap.Add(dis);
             }
         }
         
@@ -37,14 +39,16 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.movex = Input.GetAxis("Horizontal");
-        this.movez = Input.GetAxis("Vertical");
-        GameObject.Find("Main Camera").transform.Rotate(Input.mousePosition.y,Input.mousePosition.x,0);
-        GameObject.Find("Main Camera").transform.Translate(this.movex, this.movey, this.movez);
-    }
+        
+        GameObject.Find("Main Camera").transform.Rotate(Vector3.up * Input.GetAxis("Mouse X"));
 
-    void move()
-    {
-        GameObject.Find("Main Camera").transform.position = new Vector3(this.xpos, this.ypos, this.zpos);
+        this.movex += Input.GetAxis("Horizontal") / 4;
+        this.movez += Input.GetAxis("Vertical") / 4;
+        this.movex = this.movex * 0.735f;
+        this.movez = this.movez * 0.735f; //                                                                    \/ 0f - (Input.mousePosition.y - 380) / 2
+        //GameObject.Find("Main Camera").transform.rotation = new Quaternion(0,(Input.mousePosition.x - 683f) / 2,0,180);
+        GameObject.Find("Main Camera").transform.Translate(this.movex, this.movey, this.movez);
+        GameObject.Find("Main Camera").transform.Translate(0, 1.5f - GameObject.Find("Main Camera").transform.position.y, 0);
+        this.movey = 0f;
     }
 }
