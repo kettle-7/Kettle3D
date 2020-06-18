@@ -17,9 +17,9 @@ public class Game : MonoBehaviour
     void Start()
     {
         List<GameObject> worldmap = new List<GameObject>();
-        for (var item = -32f; item < 32f; item++)
+        for (var item = -8f; item < 8f; item++)
         {
-            for (var item2 = -32f; item < 32f; item2++)
+            for (var item2 = -8f; item2 < 8f; item2++)
             {
                 // Instantiate with the given coordinates and no rotation.
                 var dis = Instantiate(GrassModel, new Vector3(item, -1f, item2), Quaternion.identity);
@@ -36,7 +36,6 @@ public class Game : MonoBehaviour
         this.movez = 0.0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
