@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.IO.Compression;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -72,9 +72,10 @@ class Program
                 else
                 {
                     Directory.CreateDirectory(Environment.GetEnvironmentVariable("localappdata") + $@"\{username}");
-                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/Kettle3D-Windows.zip", Environment.GetEnvironmentVariable("localappdata") + $@"\{username}\{repository}\Kettle3D.exe");
+                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/game/Kettle3D.exe", Environment.GetEnvironmentVariable("localappdata") + $@"\{username}\{repository}\Kettle3D.exe");
 
                     client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/version.txt", Environment.GetEnvironmentVariable("localappdata") + $@"\{username}\{repository}\version.txt");
+                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/game/Kettle3D_Data/Managed/Assembly-CSharp.dll", Environment.GetEnvironmentVariable("localappdata") + $@"\{username}\{repository}\Kettle3D_Data\Managed\Assembly-CSharp.dll");
                     // Launch with Python. You'll need to change this in order to use it with a different app.
                     Process.Start($"{Environment.GetEnvironmentVariable("localappdata") + $@"\{username}\{repository}\Kettle3D.exe"}");
                 }
@@ -111,6 +112,7 @@ class Program
                 {
                     Directory.CreateDirectory($"/Library/Application Support/{username}");
                     client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/game/Kettle3D-Linux.x86_64", $"/Library/Application Support/{username}/{repository}/Kettle3D-Linux.x86_64");
+                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/game/Kettle3D_Data/Managed/Assembly_CSharp.dll", $"/Library/Application Support/{username}/{repository}/Kettle3D-Linux_Data/Managed/Assembly-CSharp.dll");
 
                     client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/version.txt", $"/Library/Application Support/{username}/{repository}/version.txt");
                     // Launch with Python. You'll need to change this in order to use it with a different app.
@@ -158,7 +160,7 @@ class Program
         }
         else
         {
-            MessageBox.Show("Sorry, Kettle3D is not supported on your device. It works on Windows, Linux and OS X.");
+            //MessageBox.Show("Sorry, Kettle3D is not supported on your device. It works on Windows, Linux and OS X.");
         }
     }
 }
