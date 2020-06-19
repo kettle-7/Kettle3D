@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4357292956901653205}
   - component: {fileID: 4319443940697663964}
   - component: {fileID: 994266264349338904}
+  - component: {fileID: 8687925634821147314}
   m_Layer: 0
   m_Name: north
   m_TagString: Untagged
@@ -94,6 +95,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &8687925634821147314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3033347711255541391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8db29df317e34cbb09eea5552ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Facing: NORTH
+  SelfModel: {fileID: 0}
 --- !u!1 &3429282741793597382
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,6 +121,7 @@ GameObject:
   - component: {fileID: 3429282741793597379}
   - component: {fileID: 3429282741793597380}
   - component: {fileID: 3429282741793597381}
+  - component: {fileID: 1109659813166971984}
   m_Layer: 0
   m_Name: bottom
   m_TagString: Untagged
@@ -188,6 +204,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1109659813166971984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3429282741793597382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8db29df317e34cbb09eea5552ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Facing: BOTTOM
+  SelfModel: {fileID: 0}
 --- !u!1 &4779726823022814119
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,6 +230,7 @@ GameObject:
   - component: {fileID: 6761144321122343862}
   - component: {fileID: 4807755360580793191}
   - component: {fileID: 6667733400868344895}
+  - component: {fileID: 4911780124805633686}
   m_Layer: 0
   m_Name: west
   m_TagString: Untagged
@@ -282,6 +313,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4911780124805633686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4779726823022814119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8db29df317e34cbb09eea5552ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Facing: WEST
+  SelfModel: {fileID: 0}
 --- !u!1 &4971928352571192724
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +339,7 @@ GameObject:
   - component: {fileID: 21062734640881594}
   - component: {fileID: 3031758087682446356}
   - component: {fileID: 2559565786692224256}
+  - component: {fileID: 2160423589228625592}
   m_Layer: 0
   m_Name: top
   m_TagString: Untagged
@@ -376,6 +422,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2160423589228625592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4971928352571192724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8db29df317e34cbb09eea5552ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Facing: TOP
+  SelfModel: {fileID: 0}
 --- !u!1 &7323380533707420992
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +445,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4165404185921788875}
-  - component: {fileID: 440220401269774607}
   m_Layer: 0
   m_Name: grass
   m_TagString: Untagged
@@ -413,18 +472,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &440220401269774607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7323380533707420992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 600d67682c412174caa2403284194708, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7592344861277046251
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +484,7 @@ GameObject:
   - component: {fileID: 1114886137948623376}
   - component: {fileID: 1734800688633568310}
   - component: {fileID: 4310602264781680467}
+  - component: {fileID: 7880839230918103021}
   m_Layer: 0
   m_Name: east
   m_TagString: Untagged
@@ -519,6 +567,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7880839230918103021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592344861277046251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8db29df317e34cbb09eea5552ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Facing: EAST
+  SelfModel: {fileID: 0}
 --- !u!1 &8975341530104751701
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +593,7 @@ GameObject:
   - component: {fileID: 5414254188537383552}
   - component: {fileID: 4927989264468530102}
   - component: {fileID: 917630174253432277}
+  - component: {fileID: 1114575918283758431}
   m_Layer: 0
   m_Name: south
   m_TagString: Untagged
@@ -613,3 +676,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1114575918283758431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975341530104751701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8db29df317e34cbb09eea5552ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Facing: SOUTH
+  SelfModel: {fileID: 0}

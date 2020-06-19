@@ -11,6 +11,7 @@ public class BlockSide : MonoBehaviour
     void Start()
     {
         //tab
+        this.SelfModel = this.transform.parent.gameObject;
     }
 
     // Update is called once per frame

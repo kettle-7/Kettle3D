@@ -44,14 +44,17 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown("space"))
+            this.movey += 0.25f;
+        if (Input.GetKeyDown("left shift"))
+            this.movey -= 0.25f;
         GameObject.Find("Main Camera").transform.Rotate(Vector3.up * Input.GetAxis("Mouse X"));
 
         this.movex += Input.GetAxis("Horizontal") / 4;
         this.movez += Input.GetAxis("Vertical") / 4;
         this.movex = this.movex * 0.735f;
-        this.movez = this.movez * 0.735f; //                                                                    \/ 0f - (Input.mousePosition.y - 380) / 2
-        //GameObject.Find("Main Camera").transform.rotation = new Quaternion(0,(Input.mousePosition.x - 683f) / 2,0,180);
+        this.movez = this.movez * 0.735f;
+        this.movey = this.movey * 0.735f;
         GameObject.Find("Main Camera").transform.Translate(this.movex, this.movey, this.movez);
         GameObject.Find("Main Camera").transform.Translate(0, 1.5f - GameObject.Find("Main Camera").transform.position.y, 0);
         this.movey = 0f;
