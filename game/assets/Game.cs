@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
     public GameObject StoneModel;
     public GameObject K3DModel;
     public float xpos, ypos, zpos, movex, movey, movez;
+    private readonly System.Random random = new System.Random();
 
     void Start()
     {
@@ -22,7 +23,12 @@ public class Game : MonoBehaviour
             for (var item2 = -8f; item2 < 8f; item2++)
             {
                 // Instantiate with the given coordinates and no rotation.
-                var dis = Instantiate(GrassModel, new Vector3(item, -1f, item2), Quaternion.identity);
+                GameObject dis;
+                if (random.Next(2) == 1) {
+                    dis = Instantiate(StoneModel, new Vector3(item, 0f, item2), Quaternion.identity);
+                } else {
+                    dis = Instantiate(GrassModel, new Vector3(item, 0f, item2), Quaternion.identity);
+                }
                 // dis.transform.Translate(item, 0f, item2);
                 worldmap.Add(dis);
             }
