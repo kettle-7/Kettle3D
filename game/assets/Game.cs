@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Windows;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEditor; // cheeky
 using System.Net;
 using System.IO;
 using System;
@@ -39,9 +40,9 @@ public class Game : MonoBehaviour
 
         //if(!this.Load()) {
         if(true) {
-            for (var item = -8f; item < 8f; item++)
+            for (var item = -16f; item < 16f; item++)
             {
-                for (var item2 = -8f; item2 < 8f; item2++)
+                for (var item2 = -16f; item2 < 16f; item2++)
                 {
                     // Instantiate with the given coordinates and no rotation.
                     //if (random.Next(2) == 1) {
@@ -100,10 +101,7 @@ public class Game : MonoBehaviour
 
     void Save() {
         var worldin = SceneManager.GetSceneByName("SampleScene");
-        Directory.CreateDirectory(UnityEngine.Application.persistentDataPath + "/Saved");
-        GameObject[] rootObjects = worldin.GetRootGameObjects();
-        
-        File.WriteAllText(UnityEngine.Application.persistentDataPath + "/Saved/world.json", JsonUtility.ToJson(rootObjects));
+        PrefabUtility.SaveAsPrefabAssetAndConnect(worldin, UnityEngine.Application.persistentDataPath + "/Saved/world.prefab", InteractionMode.AutomatedAction);
     }
 
     bool Load() {
