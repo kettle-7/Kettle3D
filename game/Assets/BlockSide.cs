@@ -10,20 +10,21 @@ public class BlockSide : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //tab
         this.SelfModel = this.transform.parent.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //tab
+        // tab
     }
 
     void OnMouseOver() {
         if(Input.GetMouseButtonDown(1)) {
             // Place a new block
-            var dis = Instantiate (this.SelfModel);
+            var GameScript = GameObject.Find("Main Camera").GetComponent("Game") as Game;
+            var picked_block = GameScript.PickedBlock;
+            var dis = Instantiate (picked_block, new Vector3(SelfModel.transform.position.x, SelfModel.transform.position.y, SelfModel.transform.position.z), Quaternion.identity);
             if (Facing == "NORTH")
                 dis.transform.Translate(0f, 0f, 1f);
             else if (Facing == "SOUTH")
