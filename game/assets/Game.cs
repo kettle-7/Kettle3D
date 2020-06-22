@@ -8,19 +8,20 @@ using System.Diagnostics;
 using System.Windows;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEditor; // cheeky
 using System.Net;
 using System.IO;
 using System;
 
 public class Game : MonoBehaviour
 {
-    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, PickedBlock;
+    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, PickedBlock;
+    public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven;
     public float xpos, ypos, zpos, movex, movey, movez;
     private readonly System.Random random = new System.Random();
 
     void Start()
     {
+        #region Updater
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
             if (!File.Exists(Environment.GetEnvironmentVariable("appdata") + @"\Microsoft\Windows\Start Menu\Programs\Kettle3D.lnk")) {
                 MessageBox.Show("Kettle3D is updating...");
@@ -37,6 +38,7 @@ public class Game : MonoBehaviour
                 MessageBox.Show("Kettle3D has finished updating. Please restart the app and if this happens again, report it on the Kettle3D bug tracker.");
             }
         }
+        #endregion
 
         //if(!this.Load()) {
         if(true) {
@@ -66,52 +68,49 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("space")) { this.movey += 0.25f; }
-        if (Input.GetKeyDown("left shift")) { this.movey -= 0.25f; }
-
-        if (Input.GetKeyDown("1"))
+        var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
+        if (Input.GetKeyDown("1")) {
             PickedBlock = ConcreteModel;
-        if (Input.GetKeyDown("2"))
+            cursor_image.texture = Concrete;
+        }
+        if (Input.GetKeyDown("2")) {
             PickedBlock = GrassModel;
-        if (Input.GetKeyDown("3"))
+            cursor_image.texture = Grass;
+        }
+        if (Input.GetKeyDown("3")) {
             PickedBlock = DirtModel;
-        if (Input.GetKeyDown("4"))
+            cursor_image.texture = Dirt;
+        }
+        if (Input.GetKeyDown("4")) {
             PickedBlock = StoneModel;
-        if (Input.GetKeyDown("5"))
+            cursor_image.texture = Stone;
+        }
+        if (Input.GetKeyDown("5")) {
             PickedBlock = K3DModel;
-        if (Input.GetKeyDown("6"))
+            cursor_image.texture = K3D;
+        }
+        if (Input.GetKeyDown("6")) {
             PickedBlock = BrickModel;
-        if (Input.GetKeyDown("7"))
+            cursor_image.texture = Brick;
+        }
+        if (Input.GetKeyDown("7")) {
             PickedBlock = LightModel;
+            cursor_image.texture = Light;
+        }
+        if (Input.GetKeyDown("8")) {
+            PickedBlock = OvenModel;
+            cursor_image.texture = Oven;
+        }
 
         GameObject.Find("Camera Container").transform.Rotate(Vector3.up * Input.GetAxis("Mouse X"));
         GameObject.Find("Main Camera").transform.Rotate(Vector3.left * Input.GetAxis("Mouse Y"));
 
         this.movex += Input.GetAxis("Horizontal") / 4;
+        this.movey += Input.GetAxis("Up/Down") / 4;
         this.movez += Input.GetAxis("Vertical") / 4;
         this.movex = this.movex * 0.735f;
         this.movez = this.movez * 0.735f;
         this.movey = this.movey * 0.735f;
         GameObject.Find("Camera Container").transform.Translate(this.movex, this.movey, this.movez);
-    }
-
-    void OnApplicationQuit() {
-        this.Save();
-    }
-
-    void Save() {
-        var worldin = SceneManager.GetSceneByName("SampleScene");
-        PrefabUtility.SaveAsPrefabAssetAndConnect(worldin, UnityEngine.Application.persistentDataPath + "/Saved/world.prefab", InteractionMode.AutomatedAction);
-    }
-
-    bool Load() {
-        if (!File.Exists(UnityEngine.Application.persistentDataPath + "/Saved/world.json")) { return false; }
-        var SavedWorld = File.ReadAllText(UnityEngine.Application.persistentDataPath + "/Saved/world.json");
-        var objects = new GameObject[0];
-        JsonUtility.FromJsonOverwrite(SavedWorld, objects);
-        foreach (var thing in objects) {
-            Instantiate(thing);
-        }
-        return true;
     }
 }
