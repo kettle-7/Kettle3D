@@ -7,10 +7,12 @@ public class BlockSide : MonoBehaviour
 {
     public String Facing;
     public GameObject SelfModel;
+    public Game game;
     // Start is called before the first frame update
     void Start()
     {
         this.SelfModel = this.transform.parent.gameObject;
+        game = GameObject.Find("Main Camera").GetComponent("Game") as Game;
     }
 
     // Update is called once per frame
@@ -20,6 +22,7 @@ public class BlockSide : MonoBehaviour
     }
 
     void OnMouseOver() {
+        if (!game.Playing) { return; }
         if(Input.GetMouseButtonDown(1)) {
             // Place a new block
             var GameScript = GameObject.Find("Main Camera").GetComponent("Game") as Game;
