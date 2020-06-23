@@ -425,9 +425,9 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 100
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -465,7 +465,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -926,6 +926,8 @@ MonoBehaviour:
     type: 3}
   StoneBricksModel: {fileID: 1609297266814000527, guid: c5dfe022fb0b4964189b6cafb7f7d220,
     type: 3}
+  PresentModel: {fileID: 493869035789940306, guid: 29d9443d063e9d74baa1ba874f3341fa,
+    type: 3}
   PickedBlock: {fileID: 0}
   Concrete: {fileID: 2800000, guid: 3ecb74302255ccd4d8b7717bc5cb4504, type: 3}
   Grass: {fileID: 2800000, guid: 3f122e38af3a62d40893789cb37fc2fa, type: 3}
@@ -938,6 +940,7 @@ MonoBehaviour:
   Sand: {fileID: 2800000, guid: d87ae4c200f5158478ce345e0a05c8c1, type: 3}
   Snow: {fileID: 2800000, guid: 1599e00162a15104c8c626f48cc8dca7, type: 3}
   StoneBricks: {fileID: 2800000, guid: 7f5a9124997fc01429a49440927e97b0, type: 3}
+  Present: {fileID: 2800000, guid: 9f90108b455b21e42ae15ba47c4a4506, type: 3}
   xpos: 0
   ypos: 0
   zpos: 0

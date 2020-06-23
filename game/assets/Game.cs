@@ -14,8 +14,8 @@ using System;
 
 public class Game : MonoBehaviour
 {
-    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, SandModel, SnowModel, StoneBricksModel, PickedBlock;
-    public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven, Sand, Snow, StoneBricks;
+    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, SandModel, SnowModel, StoneBricksModel, PresentModel, PickedBlock;
+    public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven, Sand, Snow, StoneBricks, Present;
     public float xpos, ypos, zpos, movex, movey, movez;
     private readonly System.Random random = new System.Random();
     public Canvas PlayingCanvas, NotPlayingCanvas;
@@ -89,9 +89,9 @@ public class Game : MonoBehaviour
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 PickedItem -= 1;
                 if (PickedItem < 0) {
-                    PickedItem = 10;
+                    PickedItem = 11;
                 }
-                if (PickedItem > 10) {
+                if (PickedItem > 11) {
                     PickedItem = 0;
                 }
                 if (PickedItem == 0) {
@@ -137,15 +137,19 @@ public class Game : MonoBehaviour
                 if (PickedItem == 10) {
                     PickedBlock = StoneBricksModel;
                     cursor_image.texture = StoneBricks;
+                }
+                if (PickedItem == 11) {
+                    PickedBlock = PresentModel;
+                    cursor_image.texture = Present;
                 }
             }
             if (Input.GetKeyDown("right")) {
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 PickedItem += 1;
                 if (PickedItem < 0) {
-                    PickedItem = 10;
+                    PickedItem = 11;
                 }
-                if (PickedItem > 10) {
+                if (PickedItem > 11) {
                     PickedItem = 0;
                 }
                 if (PickedItem == 0) {
@@ -191,6 +195,10 @@ public class Game : MonoBehaviour
                 if (PickedItem == 10) {
                     PickedBlock = StoneBricksModel;
                     cursor_image.texture = StoneBricks;
+                }
+                if (PickedItem == 11) {
+                    PickedBlock = PresentModel;
+                    cursor_image.texture = Present;
                 }
             }
 
