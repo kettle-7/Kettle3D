@@ -1,2 +1,2 @@
-0.2
-This update introduces the ability to place and destroy Concrete and Block of Kettle3D.
+0.5
+This update introduces Oven, Sand, Stone Bricks and Snow.
