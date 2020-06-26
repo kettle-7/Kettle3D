@@ -1,2 +1,2 @@
-0.5
-This update introduces Oven, Sand, Stone Bricks and Snow.
+0.5.1_hotfix
+Bug Fixes
