@@ -24,24 +24,6 @@ public class Game : MonoBehaviour
     {
         PlayingCanvas.enabled = true;
         NotPlayingCanvas.enabled = false;
-        #region Updater
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
-            if (!File.Exists(Environment.GetEnvironmentVariable("appdata") + @"\Microsoft\Windows\Start Menu\Programs\Kettle3D.lnk")) {
-                MessageBox.Show("Kettle3D is updating...");
-                var client = new WebClient();
-                client.DownloadFile("https://github.com/Kettle3D/Kettle3D/releases/download/v1.1/Kettle3D_Windows.zip", Environment.GetEnvironmentVariable("temp") + @"\kettle3d_updater.zip");
-                if (Directory.Exists(Environment.GetEnvironmentVariable("temp") + @"\kettle3d_updater")) {
-                    foreach (var file in Directory.GetFiles(Environment.GetEnvironmentVariable("temp") + @"\kettle3d_updater")) {
-                        File.Delete(file);
-                    }
-                    Directory.Delete(Environment.GetEnvironmentVariable("temp") + @"\kettle3d_updater");
-                }
-                ZipFile.ExtractToDirectory(Environment.GetEnvironmentVariable("temp") + @"\kettle3d_updater.zip", Environment.GetEnvironmentVariable("temp") + @"\kettle3d_updater");
-                Process.Start(Environment.GetEnvironmentVariable("temp") + @"\kettle3d_updater\Kettle3D.exe");
-                MessageBox.Show("Kettle3D has finished updating. Please restart the app and if this happens again, report it on the Kettle3D bug tracker.");
-            }
-        }
-        #endregion
 
         //if(!this.Load()) {
         if(true) {
@@ -67,6 +49,7 @@ public class Game : MonoBehaviour
         this.movez = 0.0f;
 
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        PickedItem = 5;
     }
 
     public int PickedItem = 5;
@@ -85,7 +68,7 @@ public class Game : MonoBehaviour
         PlayingCanvas.enabled = Playing;
         NotPlayingCanvas.enabled = !Playing;
         if (Playing) {
-            if (Input.GetKeyDown("left")) {
+            if (Input.GetKeyDown("left") || Input.GetAxis("Mouse ScrollWheel") < 0) {
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 PickedItem -= 1;
                 if (PickedItem < 0) {
@@ -143,7 +126,7 @@ public class Game : MonoBehaviour
                     cursor_image.texture = Present;
                 }
             }
-            if (Input.GetKeyDown("right")) {
+            if (Input.GetKeyDown("right") || Input.GetAxis("Mouse ScrollWheel") > 0) {
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 PickedItem += 1;
                 if (PickedItem < 0) {

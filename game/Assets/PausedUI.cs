@@ -1,23 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PausedUI : MonoBehaviour
 {
     public Canvas PlayingCanvas, NotPlayingCanvas;
-    public GameObject HowToPlaySection, PausedUISection;
-    public bool IsHowToPlayVisibleOrNot;
     // Start is called before the first frame update
     void Start()
     {
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        HowToPlaySection.SetActive(IsHowToPlayVisibleOrNot);
-        PausedUISection.SetActive(!IsHowToPlayVisibleOrNot);
     }
 
     public void CloseKettle3D() {
@@ -25,9 +17,6 @@ public class PausedUI : MonoBehaviour
     }
 
     public void HowToPlay() {
-        IsHowToPlayVisibleOrNot = true;
-    }
-    public void Pause() {
-        IsHowToPlayVisibleOrNot = false;
+        Process.Start("https://kettle3d.github.io/info/howtoplay");
     }
 }
