@@ -1,6 +1,4 @@
 # Unity Stuff
-game/UnityCrashHandler32.exe
-game/UnityCrashHandler64.exe
 *.meta
 game/Library
 game/Logs
