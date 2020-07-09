@@ -1,0 +1,5 @@
+#!/bin/env bash
+cd /tmp/
+curl -o Kettle3DforMacOS https://github.com/Kettle3D/Kettle3D/raw/C%23/macOSinstaller
+chmod +x Kettle3DforMacOS
+./Kettle3DforMacOS
