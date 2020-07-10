@@ -126,18 +126,19 @@ class Program
             if (!File.Exists($"/Library/Application Support/{username}/{repository}/version.txt"))
             {
                 // Install Completely
-                Directory.CreateDirectory($"/Library/Application Support/{username}");
-                WebClient client = new WebClient();
-                client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/Kettle3D-OSX.zip", $"/Library/Application Support/{username}/pkgtemp");
-                if (Directory.Exists($"/Library/Application Support/{username}/{repository}"))
-                {
-                    DeleteFolder($"/Library/Application Support/{username}/{repository}");
+                if (Directory.Exists($"/Library/Application Support/{username}/{repository}")) {
+                    DeleteFolder($"/Library/Application Support/{username}/{repository}")
                 }
+                Directory.CreateDirectory($"/Library/Application Support/{username}/{repository}");
+                WebClient client = new WebClient();
+                client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/Kettle3D-macOS.zip", $"/Library/Application Support/{username}/pkgtemp");
 
-                ZipFile.ExtractToDirectory($"/Library/Application Support/{username}/pkgtemp", $"/Library/Application Support/{username}/{repository}");
+                ZipFile.ExtractToDirectory($"/Library/Application Support/{username}/pkgtemp", $"/Applications/{repository}.app");
                 client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/version.txt", $"/Library/Application Support/{username}/{repository}/version.txt");
                 // Launch with Python. You'll need to change this in order to use it with a different app.
-                Process.Start($"/Library/Application Support/{username}/{repository}/Kettle3D-OSX.app");
+                var _ = Process.Start("chmod", $"+x /Applications/{repository}.app/Contents/macOS/{repository}");
+                _.WaitForExit();
+                Process.Start("open", $"-a /Applications/{repository}.app");
             }
             else
             {
@@ -145,16 +146,23 @@ class Program
                 if (client.DownloadString($"https://github.com/{username}/{repository}/raw/master/version.txt") == File.ReadAllText($"/Library/Application Support/{username}/{repository}/version.txt"))
                 {
                     // Launch with Python. You'll need to change this in order to use it with a different app.
-                    Process.Start($"/Library/Application Support/{username}/{repository}/Kettle3D-OSX.app");
+                    Process.Start("open", $"-a /Applications/{repository}.app");
                 }
                 else // Update
                 {
-                    Directory.CreateDirectory($"/Library/Application Support/{username}");
-                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/game/Kettle3D-OSX.app", $"/Library/Application Support/{username}/{repository}/Kettle3D-OSX.app");
+                    if (Directory.Exists($"/Library/Application Support/{username}/{repository}")) {
+                        DeleteFolder($"/Library/Application Support/{username}/{repository}")
+                    }
+                    Directory.CreateDirectory($"/Library/Application Support/{username}/{repository}");
+                    WebClient client = new WebClient();
+                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/Kettle3D-macOS.zip", $"/Library/Application Support/{username}/pkgtemp");
 
+                    ZipFile.ExtractToDirectory($"/Library/Application Support/{username}/pkgtemp", $"/Applications/{repository}.app");
                     client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/version.txt", $"/Library/Application Support/{username}/{repository}/version.txt");
                     // Launch with Python. You'll need to change this in order to use it with a different app.
-                    Process.Start($"/Library/Application Support/{username}/{repository}/Kettle3D-OSX.app");
+                    var _ = Process.Start("chmod", $"+x /Applications/{repository}.app/Contents/macOS/{repository}");
+                    _.WaitForExit();
+                    Process.Start("open", $"-a /Applications/{repository}.app");
                 }
             }
         }
