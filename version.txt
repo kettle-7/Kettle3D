@@ -1,2 +1,2 @@
-0.5.1_hotfix2
-Added better Linux Support.
+0.5.1_hotfix3
+The F.O.V. Update you've all been waiting for (except Mac users)
