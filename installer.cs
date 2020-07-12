@@ -84,39 +84,45 @@ class Program
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             Console.WriteLine("Starting Process...");
-            if (!File.Exists($"/Library/Application Support/{username}/{repository}/version.txt"))
+            var home = Environment.GetEnvironmentVariable("HOME");
+            if (!File.Exists($"{home}/.{repository}/{repository}/version.txt"))
             {
                 // Install Completely
-                Directory.CreateDirectory($"/Library/Application Support/{username}");
+                Directory.CreateDirectory($"{home}/.{repository}");
                 WebClient client = new WebClient();
-                client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/Kettle3D-Linux.zip", $"/Library/Application Support/{username}/pkgtemp");
-                if (Directory.Exists($"/Library/Application Support/{username}/{repository}"))
+                client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/Kettle3D-Linux.zip", $"{home}/.{repository}/pkgtemp");
+                if (Directory.Exists($"{home}/.{repository}/{repository}"))
                 {
-                    DeleteFolder($"/Library/Application Support/{username}/{repository}");
+                    DeleteFolder($"{home}/.{repository}/{repository}");
                 }
 
-                ZipFile.ExtractToDirectory($"/Library/Application Support/{username}/pkgtemp", $"/Library/Application Support/{username}/{repository}");
-                client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/version.txt", $"/Library/Application Support/{username}/{repository}/version.txt");
+                ZipFile.ExtractToDirectory($"{home}/.{repository}/pkgtemp", $"{home}/.{repository}/{repository}");
+                client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/version.txt", $"{home}/.{repository}/{repository}/version.txt");
                 // Launch with Python. You'll need to change this in order to use it with a different app.
-                Process.Start($"/Library/Application Support/{username}/{repository}/Kettle3D-Linux.x86_64");
+                Process.Start($"{home}/.{repository}/{repository}/Kettle3D-Linux.x86_64");
             }
             else
             {
                 WebClient client = new WebClient();
-                if (client.DownloadString($"https://github.com/{username}/{repository}/raw/master/version.txt") == File.ReadAllText($"/Library/Application Support/{username}/{repository}/version.txt"))
+                if (client.DownloadString($"https://github.com/{username}/{repository}/raw/master/version.txt") == File.ReadAllText($"{home}/.{repository}/{repository}/version.txt"))
                 {
                     // Launch with Python. You'll need to change this in order to use it with a different app.
-                    Process.Start($"/Library/Application Support/{username}/{repository}/Kettle3D-Linux.x86_64");
+                    Process.Start($"{home}/.{repository}/{repository}/Kettle3D-Linux.x86_64");
                 }
                 else
                 {
-                    Directory.CreateDirectory($"/Library/Application Support/{username}");
-                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/game/Kettle3D-Linux.x86_64", $"/Library/Application Support/{username}/{repository}/Kettle3D-Linux.x86_64");
-                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/game/Kettle3D_Data/Managed/Assembly_CSharp.dll", $"/Library/Application Support/{username}/{repository}/Kettle3D-Linux_Data/Managed/Assembly-CSharp.dll");
+                    Directory.CreateDirectory($"{home}/.{repository}");
+                    WebClient client = new WebClient();
+                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/Kettle3D-Linux.zip", $"{home}/.{repository}/pkgtemp");
+                    if (Directory.Exists($"{home}/.{repository}/{repository}"))
+                    {
+                        DeleteFolder($"{home}/.{repository}/{repository}");
+                    }
 
-                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/version.txt", $"/Library/Application Support/{username}/{repository}/version.txt");
+                    ZipFile.ExtractToDirectory($"{home}/.{repository}/pkgtemp", $"{home}/.{repository}/{repository}");
+                    client.DownloadFile($"https://github.com/{username}/{repository}/raw/master/version.txt", $"{home}/.{repository}/{repository}/version.txt");
                     // Launch with Python. You'll need to change this in order to use it with a different app.
-                    Process.Start($"/Library/Application Support/{username}/{repository}/Kettle3D-Linux.x86_64");
+                    Process.Start($"{home}/.{repository}/{repository}/Kettle3D-Linux.x86_64");
                 }
             }
         }
@@ -127,7 +133,7 @@ class Program
             {
                 // Install Completely
                 if (Directory.Exists($"/Library/Application Support/{username}/{repository}")) {
-                    DeleteFolder($"/Library/Application Support/{username}/{repository}")
+                    DeleteFolder($"/Library/Application Support/{username}/{repository}");
                 }
                 Directory.CreateDirectory($"/Library/Application Support/{username}/{repository}");
                 WebClient client = new WebClient();
@@ -151,7 +157,7 @@ class Program
                 else // Update
                 {
                     if (Directory.Exists($"/Library/Application Support/{username}/{repository}")) {
-                        DeleteFolder($"/Library/Application Support/{username}/{repository}")
+                        DeleteFolder($"/Library/Application Support/{username}/{repository}");
                     }
                     Directory.CreateDirectory($"/Library/Application Support/{username}/{repository}");
                     WebClient client = new WebClient();
