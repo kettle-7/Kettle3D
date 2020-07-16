@@ -26,4 +26,9 @@ public class PausedUI : MonoBehaviour
         Game game = GameObject.Find("Main Camera").GetComponent<Game>();
         game.Save();
     }
+
+    public void ResetLevel() {
+        Game game = GameObject.Find("Main Camera").GetComponent<Game>();
+        game.ResetLevel();
+    }
 }

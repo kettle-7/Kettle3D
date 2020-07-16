@@ -150,6 +150,15 @@ public class Game : MonoBehaviour
         Save();
     }
 
+    public void ResetLevel() {
+        foreach (var o in worldmap.ToArray()) {
+            Destroy(o);
+            worldmap.Remove(o);
+        }
+        File.Delete($"{Application.persistentDataPath}/Level.dat");
+        Start();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown("escape")) {
