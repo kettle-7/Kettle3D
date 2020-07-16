@@ -1,2 +1,2 @@
-0.5.1_hotfix3
-The F.O.V. Update you've all been waiting for (except Mac users)
+1.0
+This update introduces the ability to save and load the level, meaning you can build a creation one day and still have it the next.
