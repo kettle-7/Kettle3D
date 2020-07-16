@@ -1,21 +1,21 @@
-﻿using System.Runtime.InteropServices;
-using UnityEngine;
-using System.Collections;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using System;
+﻿using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using System.Xml.Linq;
-using System.Text;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO.Compression;
 //using System.Windows.Forms;
 using System.Diagnostics;
+using System.Collections;
+using System.Xml.Linq;
 using System.Windows;
 using UnityEngine.UI;
+using UnityEngine;
+using System.Text;
 using System.Net;
 using System.Xml;
+using System.IO;
+using System;
 
 using Debug = UnityEngine.Debug;
 
@@ -32,9 +32,92 @@ public class Game : MonoBehaviour
     {
         PlayingCanvas.enabled = true;
         NotPlayingCanvas.enabled = false;
+        if (File.Exists($"{Application.persistentDataPath}/Level.dat")) {
+            FileStream fs = new FileStream($"{Application.persistentDataPath}/Level.dat", FileMode.Open);
+            List<Block> blocks = new List<Block>();
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
 
-        //if(!this.Load()) {
-        if(true) {
+                // Deserialize the hashtable from the file and
+                // assign the reference to the local variable.
+                blocks = (List<Block>) formatter.Deserialize(fs);
+            }
+            catch (SerializationException e)
+            {
+                Debug.LogError("Failed to deserialize. Reason: " + e.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+            foreach (Block block in blocks) {
+                GameObject i;
+                switch (block.blocktype) {
+                    case BlockType.Concrete:
+                        i = Instantiate(ConcreteModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Bricks:
+                        i = Instantiate(BrickModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Dirt:
+                        i = Instantiate(DirtModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Glass:
+                        i = Instantiate(GlassModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Grass:
+                        i = Instantiate(GrassModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Hay:
+                        i = Instantiate(HayModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.K3D:
+                        i = Instantiate(K3DModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Light:
+                        i = Instantiate(LightModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Oven:
+                        i = Instantiate(OvenModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Prensent:
+                        i = Instantiate(PresentModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Sand:
+                        i = Instantiate(SandModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Snow:
+                        i = Instantiate(SnowModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.Stone:
+                        i = Instantiate(StoneModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case BlockType.StoneBricks:
+                        i = Instantiate(StoneBricksModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                }
+            }
+        }
+
+        else {
+        //if(true) {
             for (var item = -16f; item < 16f; item++)
             {
                 for (var item2 = -16f; item2 < 16f; item2++)
@@ -62,6 +145,10 @@ public class Game : MonoBehaviour
 
     public int PickedItem = 5;
     public bool Playing = true;
+
+    void OnApplicationQuit() {
+        Save();
+    }
 
     void Update()
     {
@@ -306,8 +393,8 @@ public enum BlockType
 [Serializable]
 public class Block
 {
-    public double posx { get; set; }
-    public double posy { get; set; }
-    public double posz { get; set; }
+    public float posx { get; set; }
+    public float posy { get; set; }
+    public float posz { get; set; }
     public BlockType blocktype { get; set; }
 }
