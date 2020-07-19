@@ -1,2 +1,2 @@
-1.0
-This update introduces the ability to save and load the level, meaning you can build a creation one day and still have it the next.
+1.0-3
+This update adds Uranium, Uranium Sign, Log and Leaves to the game.

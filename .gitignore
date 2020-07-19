@@ -1,0 +1,4 @@
+# Installation packages, these get uploaded to GitHub Releases
+*.deb
+# The layout of the deb package, these don't realistically need to be uploaded.
+Kettle3D_1.0-1
