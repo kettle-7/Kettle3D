@@ -21,8 +21,8 @@ using Debug = UnityEngine.Debug;
 
 public partial class Game : MonoBehaviour
 {
-    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, SandModel, SnowModel, StoneBricksModel, PresentModel, GlassModel, HayModel, PickedBlock;
-    public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven, Sand, Snow, StoneBricks, Present, Glass, Hay;
+    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, SandModel, SnowModel, StoneBricksModel, PresentModel, GlassModel, HayModel, GlowingModel, LeavesModel, LogModel, DoNotTouchModel, PickedBlock;
+    public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven, Sand, Snow, StoneBricks, Present, Glass, Hay, Leaves, Glowing, Log, DoNotTouch;
     public float xpos, ypos, zpos, movex, movey, movez;
     public List<GameObject> worldmap = new List<GameObject>();
     private readonly System.Random random = new System.Random();
@@ -48,11 +48,11 @@ public partial class Game : MonoBehaviour
                 GameObject.Find("Camera Container").transform.Translate(level.playerx, level.playery, level.playerz);
                 blocks = (List<BlockRewrite>) level.worldmap;
             }
-            catch (SerializationException e)
-            {
-                Debug.LogError("Failed to deserialize. Reason: " + e.Message);
-                throw;
-            }
+            //catch (SerializationException e)
+            //{
+            //    Debug.LogError("Failed to deserialize. Reason: " + e.Message);
+            //    throw;
+            //}
             catch // Old format
             {
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -122,6 +122,22 @@ public partial class Game : MonoBehaviour
                         break;
                     case 13:
                         i = Instantiate(StoneBricksModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 14:
+                        i = Instantiate(GlowingModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 15:
+                        i = Instantiate(LeavesModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 16:
+                        i = Instantiate(LogModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 17:
+                        i = Instantiate(DoNotTouchModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
                         worldmap.Add(i);
                         break;
                     default:
@@ -262,9 +278,9 @@ public partial class Game : MonoBehaviour
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 PickedItem -= 1;
                 if (PickedItem < 0) {
-                    PickedItem = 13;
+                    PickedItem = 17;
                 }
-                if (PickedItem > 13) {
+                if (PickedItem > 17) {
                     PickedItem = 0;
                 }
                 if (PickedItem == 0) {
@@ -322,15 +338,31 @@ public partial class Game : MonoBehaviour
                 if (PickedItem == 13) {
                     PickedBlock = HayModel;
                     cursor_image.texture = Hay;
+                }
+                if (PickedItem == 14) {
+                    PickedBlock = GlowingModel;
+                    cursor_image.texture = Glowing;
+                }
+                if (PickedItem == 15) {
+                    PickedBlock = LeavesModel;
+                    cursor_image.texture = Leaves;
+                }
+                if (PickedItem == 16) {
+                    PickedBlock = LeavesModel;
+                    cursor_image.texture = Leaves;
+                }
+                if (PickedItem == 17) {
+                    PickedBlock = DoNotTouchModel;
+                    cursor_image.texture = DoNotTouch;
                 }
             }
             if (Input.GetKeyDown("right") || Input.GetAxis("Mouse ScrollWheel") > 0) {
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 PickedItem += 1;
                 if (PickedItem < 0) {
-                    PickedItem = 13;
+                    PickedItem = 17;
                 }
-                if (PickedItem > 13) {
+                if (PickedItem > 17) {
                     PickedItem = 0;
                 }
                 if (PickedItem == 0) {
@@ -388,6 +420,22 @@ public partial class Game : MonoBehaviour
                 if (PickedItem == 13) {
                     PickedBlock = HayModel;
                     cursor_image.texture = Hay;
+                }
+                if (PickedItem == 14) {
+                    PickedBlock = GlowingModel;
+                    cursor_image.texture = Glowing;
+                }
+                if (PickedItem == 15) {
+                    PickedBlock = LeavesModel;
+                    cursor_image.texture = Leaves;
+                }
+                if (PickedItem == 16) {
+                    PickedBlock = LeavesModel;
+                    cursor_image.texture = Leaves;
+                }
+                if (PickedItem == 17) {
+                    PickedBlock = DoNotTouchModel;
+                    cursor_image.texture = DoNotTouch;
                 }
             }
 
@@ -445,6 +493,14 @@ public partial class Game : MonoBehaviour
                 blockblock.blocktype = 12;
             else if (block.name.StartsWith("StoneBricks"))
                 blockblock.blocktype = 13;
+            else if (block.name.StartsWith("Glowing"))
+                blockblock.blocktype = 14;
+            else if (block.name.StartsWith("Leaves"))
+                blockblock.blocktype = 15;
+            else if (block.name.StartsWith("Log"))
+                blockblock.blocktype = 16;
+            else if (block.name.StartsWith("DoNotTouch"))
+                blockblock.blocktype = 17;
             blocks.Add(blockblock);
         }
         // Next
