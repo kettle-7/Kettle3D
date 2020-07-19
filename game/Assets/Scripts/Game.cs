@@ -19,7 +19,7 @@ using System;
 
 using Debug = UnityEngine.Debug;
 
-public class Game : MonoBehaviour
+public partial class Game : MonoBehaviour
 {
     public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, SandModel, SnowModel, StoneBricksModel, PresentModel, GlassModel, HayModel, PickedBlock;
     public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven, Sand, Snow, StoneBricks, Present, Glass, Hay;
@@ -34,11 +34,7 @@ public class Game : MonoBehaviour
         game = this;
     }
 
-    void Start()
-    {
-        savefile = LevelManagement.management.Level;
-        PlayingCanvas.enabled = true;
-        NotPlayingCanvas.enabled = false;
+    void Load() {
         if (File.Exists($"{Application.persistentDataPath}/saves/{savefile}.dat")) {
             FileStream fs = new FileStream($"{Application.persistentDataPath}/saves/{savefile}.dat", FileMode.Open);
             List<Block> blocks = new List<Block>();
@@ -138,6 +134,16 @@ public class Game : MonoBehaviour
                 }
             }
         }
+    }
+
+    void Start()
+    {
+        savefile = LevelManagement.management.Level;
+        Debug.Log(Application.installerName);
+        Debug.Log(Application.installMode);
+        PlayingCanvas.enabled = true;
+        NotPlayingCanvas.enabled = false;
+        Load();
         PickedBlock = BrickModel;
         this.xpos = 0.0f;
         this.ypos = 1.5f;
@@ -327,8 +333,6 @@ public class Game : MonoBehaviour
 
     public void Save()
     {
-        UnityEngine.Debug.Log(Application.persistentDataPath);
-
         FileStream fs = new FileStream($"{Application.persistentDataPath}/saves/{savefile}.dat", FileMode.Create);
         List<Block> blocks = new List<Block>();
         foreach (var block in worldmap)

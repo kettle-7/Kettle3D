@@ -33,6 +33,7 @@ public class PausedUI : MonoBehaviour
     }
 
     public void LoadADifferentLevel() {
+        game.Save();
         SceneManager.LoadScene("Scenes/LoadingScreen");
     }
 }

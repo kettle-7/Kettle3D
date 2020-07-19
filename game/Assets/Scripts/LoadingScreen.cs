@@ -22,7 +22,6 @@ public class LoadingScreen : MonoBehaviour
     void OnGUI() {
         int height = 60;
         foreach (string save in Directory.GetFiles($"{Application.persistentDataPath}/saves")) {
-            Debug.Log(save);
             if (GUI.Button(new Rect(10, height, 834, 30), Path.GetFileNameWithoutExtension(save))) {
                 LevelManagement.management.Level = Path.GetFileNameWithoutExtension(save);
                 StartGame();
