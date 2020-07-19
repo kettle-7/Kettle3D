@@ -37,28 +37,101 @@ public partial class Game : MonoBehaviour
     void Load() {
         if (File.Exists($"{Application.persistentDataPath}/saves/{savefile}.dat")) {
             FileStream fs = new FileStream($"{Application.persistentDataPath}/saves/{savefile}.dat", FileMode.Open);
-            List<Block> blocks = new List<Block>();
+            List<Block> legacyBlocks = new List<Block>();
+            List<BlockRewrite> blocks = new List<BlockRewrite>();
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                // Deserialize the hashtable from the file and
-                // assign the reference to the local variable.
-                blocks = (List<Block>) formatter.Deserialize(fs);
+                // Deserialize the level
+                var level = (LevelFile) formatter.Deserialize(fs);
+                GameObject.Find("Camera Container").transform.Translate(level.playerx, level.playery, level.playerz);
+                blocks = (List<BlockRewrite>) level.worldmap;
             }
             catch (SerializationException e)
             {
                 Debug.LogError("Failed to deserialize. Reason: " + e.Message);
                 throw;
             }
+            catch // Old format
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                // Deserialize the level
+                legacyBlocks = (List<Block>) formatter.Deserialize(fs);
+            }
             finally
             {
                 fs.Close();
             }
 
-            foreach (Block block in blocks) {
+            foreach (BlockRewrite block in blocks) {
                 GameObject i;
-                switch (block.blocktype) {
+                switch (block.blocktype) { // We don't know if the level uses the BlockType enum or a Byte ID, so we test both.
+                    case 0:
+                        i = Instantiate(ConcreteModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 1:
+                        i = Instantiate(BrickModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 2:
+                        i = Instantiate(DirtModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 3:
+                        i = Instantiate(GlassModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 4:
+                        i = Instantiate(GrassModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 5:
+                        i = Instantiate(HayModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 6:
+                        i = Instantiate(K3DModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 7:
+                        i = Instantiate(LightModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 8:
+                        i = Instantiate(OvenModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 9:
+                        i = Instantiate(PresentModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 10:
+                        i = Instantiate(SandModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 11:
+                        i = Instantiate(SnowModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 12:
+                        i = Instantiate(StoneModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 13:
+                        i = Instantiate(StoneBricksModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    default:
+                        Debug.LogWarning("This level has been saved in a newer version. Any blocks that do not exist in this version will not render.");
+                        break;
+                }
+            }
+            foreach (Block block in legacyBlocks) {
+                GameObject i;
+                switch (block.blocktype) { // We don't know if the level uses the BlockType enum or a Byte ID, so we test both.
                     case BlockType.Concrete:
                         i = Instantiate(ConcreteModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
                         worldmap.Add(i);
@@ -334,10 +407,10 @@ public partial class Game : MonoBehaviour
     public void Save()
     {
         FileStream fs = new FileStream($"{Application.persistentDataPath}/saves/{savefile}.dat", FileMode.Create);
-        List<Block> blocks = new List<Block>();
+        List<BlockRewrite> blocks = new List<BlockRewrite>();
         foreach (var block in worldmap)
         {
-            var blockblock = new Block
+            var blockblock = new BlockRewrite
             {
                 posx = block.transform.position.x,
                 posy = block.transform.position.y,
@@ -345,40 +418,46 @@ public partial class Game : MonoBehaviour
             };
 
             if (block.name.StartsWith("brick"))
-                blockblock.blocktype = BlockType.Bricks;
+                blockblock.blocktype = 1;
             else if (block.name.StartsWith("concrete"))
-                blockblock.blocktype = BlockType.Concrete;
+                blockblock.blocktype = 0;
             else if (block.name.StartsWith("dirt"))
-                blockblock.blocktype = BlockType.Dirt;
+                blockblock.blocktype = 2;
             else if (block.name.StartsWith("GlassBlock"))
-                blockblock.blocktype = BlockType.Glass;
+                blockblock.blocktype = 3;
             else if (block.name.StartsWith("grass"))
-                blockblock.blocktype = BlockType.Grass;
+                blockblock.blocktype = 4;
             else if (block.name.StartsWith("Hay"))
-                blockblock.blocktype = BlockType.Hay;
+                blockblock.blocktype = 5;
             else if (block.name.StartsWith("k3d"))
-                blockblock.blocktype = BlockType.K3D;
+                blockblock.blocktype = 6;
             else if (block.name.StartsWith("light"))
-                blockblock.blocktype = BlockType.Light;
+                blockblock.blocktype = 7;
             else if (block.name.StartsWith("Oven"))
-                blockblock.blocktype = BlockType.Oven;
+                blockblock.blocktype = 8;
             else if (block.name.StartsWith("Present"))
-                blockblock.blocktype = BlockType.Prensent;
+                blockblock.blocktype = 9;
             else if (block.name.StartsWith("Sand"))
-                blockblock.blocktype = BlockType.Sand;
+                blockblock.blocktype = 10;
             else if (block.name.StartsWith("Snow"))
-                blockblock.blocktype = BlockType.Snow;
+                blockblock.blocktype = 11;
             else if (block.name.StartsWith("stone"))
-                blockblock.blocktype = BlockType.Stone;
+                blockblock.blocktype = 12;
             else if (block.name.StartsWith("StoneBricks"))
-                blockblock.blocktype = BlockType.StoneBricks;
+                blockblock.blocktype = 13;
             blocks.Add(blockblock);
         }
         // Next
         BinaryFormatter formatter = new BinaryFormatter();
+        var p = GameObject.Find("Camera Container").transform;
         try
         {
-            formatter.Serialize(fs, blocks);
+            formatter.Serialize(fs, new LevelFile{
+                worldmap = blocks,
+                playerx = p.position.x,
+                playery = p.position.y,
+                playerz = p.position.z
+            });
         }
         catch (SerializationException e)
         {
@@ -392,7 +471,7 @@ public partial class Game : MonoBehaviour
     }
 }
 
-public enum BlockType
+public enum BlockType // Deprecated
 {
     Concrete,
     Grass,
@@ -411,10 +490,30 @@ public enum BlockType
 }
 
 [Serializable]
-public class Block
+public class Block    // Also Deprecated
 {
     public float posx { get; set; }
     public float posy { get; set; }
     public float posz { get; set; }
     public BlockType blocktype { get; set; }
+}
+
+[Serializable]
+public class BlockRewrite
+{
+    public float posx { get; set; }
+    public float posy { get; set; }
+    public float posz { get; set; }
+    public Byte blocktype { get; set; }
+}
+
+[Serializable]
+public class LevelFile
+{
+    public List<BlockRewrite> worldmap { get; set; }
+    public float playerx { get; set; }
+    public float playery { get; set; }
+    public float playerz { get; set; }
+    /* Just in case we need more fields in the future, this class needs to be backwards-compatible. */
+    public Dictionary<string, object> otherthings { get; set; }
 }
