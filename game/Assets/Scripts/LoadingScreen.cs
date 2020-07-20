@@ -10,7 +10,7 @@ public enum Mode { // For a description of what an enum does, see Game.cs
     CreateLevel    // the Make a Level screen.
 }
 
-public class LoadingScreen : MonoBehaviour // This class is a child of MonoBehaviour.
+public partial class LoadingScreen : MonoBehaviour // This class is a child of MonoBehaviour.
 {
     public Mode mode;                         // This is an instance of the Mode enum.
     public Canvas mainCanvas, newLevelCanvas; // These are references to the canvases.

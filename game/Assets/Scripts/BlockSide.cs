@@ -5,7 +5,7 @@ using System.Diagnostics;
 using UnityEngine;
 using System;
 
-public class BlockSide : MonoBehaviour
+public partial class BlockSide : MonoBehaviour
 {
     public String Facing;        // A string that says which side of the block this is
     public GameObject SelfModel; // The model of the block that this script is part of

@@ -7,7 +7,7 @@ using UnityEngine;
 using System;
 
 // This is another object, which is known as a class. PausedUI manages the pause menu.
-public class PausedUI : MonoBehaviour
+public partial class PausedUI : MonoBehaviour
 {
     // These fields are described in Game.cs
     public Canvas PlayingCanvas, NotPlayingCanvas;

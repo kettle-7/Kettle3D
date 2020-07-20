@@ -358,7 +358,7 @@ public partial class Game : MonoBehaviour
                 */
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 // Subtract one from the 'PickedItem' variable
-                PickedItem -= 1;
+                PickedItem --;
                 // If PickedItem is less that zero, make it 17. This means that if you scroll down below concrete, make it Uranium Sign.
                 if (PickedItem < 0) {
                     PickedItem = 17;
@@ -367,164 +367,173 @@ public partial class Game : MonoBehaviour
                 if (PickedItem > 17) {
                     PickedItem = 0;
                 }
-                // If PickedItem is zero:
-                if (PickedItem == 0) {
-                    // Set the 'PickedBlock' field to the model of some concrete. This gets used by BlockSide.cs when you place a block, so that it knows which block to place.
-                    PickedBlock = ConcreteModel;
-                    // Set the cursor to a picture of concrete.
-                    cursor_image.texture = Concrete;
-                }
-                // If PickedItem is one...
-                if (PickedItem == 1) {
-                    PickedBlock = GrassModel;
-                    cursor_image.texture = Grass;
-                }
-                if (PickedItem == 2) {
-                    PickedBlock = DirtModel;
-                    cursor_image.texture = Dirt;
-                }
-                if (PickedItem == 3) {
-                    PickedBlock = StoneModel;
-                    cursor_image.texture = Stone;
-                }
-                if (PickedItem == 4) {
-                    PickedBlock = K3DModel;
-                    cursor_image.texture = K3D;
-                }
-                if (PickedItem == 5) {
-                    PickedBlock = BrickModel;
-                    cursor_image.texture = Brick;
-                }
-                if (PickedItem == 6) {
-                    PickedBlock = LightModel;
-                    cursor_image.texture = Light;
-                }
-                if (PickedItem == 7) {
-                    PickedBlock = OvenModel;
-                    cursor_image.texture = Oven;
-                }
-                if (PickedItem == 8) {
-                    PickedBlock = SandModel;
-                    cursor_image.texture = Sand;
-                }
-                if (PickedItem == 9) {
-                    PickedBlock = SnowModel;
-                    cursor_image.texture = Snow;
-                }
-                if (PickedItem == 10) {
-                    PickedBlock = StoneBricksModel;
-                    cursor_image.texture = StoneBricks;
-                }
-                if (PickedItem == 11) {
-                    PickedBlock = PresentModel;
-                    cursor_image.texture = Present;
-                }
-                if (PickedItem == 12) {
-                    PickedBlock = GlassModel;
-                    cursor_image.texture = Glass;
-                }
-                if (PickedItem == 13) {
-                    PickedBlock = HayModel;
-                    cursor_image.texture = Hay;
-                }
-                if (PickedItem == 14) {
-                    PickedBlock = GlowingModel;
-                    cursor_image.texture = Glowing;
-                }
-                if (PickedItem == 15) {
-                    PickedBlock = LeavesModel;
-                    cursor_image.texture = Leaves;
-                }
-                if (PickedItem == 16) {
-                    PickedBlock = LeavesModel;
-                    cursor_image.texture = Leaves;
-                }
-                if (PickedItem == 17) {
-                    PickedBlock = DoNotTouchModel;
-                    cursor_image.texture = DoNotTouch;
+                switch (PickedItem) {
+                    // If PickedItem is zero:
+                    case 0:
+                        // Set the 'PickedBlock' field to the model of some concrete. This gets used by BlockSide.cs when you place a block, so that it knows which block to place.
+                        PickedBlock = ConcreteModel;
+                        // Set the cursor to a picture of concrete.
+                        cursor_image.texture = Concrete;
+                        break;
+                    // If PickedItem is one...
+                    case 1:
+                        PickedBlock = GrassModel;
+                        cursor_image.texture = Grass;
+                        break;
+                    case 2:
+                        PickedBlock = DirtModel;
+                        cursor_image.texture = Dirt;
+                        break;
+                    case 3:
+                        PickedBlock = StoneModel;
+                        cursor_image.texture = Stone;
+                        break;
+                    case 4:
+                        PickedBlock = K3DModel;
+                        cursor_image.texture = K3D;
+                        break;
+                    case 5:
+                        PickedBlock = BrickModel;
+                        cursor_image.texture = Brick;
+                        break;
+                    case 6:
+                        PickedBlock = LightModel;
+                        cursor_image.texture = Light;
+                        break;
+                    case 7:
+                        PickedBlock = OvenModel;
+                        cursor_image.texture = Oven;
+                        break;
+                    case 8:
+                        PickedBlock = SandModel;
+                        cursor_image.texture = Sand;
+                        break;
+                    case 9:
+                        PickedBlock = SnowModel;
+                        cursor_image.texture = Snow;
+                        break;
+                    case 10:
+                        PickedBlock = StoneBricksModel;
+                        cursor_image.texture = StoneBricks;
+                        break;
+                    case 11:
+                        PickedBlock = PresentModel;
+                        cursor_image.texture = Present;
+                        break;
+                    case 12:
+                        PickedBlock = GlassModel;
+                        cursor_image.texture = Glass;
+                        break;
+                    case 13:
+                        PickedBlock = HayModel;
+                        cursor_image.texture = Hay;
+                        break;
+                    case 14:
+                        PickedBlock = GlowingModel;
+                        cursor_image.texture = Glowing;
+                        break;
+                    case 15:
+                        PickedBlock = LeavesModel;
+                        cursor_image.texture = Leaves;
+                        break;
+                    case 16:
+                        PickedBlock = LogModel;
+                        cursor_image.texture = Log;
+                        break;
+                    case 17:
+                        PickedBlock = DoNotTouchModel;
+                        cursor_image.texture = DoNotTouch;
+                        break;
                 }
             }
             // If the user pressed the right arrow key or is scrolling (up, I think?), then do what we would if the user pressed the left arrow, except we add 1 to PickedItem instead of subracting 1.
             if (Input.GetKeyDown("right") || Input.GetAxis("Mouse ScrollWheel") > 0) {
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
-                PickedItem += 1;
-                if (PickedItem < 0) {
+                PickedItem ++; // PickedItem ++ means "PickedItem = PickedItem + 1" in C#, or "add 1 to Pickeditem" in fishScript
+                
+                if (PickedItem < 0) { // Make PickedItem stay within it's bounds
                     PickedItem = 17;
                 }
                 if (PickedItem > 17) {
                     PickedItem = 0;
                 }
-                if (PickedItem == 0) {
-                    PickedBlock = ConcreteModel;
-                    cursor_image.texture = Concrete;
-                }
-                if (PickedItem == 1) {
-                    PickedBlock = GrassModel;
-                    cursor_image.texture = Grass;
-                }
-                if (PickedItem == 2) {
-                    PickedBlock = DirtModel;
-                    cursor_image.texture = Dirt;
-                }
-                if (PickedItem == 3) {
-                    PickedBlock = StoneModel;
-                    cursor_image.texture = Stone;
-                }
-                if (PickedItem == 4) {
-                    PickedBlock = K3DModel;
-                    cursor_image.texture = K3D;
-                }
-                if (PickedItem == 5) {
-                    PickedBlock = BrickModel;
-                    cursor_image.texture = Brick;
-                }
-                if (PickedItem == 6) {
-                    PickedBlock = LightModel;
-                    cursor_image.texture = Light;
-                }
-                if (PickedItem == 7) {
-                    PickedBlock = OvenModel;
-                    cursor_image.texture = Oven;
-                }
-                if (PickedItem == 8) {
-                    PickedBlock = SandModel;
-                    cursor_image.texture = Sand;
-                }
-                if (PickedItem == 9) {
-                    PickedBlock = SnowModel;
-                    cursor_image.texture = Snow;
-                }
-                if (PickedItem == 10) {
-                    PickedBlock = StoneBricksModel;
-                    cursor_image.texture = StoneBricks;
-                }
-                if (PickedItem == 11) {
-                    PickedBlock = PresentModel;
-                    cursor_image.texture = Present;
-                }
-                if (PickedItem == 12) {
-                    PickedBlock = GlassModel;
-                    cursor_image.texture = Glass;
-                }
-                if (PickedItem == 13) {
-                    PickedBlock = HayModel;
-                    cursor_image.texture = Hay;
-                }
-                if (PickedItem == 14) {
-                    PickedBlock = GlowingModel;
-                    cursor_image.texture = Glowing;
-                }
-                if (PickedItem == 15) {
-                    PickedBlock = LeavesModel;
-                    cursor_image.texture = Leaves;
-                }
-                if (PickedItem == 16) {
-                    PickedBlock = LeavesModel;
-                    cursor_image.texture = Leaves;
-                }
-                if (PickedItem == 17) {
-                    PickedBlock = DoNotTouchModel;
-                    cursor_image.texture = DoNotTouch;
+                switch (PickedItem) {
+                    // If PickedItem is zero:
+                    case 0:
+                        // Set the 'PickedBlock' field to the model of some concrete. This gets used by BlockSide.cs when you place a block, so that it knows which block to place.
+                        PickedBlock = ConcreteModel;
+                        // Set the cursor to a picture of concrete.
+                        cursor_image.texture = Concrete;
+                        break;
+                    // If PickedItem is one...
+                    case 1:
+                        PickedBlock = GrassModel;
+                        cursor_image.texture = Grass;
+                        break;
+                    case 2:
+                        PickedBlock = DirtModel;
+                        cursor_image.texture = Dirt;
+                        break;
+                    case 3:
+                        PickedBlock = StoneModel;
+                        cursor_image.texture = Stone;
+                        break;
+                    case 4:
+                        PickedBlock = K3DModel;
+                        cursor_image.texture = K3D;
+                        break;
+                    case 5:
+                        PickedBlock = BrickModel;
+                        cursor_image.texture = Brick;
+                        break;
+                    case 6:
+                        PickedBlock = LightModel;
+                        cursor_image.texture = Light;
+                        break;
+                    case 7:
+                        PickedBlock = OvenModel;
+                        cursor_image.texture = Oven;
+                        break;
+                    case 8:
+                        PickedBlock = SandModel;
+                        cursor_image.texture = Sand;
+                        break;
+                    case 9:
+                        PickedBlock = SnowModel;
+                        cursor_image.texture = Snow;
+                        break;
+                    case 10:
+                        PickedBlock = StoneBricksModel;
+                        cursor_image.texture = StoneBricks;
+                        break;
+                    case 11:
+                        PickedBlock = PresentModel;
+                        cursor_image.texture = Present;
+                        break;
+                    case 12:
+                        PickedBlock = GlassModel;
+                        cursor_image.texture = Glass;
+                        break;
+                    case 13:
+                        PickedBlock = HayModel;
+                        cursor_image.texture = Hay;
+                        break;
+                    case 14:
+                        PickedBlock = GlowingModel;
+                        cursor_image.texture = Glowing;
+                        break;
+                    case 15:
+                        PickedBlock = LeavesModel;
+                        cursor_image.texture = Leaves;
+                        break;
+                    case 16:
+                        PickedBlock = LogModel;
+                        cursor_image.texture = Log;
+                        break;
+                    case 17:
+                        PickedBlock = DoNotTouchModel;
+                        cursor_image.texture = DoNotTouch;
+                        break;
                 }
             }
 

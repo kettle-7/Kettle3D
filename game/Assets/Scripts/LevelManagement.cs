@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using System.IO;
 
-public class LevelManagement : MonoBehaviour
+public partial class LevelManagement : MonoBehaviour
 {
     public static LevelManagement management; // public static means anything can access this without needing one of these objects.
     public string Level = "Level";            // this is just a simple string. It defaults to "Level", in case something happens.
