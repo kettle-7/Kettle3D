@@ -258,10 +258,10 @@ public partial class Game : MonoBehaviour
         else {
         //if(true) {
             // This sets item to -16, runs the code, adds 1 to item, runs the code, adds 1 to item again, and keeps doing this while item is less than 16. Basically, it does this 32 times.
-            for (var item = -16f; item < 16f; item++)
+            for (var item = -32f; item < 32f; item++)
             {
                 // Again, but this time with item2.
-                for (var item2 = -16f; item2 < 16f; item2++)
+                for (var item2 = -32f; item2 < 32f; item2++)
                 {
                     //if (random.Next(2) == 1) {
                     //    Instantiate(StoneModel, new Vector3(item, 0f, item2), Quaternion.identity);

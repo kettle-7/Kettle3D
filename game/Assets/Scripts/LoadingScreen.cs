@@ -24,14 +24,14 @@ public partial class LoadingScreen : MonoBehaviour // This class is a child of M
 
     void OnGUI() { // This is used for making buttons and stuff like that.
         int height = 60; // int means make a number.
-        foreach (string save in Directory.GetFiles($"{Application.persistentDataPath}/saves")) {     // For each file (called save) in the folder where we keep our levels:
+        foreach (string save in Directory.GetFiles($"{Application.persistentDataPath}/saves", "*.dat")) {     // For each file (called save) in the folder where we keep our levels:
             if (GUI.Button(new Rect(10, height, 834, 30), Path.GetFileNameWithoutExtension(save))) { // If the user is clicking a button with the name of that level:
                 LevelManagement.management.Level = Path.GetFileNameWithoutExtension(save);           // Set LevelManagement's Level field to the name of the level, but without the extension.
                 StartGame();                                                                         // And start the game.
             }
             height += 30;                                                                            // Then add 30 to height so that the buttons stack on top of each other.
         }
-        if (Directory.GetFiles($"{Application.persistentDataPath}/saves").Length == 0) {             // If there are no levels, tell the user that they can make one.
+        if (Directory.GetFiles($"{Application.persistentDataPath}/saves", "*.dat").Length == 0) {             // If there are no levels, tell the user that they can make one.
             GUI.Label(new Rect(352, 50, 150, 50), "You have not made any levels. You can make a new level by clicking below.");
         }
     }
