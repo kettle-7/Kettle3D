@@ -1,7 +1,7 @@
 Kettle3D
 ===
 
-A 3D sandbox construction game that allows you to build a skyscraper. (not yet)
+A 3D sandbox construction game that allows you to build all that you desire!
 
 Quick Links
 ---
