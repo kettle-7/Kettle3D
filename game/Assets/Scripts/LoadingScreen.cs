@@ -23,7 +23,7 @@ public partial class LoadingScreen : MonoBehaviour // This class is a child of M
     }
 
     void OnGUI() { // This is used for making buttons and stuff like that.
-        int height = 60; // int means make a number.
+        int height = 10; // int means make a number.
         foreach (string save in Directory.GetFiles($"{Application.persistentDataPath}/saves", "*.dat")) {     // For each file (called save) in the folder where we keep our levels:
             if (GUI.Button(new Rect(10, height, 834, 30), Path.GetFileNameWithoutExtension(save))) { // If the user is clicking a button with the name of that level:
                 LevelManagement.management.Level = Path.GetFileNameWithoutExtension(save);           // Set LevelManagement's Level field to the name of the level, but without the extension.

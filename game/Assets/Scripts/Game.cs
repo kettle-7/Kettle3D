@@ -37,9 +37,9 @@ public partial class Game : MonoBehaviour
               \_/          |
                           \_/
     */
-    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, SandModel, SnowModel, StoneBricksModel, PresentModel, GlassModel, HayModel, GlowingModel, LeavesModel, LogModel, DoNotTouchModel, PickedBlock;
+    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, SandModel, SnowModel, StoneBricksModel, PresentModel, GlassModel, HayModel, GlowingModel, LeavesModel, LogModel, DoNotTouchModel, TilesModel, PickedBlock;
     // These are the textures for the blocks that I use for the cursor.
-    public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven, Sand, Snow, StoneBricks, Present, Glass, Hay, Leaves, Glowing, Log, DoNotTouch;
+    public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven, Sand, Snow, StoneBricks, Present, Glass, Hay, Leaves, Glowing, Log, DoNotTouch, Tiles;
     // This is the position of the player.
     public float xpos, ypos, zpos, movex, movey, movez;
     // This is a list of blocks that are in the scene.
@@ -181,6 +181,10 @@ public partial class Game : MonoBehaviour
                         break;
                     case 17:
                         i = Instantiate(DoNotTouchModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                        worldmap.Add(i);
+                        break;
+                    case 18:
+                        i = Instantiate(TilesModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
                         worldmap.Add(i);
                         break;
                     // If the number is not one of the ones above, then it must have been saved in a newer version.
@@ -361,10 +365,10 @@ public partial class Game : MonoBehaviour
                 PickedItem --;
                 // If PickedItem is less that zero, make it 17. This means that if you scroll down below concrete, make it Uranium Sign.
                 if (PickedItem < 0) {
-                    PickedItem = 17;
+                    PickedItem = 18;
                 }
                 // If PickedItem is more than 17, make it zero. This means that if you scroll up past Uranium Sign, make it concrete.
-                if (PickedItem > 17) {
+                if (PickedItem > 18) {
                     PickedItem = 0;
                 }
                 switch (PickedItem) {
@@ -443,6 +447,10 @@ public partial class Game : MonoBehaviour
                     case 17:
                         PickedBlock = DoNotTouchModel;
                         cursor_image.texture = DoNotTouch;
+                        break;
+                    case 18:
+                        PickedBlock = TilesModel;
+                        cursor_image.texture = Tiles;
                         break;
                 }
             }
@@ -452,9 +460,9 @@ public partial class Game : MonoBehaviour
                 PickedItem ++; // PickedItem ++ means "PickedItem = PickedItem + 1" in C#, or "add 1 to Pickeditem" in fishScript
                 
                 if (PickedItem < 0) { // Make PickedItem stay within it's bounds
-                    PickedItem = 17;
+                    PickedItem = 18;
                 }
-                if (PickedItem > 17) {
+                if (PickedItem > 18) {
                     PickedItem = 0;
                 }
                 switch (PickedItem) {
@@ -533,6 +541,10 @@ public partial class Game : MonoBehaviour
                     case 17:
                         PickedBlock = DoNotTouchModel;
                         cursor_image.texture = DoNotTouch;
+                        break;
+                    case 18:
+                        PickedBlock = TilesModel;
+                        cursor_image.texture = Tiles;
                         break;
                 }
             }
@@ -651,6 +663,8 @@ public partial class Game : MonoBehaviour
                 blockblock.blocktype = 16;
             else if (block.name.StartsWith("DoNotTouch"))
                 blockblock.blocktype = 17;
+            else if (block.name.StartsWith("Tiles"))
+                blockblock.blocktype = 18;
             blocks.Add(blockblock);
         }
         // Make another BinaryFormatter
