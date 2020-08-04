@@ -68,4 +68,6 @@ Here is where we keep everything:
   ```
   The above is everything you should need to change on the scripting side of things, you may see other stuff but that's probably either deprecated or a bug.
   8) Propose the changes in the pull request. I am working on a way of making third-party mods for the game, so that you can make your own changes without 
-- The 
+- Any block textures you have go in the **`textures`** folder.
+
+Thank you in advance for contributing to our game.
