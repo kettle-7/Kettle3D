@@ -28,18 +28,20 @@ Anyone can use this. Important for Unity.
                       \_/        |
                                 \_/
 */
+public class K3DModule {
+    public string description;
+}
+
 public partial class Game : MonoBehaviour
 {
     /*
     The lines below are 'fields', which are other objects that are part of this object.
         GameObject is a block or model.
-               |   Unity handles these fields. They are the models for the blocks. PickedBlock, if you scroll right to the end, is the block that the user is about to place.
+               |   Unity handles these fields. They are the models for the blocks. PickedBlock is the block that the user is about to place.
               \_/          |
                           \_/
     */
-    public GameObject ConcreteModel, GrassModel, DirtModel, StoneModel, K3DModel, BrickModel, LightModel, OvenModel, SandModel, SnowModel, StoneBricksModel, PresentModel, GlassModel, HayModel, GlowingModel, LeavesModel, LogModel, DoNotTouchModel, TilesModel, PickedBlock;
-    // These are the textures for the blocks that I use for the cursor.
-    public Texture Concrete, Grass, Dirt, Stone, K3D, Brick, Light, Oven, Sand, Snow, StoneBricks, Present, Glass, Hay, Leaves, Glowing, Log, DoNotTouch, Tiles;
+    public GameObject BlockTemplate, PickedBlock;
     // This is the position of the player.
     public float xpos, ypos, zpos, movex, movey, movez;
     // This is a list of blocks that are in the scene.
@@ -53,10 +55,94 @@ public partial class Game : MonoBehaviour
     // This 'Game' object. We could probably do without it.
     public static Game game;
 
+    public Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
+    public Dictionary<int, Block> blocks = new Dictionary<int, Block>();
+    public List<K3DModule> modules = new List<K3DModule>();
+
+    public string mod = "default";
+
     // 'void' means that this is something that the 'Game' object can do. 'Awake' gets called when the game loads.
     void Awake() {
         // The 'game' field above gets set to 'this', which is this object.
         game = this;
+
+        try {
+            Directory.CreateDirectory($"{Application.persistentDataPath}/modules");
+        } catch { }
+
+        // We need to load all the blocks.
+        string searchpath = $"{Application.persistentDataPath}/modules";
+        foreach (string mo_d in Directory.GetDirectories(searchpath)) {
+            mod = mo_d;
+            foreach (string line in File.ReadAllLines($"{mod}/manifest")) {
+                parseLine(line);
+            }
+        }
+    }
+
+    int current_block_def = -1;
+
+    void parseLine(string line) {
+        if (line.StartsWith("#")) {
+            return;
+        }
+        if (line.StartsWith("BLOCK_DEF")) {
+            if (line.Split(' ').Length != 2) { return; }
+            var cbd = line.Split(' ')[1];
+            int id = -1;
+            if (int.TryParse(cbd, out id)) {
+                try
+                {
+                    blocks.Add(id, new Block { id = id, model = Instantiate(BlockTemplate), name = "MyBlock"});
+                } catch {
+                    blocks[id] = (new Block { id = id, model = Instantiate(BlockTemplate), name = "MyBlock"});
+                }
+                blocks[id].model.active = false;
+                current_block_def = id;
+            }
+        }
+        else {
+            var ln = line.Split(':', ' ');
+            if (ln.Length == 0) {
+                return;
+            }
+            var com = ln[0];
+            string sl = "";
+            for (int count = 1; count < ln.Length; count++) {
+                if (sl == "") {
+                    sl = ln[count];
+                }
+                else {
+                    sl += " " + ln[count];
+                }
+            }
+
+            switch (com) {
+                case "Description":
+                case "description":
+                    modules.Add(new K3DModule { description = sl });
+                    break;
+                case "Name":
+                case "name":
+                    break;
+                case "Id":
+                case "id":
+                    break;
+                case "All":
+                case "all":
+                    Texture2D img = new Texture2D(64, 64);
+                    Debug.Log(">>" + img + "<<");
+                    img.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
+                    blocks[current_block_def].model.transform.Find("top").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    blocks[current_block_def].model.transform.Find("bottom").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    blocks[current_block_def].model.transform.Find("north").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    blocks[current_block_def].model.transform.Find("south").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    blocks[current_block_def].frontTexture.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
+                    blocks[current_block_def].model.transform.Find("east").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    blocks[current_block_def].model.transform.Find("west").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    break;
+            }
+        }
     }
 
     // This makes the game load the level.
@@ -66,195 +152,41 @@ public partial class Game : MonoBehaviour
             // This is used to load the level file.
             FileStream fs = new FileStream($"{Application.persistentDataPath}/saves/{savefile}.dat", FileMode.Open);
             // These are lists of blocks.
-            List<Block> legacyBlocks = new List<Block>();
-            List<BlockRewrite> blocks = new List<BlockRewrite>();
-            // try do this
-            try
-            {
-                // BinaryFormatter is used to convert the level into something that the game can understand.
-                BinaryFormatter formatter = new BinaryFormatter();
+            List<BlockRewrite> blks = new List<BlockRewrite>();
+            // BinaryFormatter is used to convert the level into something that the game can understand.
+            BinaryFormatter formatter = new BinaryFormatter();
 
-                // Deserialize means convert from binary jibberish.
-                var level = (LevelFile) formatter.Deserialize(fs);
-                // Look for the player and move it to where it was before the level last saved. 'level.playerx' means the 'playerx' field of the 'level' object.
-                GameObject.Find("Camera Container").transform.Translate(level.playerx, level.playery, level.playerz);
-                // Sets the variable 'blocks' to the 'worldmap' field of the Deserialised level.
-                blocks = (List<BlockRewrite>) level.worldmap;
-            }
-            //catch (SerializationException e)
-            //{
-            //    Debug.LogError("Failed to deserialize. Reason: " + e.Message);
-            //    throw;
-            //}
-            catch // We used to use a different method for saving the level. If what we 'tried' didn't work, assume we are using the old format.
-            {
-                // I described this above
-                BinaryFormatter formatter = new BinaryFormatter();
+            // Deserialize means convert from binary jibberish.
+            var level = (LevelFile) formatter.Deserialize(fs);
+            // Look for the player and move it to where it was before the level last saved. 'level.playerx' means the 'playerx' field of the 'level' object.
+            GameObject.Find("Camera Container").transform.Translate(level.playerx, level.playery, level.playerz);
+            // Sets the variable 'blocks' to the 'worldmap' field of the Deserialised level.
+            blks = (List<BlockRewrite>) level.worldmap;
+            fs.Close();
 
-                // We used to just save the blocks; now we save the player position too.
-                legacyBlocks = (List<Block>) formatter.Deserialize(fs);
-            }
-            finally // Regardless of whether what we tried worked or not, do this.
-            {
-                fs.Close();
-            }
+            bool isValid = true;
 
             // Do this for each item in the 'blocks' list. This makes a variable called 'block' for that specific item in the list.
             // The 'BlockRewrite' bit tells C# what type of object it is. We can just use 'var' if we wanted to.
-            foreach (BlockRewrite block in blocks) {
+            foreach (BlockRewrite block in blks) {
                 // Make a GameObject called 'i'. I could name this anything but I just needed a nice short name. Remember that GameObject is a block.
                 GameObject i;
                 // We now need to turn our data that the game can understand into something that Unity can understand. For some strange reason you can't just serialise the block, so we have to do it like this.
-                switch (block.blocktype) { // Check what the 'blocktype' field of this particular block is. This should be a number.
-                    // If this number is zero:
-                    case 0:
-                        // Make a block based on ConcreteModel. Vector3 is a position. Quaternion.identity means no rotation. We need to set the position to the numbers in block.
-                        i = Instantiate(ConcreteModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        // Add i to worldmap. Worldmap is the list of blocks in the scene.
-                        worldmap.Add(i);
-                        // 'break' tells C# we're done now, and can exit the 'switch' statement.
-                        break;
-                    // If this number is 1, and so on.
-                    case 1:
-                        i = Instantiate(BrickModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 2:
-                        i = Instantiate(DirtModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 3:
-                        i = Instantiate(GlassModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 4:
-                        i = Instantiate(GrassModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 5:
-                        i = Instantiate(HayModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 6:
-                        i = Instantiate(K3DModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 7:
-                        i = Instantiate(LightModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 8:
-                        i = Instantiate(OvenModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 9:
-                        i = Instantiate(PresentModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 10:
-                        i = Instantiate(SandModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 11:
-                        i = Instantiate(SnowModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 12:
-                        i = Instantiate(StoneModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 13:
-                        i = Instantiate(StoneBricksModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 14:
-                        i = Instantiate(GlowingModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 15:
-                        i = Instantiate(LeavesModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 16:
-                        i = Instantiate(LogModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 17:
-                        i = Instantiate(DoNotTouchModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case 18:
-                        i = Instantiate(TilesModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    // If the number is not one of the ones above, then it must have been saved in a newer version.
-                    default:
-                        // Write some text to the log file. If you're curious, press Windows+R, type in "%userprofile%\AppData\LocalLow\Kettle3D\Kettle3D" and press enter. This is a hidden folder, so you'll need to put it in the path. It has the output log and all of your levels in it.
-                        Debug.LogWarning("This level has been saved in a newer version. Any blocks that do not exist in this version will not render.");
-                        break;
+                if (blocks.ContainsKey(block.blocktype)) { // Check what the 'blocktype' field of this particular block is. This should be a number.
+                    // Make a block based on the block of the current ID. Vector3 is a position. Quaternion.identity means no rotation. We need to set the position to the numbers in block.
+                    i = Instantiate(blocks[block.blocktype].model, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
+                    i.name = blocks[block.blocktype].id.ToString();
+                    // Add i to worldmap. Worldmap is the list of blocks in the scene.
+                    i.active = true;
+                    worldmap.Add(i);
+                }
+                else {
+                    isValid = false;
                 }
             }
-            // Note there's two lists here. This one does the same as above but for the old format.
-            foreach (Block block in legacyBlocks) {
-                GameObject i;
-                switch (block.blocktype) { // We don't know if the level uses the BlockType enum or a Byte ID, so we test both.
-                    case BlockType.Concrete:
-                        i = Instantiate(ConcreteModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Bricks:
-                        i = Instantiate(BrickModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Dirt:
-                        i = Instantiate(DirtModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Glass:
-                        i = Instantiate(GlassModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Grass:
-                        i = Instantiate(GrassModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Hay:
-                        i = Instantiate(HayModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.K3D:
-                        i = Instantiate(K3DModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Light:
-                        i = Instantiate(LightModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Oven:
-                        i = Instantiate(OvenModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Prensent:
-                        i = Instantiate(PresentModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Sand:
-                        i = Instantiate(SandModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Snow:
-                        i = Instantiate(SnowModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.Stone:
-                        i = Instantiate(StoneModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                    case BlockType.StoneBricks:
-                        i = Instantiate(StoneBricksModel, new Vector3(block.posx, block.posy, block.posz), Quaternion.identity);
-                        worldmap.Add(i);
-                        break;
-                }
+
+            if (!isValid) {
+                Debug.LogWarning("This level was saved in a newer version and/or with mods, so some blocks may not render correctly.");
             }
         }
 
@@ -271,7 +203,10 @@ public partial class Game : MonoBehaviour
                     //    Instantiate(StoneModel, new Vector3(item, 0f, item2), Quaternion.identity);
                     //} else {
                         // Make some grass at this position.
-                        worldmap.Add(Instantiate(GrassModel, new Vector3(item, 0f, item2), Quaternion.identity));
+                        var i = Instantiate(blocks[4].model, new Vector3(item, 0f, item2), Quaternion.identity);
+                        i.name = "4";
+                        i.active = true;
+                        worldmap.Add(i);
                     //}
                 }
             }
@@ -291,8 +226,8 @@ public partial class Game : MonoBehaviour
         NotPlayingCanvas.enabled = false;
         // This does 'Load', which is defined above.
         Load();
-        // You start the game with a brick in your hand.
-        PickedBlock = BrickModel;
+        // You start the game with some concrete in your hand.
+        PickedBlock = blocks[0].model;
         // This sets the player position to the middle of the scene.
         this.xpos = 0.0f;
         this.ypos = 1.5f;
@@ -303,12 +238,12 @@ public partial class Game : MonoBehaviour
 
         // This keeps the mouse in the middle of the screen.
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        // This is also needed to start the game with a brick in the player's hand.
-        PickedItem = 5;
+        // This is also needed to start the game with a concrete block in the player's hand.
+        PickedItem = 0;
     }
 
-    // More fields. PickedItem is a number that says which item the player is holding. 5 is bricks.
-    public int PickedItem = 5;
+    // More fields. PickedItem is a number that says which item the player is holding. 0 is concrete.
+    public int PickedItem = 0;
     // This says whether the pause menu is showing or not. bool is sort of a yes/no situation, where true is yes and false is no. Because it is true, the player is playing and so the pause menu should not be showing.
     public bool Playing = true;
 
@@ -363,189 +298,36 @@ public partial class Game : MonoBehaviour
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 // Subtract one from the 'PickedItem' variable
                 PickedItem --;
-                // If PickedItem is less that zero, make it 17. This means that if you scroll down below concrete, make it Uranium Sign.
+                
                 if (PickedItem < 0) {
-                    PickedItem = 18;
+                    PickedItem = blocks.Keys.Count;
                 }
-                // If PickedItem is more than 17, make it zero. This means that if you scroll up past Uranium Sign, make it concrete.
-                if (PickedItem > 18) {
+
+                if (PickedItem > blocks.Keys.Count) {
                     PickedItem = 0;
                 }
-                switch (PickedItem) {
-                    // If PickedItem is zero:
-                    case 0:
-                        // Set the 'PickedBlock' field to the model of some concrete. This gets used by BlockSide.cs when you place a block, so that it knows which block to place.
-                        PickedBlock = ConcreteModel;
-                        // Set the cursor to a picture of concrete.
-                        cursor_image.texture = Concrete;
-                        break;
-                    // If PickedItem is one...
-                    case 1:
-                        PickedBlock = GrassModel;
-                        cursor_image.texture = Grass;
-                        break;
-                    case 2:
-                        PickedBlock = DirtModel;
-                        cursor_image.texture = Dirt;
-                        break;
-                    case 3:
-                        PickedBlock = StoneModel;
-                        cursor_image.texture = Stone;
-                        break;
-                    case 4:
-                        PickedBlock = K3DModel;
-                        cursor_image.texture = K3D;
-                        break;
-                    case 5:
-                        PickedBlock = BrickModel;
-                        cursor_image.texture = Brick;
-                        break;
-                    case 6:
-                        PickedBlock = LightModel;
-                        cursor_image.texture = Light;
-                        break;
-                    case 7:
-                        PickedBlock = OvenModel;
-                        cursor_image.texture = Oven;
-                        break;
-                    case 8:
-                        PickedBlock = SandModel;
-                        cursor_image.texture = Sand;
-                        break;
-                    case 9:
-                        PickedBlock = SnowModel;
-                        cursor_image.texture = Snow;
-                        break;
-                    case 10:
-                        PickedBlock = StoneBricksModel;
-                        cursor_image.texture = StoneBricks;
-                        break;
-                    case 11:
-                        PickedBlock = PresentModel;
-                        cursor_image.texture = Present;
-                        break;
-                    case 12:
-                        PickedBlock = GlassModel;
-                        cursor_image.texture = Glass;
-                        break;
-                    case 13:
-                        PickedBlock = HayModel;
-                        cursor_image.texture = Hay;
-                        break;
-                    case 14:
-                        PickedBlock = GlowingModel;
-                        cursor_image.texture = Glowing;
-                        break;
-                    case 15:
-                        PickedBlock = LeavesModel;
-                        cursor_image.texture = Leaves;
-                        break;
-                    case 16:
-                        PickedBlock = LogModel;
-                        cursor_image.texture = Log;
-                        break;
-                    case 17:
-                        PickedBlock = DoNotTouchModel;
-                        cursor_image.texture = DoNotTouch;
-                        break;
-                    case 18:
-                        PickedBlock = TilesModel;
-                        cursor_image.texture = Tiles;
-                        break;
+
+                if (blocks.ContainsKey(PickedItem)) {
+                    PickedBlock = blocks[PickedItem].model;
+                    cursor_image.texture = blocks[PickedItem].frontTexture;
                 }
             }
             // If the user pressed the right arrow key or is scrolling (up, I think?), then do what we would if the user pressed the left arrow, except we add 1 to PickedItem instead of subracting 1.
             if (Input.GetKeyDown("right") || Input.GetAxis("Mouse ScrollWheel") > 0) {
                 var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
-                PickedItem ++; // PickedItem ++ means "PickedItem = PickedItem + 1" in C#, or "add 1 to Pickeditem" in fishScript
+                PickedItem ++;
                 
-                if (PickedItem < 0) { // Make PickedItem stay within it's bounds
-                    PickedItem = 18;
+                if (PickedItem < 0) {
+                    PickedItem = blocks.Keys.Count;
                 }
-                if (PickedItem > 18) {
+                
+                if (PickedItem > blocks.Keys.Count) {
                     PickedItem = 0;
                 }
-                switch (PickedItem) {
-                    // If PickedItem is zero:
-                    case 0:
-                        // Set the 'PickedBlock' field to the model of some concrete. This gets used by BlockSide.cs when you place a block, so that it knows which block to place.
-                        PickedBlock = ConcreteModel;
-                        // Set the cursor to a picture of concrete.
-                        cursor_image.texture = Concrete;
-                        break;
-                    // If PickedItem is one...
-                    case 1:
-                        PickedBlock = GrassModel;
-                        cursor_image.texture = Grass;
-                        break;
-                    case 2:
-                        PickedBlock = DirtModel;
-                        cursor_image.texture = Dirt;
-                        break;
-                    case 3:
-                        PickedBlock = StoneModel;
-                        cursor_image.texture = Stone;
-                        break;
-                    case 4:
-                        PickedBlock = K3DModel;
-                        cursor_image.texture = K3D;
-                        break;
-                    case 5:
-                        PickedBlock = BrickModel;
-                        cursor_image.texture = Brick;
-                        break;
-                    case 6:
-                        PickedBlock = LightModel;
-                        cursor_image.texture = Light;
-                        break;
-                    case 7:
-                        PickedBlock = OvenModel;
-                        cursor_image.texture = Oven;
-                        break;
-                    case 8:
-                        PickedBlock = SandModel;
-                        cursor_image.texture = Sand;
-                        break;
-                    case 9:
-                        PickedBlock = SnowModel;
-                        cursor_image.texture = Snow;
-                        break;
-                    case 10:
-                        PickedBlock = StoneBricksModel;
-                        cursor_image.texture = StoneBricks;
-                        break;
-                    case 11:
-                        PickedBlock = PresentModel;
-                        cursor_image.texture = Present;
-                        break;
-                    case 12:
-                        PickedBlock = GlassModel;
-                        cursor_image.texture = Glass;
-                        break;
-                    case 13:
-                        PickedBlock = HayModel;
-                        cursor_image.texture = Hay;
-                        break;
-                    case 14:
-                        PickedBlock = GlowingModel;
-                        cursor_image.texture = Glowing;
-                        break;
-                    case 15:
-                        PickedBlock = LeavesModel;
-                        cursor_image.texture = Leaves;
-                        break;
-                    case 16:
-                        PickedBlock = LogModel;
-                        cursor_image.texture = Log;
-                        break;
-                    case 17:
-                        PickedBlock = DoNotTouchModel;
-                        cursor_image.texture = DoNotTouch;
-                        break;
-                    case 18:
-                        PickedBlock = TilesModel;
-                        cursor_image.texture = Tiles;
-                        break;
+
+                if (blocks.ContainsKey(PickedItem)) {
+                    PickedBlock = blocks[PickedItem].model;
+                    cursor_image.texture = blocks[PickedItem].frontTexture;
                 }
             }
 
@@ -595,6 +377,7 @@ public partial class Game : MonoBehaviour
         I told you how to get to this file earlier, but I didn't quite explain it properly.
         %userprofile% is something called an Environment Variable, which has a piece of imformation about your computer.
         userprofile is your home directory, which is C:\Users\<your name>.
+        It's a hidden folder, so you'll need to use Windows+R and type in the location to get there.
 
         I have Linux, so on my computer and other Linux and ChromeOS computers it's at ~/.config/unity3d/Kettle3D/Kettle3D.
 
@@ -606,7 +389,7 @@ public partial class Game : MonoBehaviour
         to create a file if one doesn't exist, and delete it and create a new one if one is there.
 
         savefile is a field of Game.
-        */
+        *
         FileStream fs = new FileStream($"{Application.persistentDataPath}/saves/{savefile}.dat", FileMode.Create);
         // Make a new List of BlockRewrite objects, see the bottom of the file.
         List<BlockRewrite> blocks = new List<BlockRewrite>();
@@ -665,6 +448,8 @@ public partial class Game : MonoBehaviour
                 blockblock.blocktype = 17;
             else if (block.name.StartsWith("Tiles"))
                 blockblock.blocktype = 18;
+            else if (block.name.StartsWith("OtherTiles"))
+                blockblock.blocktype = 19;
             blocks.Add(blockblock);
         }
         // Make another BinaryFormatter
@@ -680,7 +465,7 @@ public partial class Game : MonoBehaviour
             3) Set it's playerx field to the X position of the player.
             4) Do the same for the Y postion...
             5) ...and the Z position.
-            */
+            *
             formatter.Serialize(fs, new LevelFile{
                 worldmap = blocks,
                 playerx = p.position.x,
@@ -699,42 +484,18 @@ public partial class Game : MonoBehaviour
         finally // Regardless of whether or not what we tried worked, close the file so that it doesn't get corrupted.
         {
             fs.Close();
-        }
+        }*/
     }
 }
 
-public enum BlockType // Deprecated way of keeping track of what type of block a block is.
-{                     // An enum is sort of a list of things something can be.
-    Concrete,         // BlockType can be Concrete, Grass etc.
-    Grass,
-    Dirt,
-    Stone,
-    K3D,
-    Bricks,
-    Light,
-    Oven,
-    Sand,
-    Snow,
-    StoneBricks,
-    Prensent,
-    Glass,
-    Hay
-} // The issue of doing it this way is if we change the enum, the BinaryFormatter won't be able to read the file any more.
-  // And every time we make a new block, we have to change the enum.
-
-[Serializable] // You can serialise this.
-public class Block    // Also Deprecated
+[Serializable] // You can serialise this. Not neccessary at the moment
+public class Block    // This class is for block definitions, as opposed to save data for a block.
 {
-    // This object is a bunch of fields that we use to save info.
-    public float posx { get; set; }          // You can get and set the X position,
-    public float posy { get; set; }          // the Y postion,
-    public float posz { get; set; }          // and the Z positon.
-    public BlockType blocktype { get; set; } // You can get and set the BlockType of this block. Because we used the BlockType
-}                                            // enum, we can't use this object any more. That's why we have BlockRewrite.
-                                             // The only reason this object still exists is in case we need to load a level saved
-                                             // when we did use Block. Even then, you should still make backups of your old levels.
-                                             // You can download a ZIP of the old version by clicking Code and then Releases,
-                                             // and picking the oldest one.
+    public string name { get; set; }
+    public GameObject model { get; set; }
+    public int id { get; set; }
+    public Texture2D frontTexture { get; set; }
+}
 
 [Serializable] // You can serialise this.
 public class BlockRewrite // A rewrite of the Block object, with one difference:

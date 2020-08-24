@@ -48,7 +48,7 @@ public partial class BlockSide : MonoBehaviour
                     dis.transform.Translate(0f, -1f, 0f);
                     break;
             }
-
+            dis.active = true;
             game.worldmap.Add(dis); // Add dis to the worldmap field of game. This is so that this block also gets saved when we quit the game.
         }
         if(Input.GetMouseButtonDown(0)) { // If the user is left-clicking, Destroy the block.
