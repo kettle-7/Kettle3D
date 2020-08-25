@@ -1,0 +1,28 @@
+# This file is full of info for the launcher about updates that have happened.
+sub ls0 { # Updates to the Linux (l) build since (s) version 0 (This means not installed)
+  add UnityPlayer_s.debug
+  add LinuxPlayer_s.debug
+  add UntiyPlayer.so
+  add Kettle3D-Linux.x86_64
+  set d to Kettle3D-Linux_Data
+  add d /app.info
+  add d /boot.config
+  add d /globalgamemanagers
+  add d /globalgamemanagers.assets
+  add d /globalgamemanagers.assets.resS
+  add d /level0
+  add d /level1
+  add d /sharedassets0.assets
+  add d /sharedassets0.assets.resS
+  add d /sharedassets1.assets
+  add d /sharedassets1.assets.resS
+  set m to d /Managed
+  add m /Accessibility.dll
+  add m /Assembly-CSharp.dll
+  add m /Mono.Security.dll
+  add m /System.ComponentModel.Composition.dll
+  add m /System.Configuration.dll
+  add m /System.Core.dll
+  add m /System.Data.dll
+  # Not finished yet...
+}
