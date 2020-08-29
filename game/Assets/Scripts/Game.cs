@@ -132,7 +132,10 @@ public partial class Game : MonoBehaviour
                 case "all":
                     Texture2D img = new Texture2D(64, 64);
                     Debug.Log(">>" + img + "<<");
-                    img.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
+                    var bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
+                    Debug.Log(bytes);
+                    Debug.Log(bytes.Length);
+                    img.LoadImage(bytes, false);
                     blocks[current_block_def].model.transform.Find("top").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("bottom").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("north").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
