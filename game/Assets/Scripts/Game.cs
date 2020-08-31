@@ -18,20 +18,6 @@ using System.Xml;                                     // This is useful for stor
 using System.IO;                                      // This is important for dealing with files.
 using System;                                         // This is the system.
 
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-//HELLO HELLO
-
 using Debug = UnityEngine.Debug;                      // This tells C# that whenever I say 'Debug' I mean the Unity debug, not the system one.
 /* Here are some descriptions of the keywords below:
 Anyone can use this. Important for Unity.
