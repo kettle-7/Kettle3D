@@ -135,12 +135,12 @@ public partial class Game : MonoBehaviour
                     var bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     Debug.Log(bytes);
                     Debug.Log(bytes.Length);
-                    img.LoadImage(bytes, false);
+                    ImageConversion.LoadImage(img, bytes, false);
                     blocks[current_block_def].model.transform.Find("top").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("bottom").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("north").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("south").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
-                    blocks[current_block_def].frontTexture.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
+                    blocks[current_block_def].frontTexture?.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
                     blocks[current_block_def].model.transform.Find("east").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("west").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     break;
@@ -168,6 +168,7 @@ public partial class Game : MonoBehaviour
             fs.Close();
 
             bool isValid = true;
+            byte errorId = 0;
 
             // Do this for each item in the 'blocks' list. This makes a variable called 'block' for that specific item in the list.
             // The 'BlockRewrite' bit tells C# what type of object it is. We can just use 'var' if we wanted to.
@@ -184,12 +185,13 @@ public partial class Game : MonoBehaviour
                     worldmap.Add(i);
                 }
                 else {
+                    errorId = block.blocktype;
                     isValid = false;
                 }
             }
 
             if (!isValid) {
-                Debug.LogWarning("This level was saved in a newer version and/or with mods, so some blocks may not render correctly.");
+                Debug.LogWarning($"This level was saved in a newer version and/or with mods, so some blocks may not render correctly. Id for non-existent block: {errorId}");
             }
         }
 
@@ -202,15 +204,23 @@ public partial class Game : MonoBehaviour
                 // Again, but this time with item2.
                 for (var item2 = -32f; item2 < 32f; item2++)
                 {
-                    //if (random.Next(2) == 1) {
-                    //    Instantiate(StoneModel, new Vector3(item, 0f, item2), Quaternion.identity);
-                    //} else {
+                    if (random.Next(2) == 1) {
+                        var i = Instantiate(blocks[2].model, new Vector3(item, 0f, item2), Quaternion.identity);
+                        i.name = "2";
+                        i.active = true;
+                        worldmap.Add(i);
+
+                        var j = Instantiate(blocks[4].model, new Vector3(item, 1f, item2), Quaternion.identity);
+                        j.name = "2";
+                        j.active = true;
+                        worldmap.Add(j);
+                    } else {
                         // Make some grass at this position.
                         var i = Instantiate(blocks[4].model, new Vector3(item, 0f, item2), Quaternion.identity);
                         i.name = "4";
                         i.active = true;
                         worldmap.Add(i);
-                    //}
+                    }
                 }
             }
         }
@@ -392,7 +402,11 @@ public partial class Game : MonoBehaviour
         to create a file if one doesn't exist, and delete it and create a new one if one is there.
 
         savefile is a field of Game.
-        *
+        */
+        byte[] backup = null;
+        if (File.Exists($"{Application.persistentDataPath}/saves/{savefile}.dat")) {
+            backup = File.ReadAllBytes($"{Application.persistentDataPath}/saves/{savefile}.dat");
+        }
         FileStream fs = new FileStream($"{Application.persistentDataPath}/saves/{savefile}.dat", FileMode.Create);
         // Make a new List of BlockRewrite objects, see the bottom of the file.
         List<BlockRewrite> blocks = new List<BlockRewrite>();
@@ -409,50 +423,13 @@ public partial class Game : MonoBehaviour
                 // ...and the Z position.
                 posz = block.transform.position.z
             };
-
-            // If the name of block starts with "brick":
-            if (block.name.StartsWith("brick"))
-                blockblock.blocktype = 1; // Set the blocktype field of this blockblock to 1.
-            // If the name of block starts with "concrete":
-            else if (block.name.StartsWith("concrete"))
-                blockblock.blocktype = 0; // Set it to 0.
-            // and so on...
-            else if (block.name.StartsWith("dirt"))
-                blockblock.blocktype = 2;
-            else if (block.name.StartsWith("GlassBlock"))
-                blockblock.blocktype = 3;
-            else if (block.name.StartsWith("grass"))
-                blockblock.blocktype = 4;
-            else if (block.name.StartsWith("Hay"))
-                blockblock.blocktype = 5;
-            else if (block.name.StartsWith("k3d"))
-                blockblock.blocktype = 6;
-            else if (block.name.StartsWith("light"))
-                blockblock.blocktype = 7;
-            else if (block.name.StartsWith("Oven"))
-                blockblock.blocktype = 8;
-            else if (block.name.StartsWith("Present"))
-                blockblock.blocktype = 9;
-            else if (block.name.StartsWith("Sand"))
-                blockblock.blocktype = 10;
-            else if (block.name.StartsWith("Snow"))
-                blockblock.blocktype = 11;
-            else if (block.name.StartsWith("stone"))
-                blockblock.blocktype = 12;
-            else if (block.name.StartsWith("StoneBricks"))
-                blockblock.blocktype = 13;
-            else if (block.name.StartsWith("Glowing"))
-                blockblock.blocktype = 14;
-            else if (block.name.StartsWith("Leaves"))
-                blockblock.blocktype = 15;
-            else if (block.name.StartsWith("Log"))
-                blockblock.blocktype = 16;
-            else if (block.name.StartsWith("DoNotTouch"))
-                blockblock.blocktype = 17;
-            else if (block.name.StartsWith("Tiles"))
-                blockblock.blocktype = 18;
-            else if (block.name.StartsWith("OtherTiles"))
-                blockblock.blocktype = 19;
+            if (!byte.TryParse(block.name, out byte id)) {
+                Debug.LogError($"A block in the level has an invalid name: {block.name}");
+                fs.Close();
+                if (backup != null)
+                    File.WriteAllBytes($"{Application.persistentDataPath}/saves/{savefile}.dat", backup);
+                return;
+            }
             blocks.Add(blockblock);
         }
         // Make another BinaryFormatter
@@ -468,7 +445,7 @@ public partial class Game : MonoBehaviour
             3) Set it's playerx field to the X position of the player.
             4) Do the same for the Y postion...
             5) ...and the Z position.
-            *
+            */
             formatter.Serialize(fs, new LevelFile{
                 worldmap = blocks,
                 playerx = p.position.x,
@@ -487,7 +464,7 @@ public partial class Game : MonoBehaviour
         finally // Regardless of whether or not what we tried worked, close the file so that it doesn't get corrupted.
         {
             fs.Close();
-        }*/
+        }//*/
     }
 }
 

@@ -1,5 +1,4 @@
 # The default set of blocks for Kettle3D
-0
 Name: Default
 Description: The default set of blocks for Kettle3D
 
@@ -73,8 +72,8 @@ Name: Stone
 All: stone.png
 
 BLOCK_DEF 13
-Name: Stone
-All: stone.png
+Name: Stone Bricks
+All: StoneBricks.png
 
 BLOCK_DEF 14
 Name: Uranium
@@ -88,7 +87,16 @@ BLOCK_DEF 16
 Name: Wood Log
 All: LogSide.png
 Top: LogTopAndBottom.png
+Bottom: LogTopAndBottom.png
 
 BLOCK_DEF 17
 Name: Biohazard Sign
 All: BlockDoNotTouch.png
+
+BLOCK_DEF 18
+Name: Tiles
+All: Tiles.png
+
+BLOCK_DEF 19
+Name: Tiles of Hypnosis
+All: SwirlTiles.png
