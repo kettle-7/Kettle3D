@@ -1,2 +1,0 @@
-0.3
-This update introduces the ability to place and destroy all the other blocks.

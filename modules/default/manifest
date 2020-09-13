@@ -1,0 +1,102 @@
+# The default set of blocks for Kettle3D
+Name: Default
+Description: The default set of blocks for Kettle3D
+
+BLOCK_DEF 0
+Name: Concrete
+All: concrete.png
+
+BLOCK_DEF 1
+Name: Bricks
+All: brick.png
+
+BLOCK_DEF 2
+Name: Dirt
+All: dirt.png
+
+BLOCK_DEF 3
+Name: Glass
+All: Glass.png
+
+BLOCK_DEF 4
+Name: Grass
+Top: grass_top.png
+Bottom: dirt.png
+North: grass_bottom.png
+South: grass_bottom.png
+East: grass_bottom.png
+West: grass_bottom.png
+
+BLOCK_DEF 5
+Name: Hay
+Top: HayTopAndBottom.png
+Bottom: HayTopAndBottom.png
+North: HayGeneric.png
+South: HayGeneric.png
+East: HayGeneric.png
+West: HayGeneric.png
+
+BLOCK_DEF 6
+Name: Block of Kettle3D
+All: k3d.png
+
+BLOCK_DEF 7
+Name: Light Block
+All: light.png
+Special: emits_light
+
+BLOCK_DEF 8
+Name: Oven
+Top: OvenTop.png
+Bottom: OvenGeneric.png
+North: OvenGeneric.png
+South: OvenSide.png
+East: OvenGeneric.png
+West: OvenGeneric.png
+
+BLOCK_DEF 9
+Name: Present
+All: PresentGeneric.png
+Top: PresentTop.png
+
+BLOCK_DEF 10
+Name: Sand
+All: Sand.png
+
+BLOCK_DEF 11
+Name: Snow
+All: Snow.png
+
+BLOCK_DEF 12
+Name: Stone
+All: stone.png
+
+BLOCK_DEF 13
+Name: Stone Bricks
+All: StoneBricks.png
+
+BLOCK_DEF 14
+Name: Uranium
+All: BlockGlowing.png
+
+BLOCK_DEF 15
+Name: Leaves
+All: Leaves.png
+
+BLOCK_DEF 16
+Name: Wood Log
+All: LogSide.png
+Top: LogTopAndBottom.png
+Bottom: LogTopAndBottom.png
+
+BLOCK_DEF 17
+Name: Biohazard Sign
+All: BlockDoNotTouch.png
+
+BLOCK_DEF 18
+Name: Tiles
+All: Tiles.png
+
+BLOCK_DEF 19
+Name: Tiles of Hypnosis
+All: SwirlTiles.png

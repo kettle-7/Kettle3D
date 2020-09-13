@@ -1,12 +1,14 @@
 Kettle3D
 ===
-
-A 3D sandbox construction game that allows you to build a skyscraper.
+A 3D sandbox construction game that allows you to build all that you desire!
 
 Quick Links
 ---
-[Download for Windows](https://github.com/Kettle3D/Kettle3D/releases/download/v1.1/Kettle3D_Windows.zip)  
-[Download for Linux](https://github.com/Kettle3D/Kettle3D/releases/download/v1.1/Kettle3D_Linux.zip)  
-[Download for macOS (beta)](https://github.com/Kettle3D/Kettle3D/raw/master/TESTONLY.ZIP)
-
+[Download for Linux](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0-gamma/Kettle3D_1.0-3.deb) <br />
+[Download for macOS](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0-gamma/Kettle3D_macOS.dmg) <br />
+[Download for Windows](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0-gamma/Kettle3D_Windows.zip)  <br /> 
 *For more info visit [the Kettle3D website](https://kettle3d.github.io/)*
+<!--
+I removed the silly comments.
+ - Kettle3D
+-->
