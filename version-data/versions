@@ -1,0 +1,19 @@
+# versions -- a file containing information about versions for the launcher. The first word helps the launcher figure out whether to show it and what type of version
+# it is. Letters that make up this word are:
+# v: A stable version
+# d: A deprecated version
+# s: The latest stable version
+# a: An alpha version that is not stable and only for debugging.
+# b: A beta snapshot that is stable but not bug-checked and therefor still in development
+#
+# w: A version that is only available on Windows
+# l: A version that is only available on Linux
+# m: A version that is only available on macOS
+#
+# The rest of the line is the version name itself, and the URL where it can be found.
+
+wld 0.5 https://raw.githubusercontent.com/Kettle3D/Kettle3D/archives/{os}/v0.5
+wmv 1.0 https://raw.githubusercontent.com/Kettle3D/Kettle3D/archives/{os}/v1.0
+v 1.0.3 https://raw.githubusercontent.com/Kettle3D/Kettle3D/archives/{os}/v1.0.3
+
+# Not finished yet...
