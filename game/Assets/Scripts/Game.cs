@@ -98,6 +98,7 @@ public partial class Game : MonoBehaviour
                     blocks[id] = (new Block { id = id, model = Instantiate(BlockTemplate), name = "MyBlock"});
                 }
                 blocks[id].model.active = false;
+                blocks[id].model.transform.Find("Point Light").gameObject.SetActive(false);
                 current_block_def = id;
             }
         }
@@ -117,24 +118,23 @@ public partial class Game : MonoBehaviour
                 }
             }
 
+            byte[] bytes;
+            Texture2D img;
             switch (com) {
                 case "Description":
                 case "description":
                     modules.Add(new K3DModule { description = sl });
-                    break;
+                    return;
                 case "Name":
                 case "name":
-                    break;
+                    return;
                 case "Id":
                 case "id":
-                    break;
+                    return;
                 case "All":
                 case "all":
-                    Texture2D img = new Texture2D(64, 64);
-                    Debug.Log(">>" + img + "<<");
-                    var bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
-                    Debug.Log(bytes);
-                    Debug.Log(bytes.Length);
+                    img = new Texture2D(64, 64);
+                    bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     ImageConversion.LoadImage(img, bytes, false);
                     blocks[current_block_def].model.transform.Find("top").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("bottom").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
@@ -143,7 +143,55 @@ public partial class Game : MonoBehaviour
                     blocks[current_block_def].frontTexture?.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
                     blocks[current_block_def].model.transform.Find("east").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("west").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
-                    break;
+                    return;
+                case "top":
+                case "Top":
+                    img = new Texture2D(64, 64);
+                    bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
+                    ImageConversion.LoadImage(img, bytes, false);
+                    blocks[current_block_def].model.transform.Find("top").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    return;
+                case "bottom":
+                case "Bottom":
+                    img = new Texture2D(64, 64);
+                    bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
+                    ImageConversion.LoadImage(img, bytes, false);
+                    blocks[current_block_def].model.transform.Find("bottom").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    return;
+                case "north":
+                case "North":
+                    img = new Texture2D(64, 64);
+                    bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
+                    ImageConversion.LoadImage(img, bytes, false);
+                    blocks[current_block_def].model.transform.Find("north").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    return;
+                case "south":
+                case "South":
+                    img = new Texture2D(64, 64);
+                    bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
+                    ImageConversion.LoadImage(img, bytes, false);
+                    blocks[current_block_def].frontTexture?.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
+                    blocks[current_block_def].model.transform.Find("south").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    return;
+                case "east":
+                case "East":
+                    img = new Texture2D(64, 64);
+                    bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
+                    ImageConversion.LoadImage(img, bytes, false);
+                    blocks[current_block_def].model.transform.Find("east").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    return;
+                case "west":
+                case "West":
+                    img = new Texture2D(64, 64);
+                    bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
+                    ImageConversion.LoadImage(img, bytes, false);
+                    blocks[current_block_def].model.transform.Find("west").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    return;
+                case "Special":
+                case "special":
+                    if (sl.Contains("EmitsLight") || sl.Contains("emits_light"))
+                        blocks[current_block_def].model.transform.Find("Point Light").gameObject.SetActive(true);
+                    return;
             }
         }
     }
@@ -199,10 +247,10 @@ public partial class Game : MonoBehaviour
         else {
         //if(true) {
             // This sets item to -16, runs the code, adds 1 to item, runs the code, adds 1 to item again, and keeps doing this while item is less than 16. Basically, it does this 32 times.
-            for (var item = -32f; item < 32f; item++)
+            for (var item = -8f; item < 8f; item++)
             {
                 // Again, but this time with item2.
-                for (var item2 = -32f; item2 < 32f; item2++)
+                for (var item2 = -8f; item2 < 8f; item2++)
                 {
                     if (random.Next(2) == 1) {
                         var i = Instantiate(blocks[2].model, new Vector3(item, 0f, item2), Quaternion.identity);
@@ -211,7 +259,7 @@ public partial class Game : MonoBehaviour
                         worldmap.Add(i);
 
                         var j = Instantiate(blocks[4].model, new Vector3(item, 1f, item2), Quaternion.identity);
-                        j.name = "2";
+                        j.name = "4";
                         j.active = true;
                         worldmap.Add(j);
                     } else {
@@ -430,6 +478,7 @@ public partial class Game : MonoBehaviour
                     File.WriteAllBytes($"{Application.persistentDataPath}/saves/{savefile}.dat", backup);
                 return;
             }
+            blockblock.blocktype = id;
             blocks.Add(blockblock);
         }
         // Make another BinaryFormatter

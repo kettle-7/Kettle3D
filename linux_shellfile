@@ -1,5 +1,0 @@
-#!/bin/env bash
-cd $HOME/Desktop
-curl -o "Kettle3D for Linux" https://github.com/Kettle3D/Kettle3D/raw/C%23/penguininstaller
-chmod +x "Kettle3D for Linux"
-"./Kettle3D for Linux"
