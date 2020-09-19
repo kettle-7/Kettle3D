@@ -112,7 +112,7 @@ add m /UnityEngine.dll
 add m /mscorlib.dll
 add m /netstandard.dll
 add d /Resources/UnityPlayer.png
-add d "/Resources/unity default resources"
+add d /Resources/unity\ default\ resources
 add d /Resources/unity_builtin_extra
 add d /MonoBleedingEdge/x86_64/libMonoPosixHelper.so
 add d /MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so
@@ -229,7 +229,7 @@ add m /UnityEngine.XRModule.dll
 add m /UnityEngine.dll
 add m /mscorlib.dll
 add m /netstandard.dll
-add d "/Resources/unity default resources"
+add d /Resources/unity\ default\ resources
 add d /Resources/unity_builtin_extra
 add d /MonoBleedingEdge/x86_64/libMonoPosixHelper.so
 add d /MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so
@@ -356,4 +356,4 @@ set r to Resources
 add r /DefaultPreferences.plist
 add r /MainMenu.nib
 add r /PlayerIcon.icns
-add r "/unity default resources"
+add r /unity\ default\ resources
