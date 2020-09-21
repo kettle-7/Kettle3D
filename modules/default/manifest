@@ -100,3 +100,17 @@ All: Tiles.png
 BLOCK_DEF 19
 Name: Tiles of Hypnosis
 All: SwirlTiles.png
+
+BLOCK_DEF 20
+Name: Ice
+All: Ice.png
+
+BLOCK_DEF 21
+Name: Obsidian
+All: Obsidian.png
+
+BLOCK_DEF 22
+Name: Birch wood
+All: Birchwoodsides.png
+Top: Birchwoodtopandbottom.png
+Bottom: Birchwoodtopandbottom.png
