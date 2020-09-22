@@ -27,6 +27,8 @@ public partial class BlockSide : MonoBehaviour
             var picked_block = GameScript.PickedBlock; // Set picked_block to the block the player is holding
             // Set the variable 'dis' to a copy of picked_block, and set it's position to where this block is.
             var dis = Instantiate (picked_block, new Vector3(SelfModel.transform.position.x, SelfModel.transform.position.y, SelfModel.transform.position.z), Quaternion.identity);
+            dis.name = GameScript.PickedItem.ToString();
+
             switch (Facing)
             { // Check what side of the block we are, so that we know where to put the new block we just made.
                 case "NORTH": // If this is the NORTH side of the block:

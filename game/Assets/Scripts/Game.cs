@@ -472,11 +472,12 @@ public partial class Game : MonoBehaviour
                 posz = block.transform.position.z
             };
             if (!byte.TryParse(block.name, out byte id)) {
-                Debug.LogError($"A block in the level has an invalid name: {block.name}");
-                fs.Close();
+                Debug.LogError($"A block in the level has an invalid name: {block.name}. Assuming Concrete.");
+                id = 0;
+                /*fs.Close();
                 if (backup != null)
                     File.WriteAllBytes($"{Application.persistentDataPath}/saves/{savefile}.dat", backup);
-                return;
+                return;*/
             }
             blockblock.blocktype = id;
             blocks.Add(blockblock);

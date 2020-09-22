@@ -250,6 +250,33 @@ except URLError:
 version_url_map  = {}
 version_list = []
 
+def visitwebsite():
+    if os_id == 'macos':
+        system("open https://kettle3d.github.io/download")
+    elif os_id == 'windows':
+        system("https://kettle3d.github.io/download")
+    elif os_id == 'linux':
+        system("xdg-open https://kettle3d.github.io/download")
+    else:
+        'Your OS does not support Kettle3D.'
+        complain
+
+if internet:
+    if urlopen("https://github.com/Kettle3D/Kettle3D/raw/C%23/version-data/mslv").read().decode('utf-8').strip() != '1.0':
+        vns_tk = Tk()
+        vns_tk.title("Kettle3D Launcher")
+        vns_tk.wm_attributes('-topmost', 1)
+        Label(vns_tk, text="Your version of Kettle3D is no longer supported.").pack()
+        Label(vns_tk, text="Click the button below to go to the downloads page.").pack()
+        Button(vns_tk, text="Update", command=visitwebsite).pack()
+        vns_tk.update()
+        vns_tk.wm_attributes('-topmost', 0)
+        while True:
+            try:
+                vns_tk.update()
+            except:
+                break
+
 # w - windows, l - linux, m - macos, v - stable version, d - deprecated version, s - stable version, a - alpha, b - beta
 
 for line in versions_txt.splitlines():
@@ -363,7 +390,6 @@ for c in range(0, len(version_list)):
     d_version_list[c] = i
 
 from download_version import *
-interpreter.getversion(0, 0, 0)
 
 global play_tk
 play_tk = tkdummy()
@@ -381,13 +407,85 @@ if gui:
 else:
     print("Checking for updates and launching version %s..." % version)
 
-def check_diff(version='latest'):
+def check_diff(vsn='latest'):
     if internet:
-        diff = urlopen("https://github.com/Kettle3D/Kettle3D/raw/C%23/version-data/versions").read().decode('utf-8')
-    pass
+        diff = urlopen("https://github.com/Kettle3D/Kettle3D/raw/C%23/version-data/core-updates").read().decode('utf-8')
+    else:
+        diff = ""
+    versions = ['0']
+    for v in version_list:
+        if v == vsn:
+            break
+        versions.append(v)
+    return find_patch(versions, diff)
+
+def launch(vsn):
+    if os_id == "macos":
+        os.system(directory + "/versions/" + vsn + "/MacOS/Kettle3D")
+        pass
+
+    elif os_id == "windows":
+        os.system(directory + "\\versions\\" + vsn + "\\Kettle3D.exe")
+        pass
+
+    elif os_id == "linux":
+        print("Running %s..." % directory + "/versions/" + vsn + "/Kettle3D-Linux.x86_64")
+        os.system(directory + "/versions/" + vsn + "/Kettle3D-Linux.x86_64")
+        pass
+
+    else:
+        print("Your OS isn't supported.")
+        complain
 
 def play():
-    check_diff(version)
+    special_versions = [
+        'latest',
+        'stable',
+        'beta',
+        'alpha'
+    ]
+    
+    m_version = version
+    if version in special_versions:
+        for v in version_list:
+            if version_url_map[v] == version_url_map[version]:
+                if not v in special_versions:
+                    m_version = v
+                    break
+    
+    nr_tk = Tk()
+    nr_tk.title("Downloading Kettle3D...")
+    nr_tk.wm_attributes('-topmost', 1)
+    label = Label(nr_tk, text="Finding out what we need to download...")
+    print("Finding out what we need to download...")
+    label.pack()
+    #nr_tk.update()
+    nr_tk.wm_attributes('-topmost', 0)
+    nr_tk.update()
+    patch = check_diff(m_version)
+    label.destroy()
+    Canvas(nr_tk, width=500, height=0).pack()
+    label = Label(nr_tk, text="Downloading some files...")
+    print("Downloading some files...")
+    label.pack()
+    if not os.path.exists(directory + "/versions/" + m_version + "/confirmed_complete"):
+        g_apply_patch(patch, nr_tk, version_url_map[m_version], directory + "/versions/" + m_version)
+        f = open(directory + "/versions/" + m_version + "/confirmed_complete", 'w+t')
+        f.write("This version of Kettle3D was installed authentically. Do not delete this file, or Kettle3D will re-install the version.")
+        f.close()
+    label.destroy()
+    label = Label(nr_tk, text="Installing mods...")
+    label.pack()
+    nr_tk.update()
+    print("Installing mods...")
+    get_mods(mods, directory + normpath("/modules"))
+    label.destroy()
+    label = Label(nr_tk, text="Launching Kettle3D...")
+    print("Launching Kettle3D...")
+    label.pack()
+    nr_tk.update()
+    #launch(m_version)
+    nr_tk.destroy()
 
 def options():
     if gui:

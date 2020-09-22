@@ -3,7 +3,6 @@
 game/Library
 game/Logs
 game/Packages
-game/ProjectSettings
 game/Temp
 
 # Visual Studio Metadata
@@ -18,3 +17,6 @@ System.Text.Json.dll
 
 # Kettle3D Installer (not production-ready)
 installer/
+
+# Kettle3D for Mobile (also not production-ready)
+game_mobile/
