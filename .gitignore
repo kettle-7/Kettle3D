@@ -5,6 +5,8 @@ game/Logs
 game/Packages
 game/Temp
 
+game_*/MonoBleedingEdge/etc
+
 # Visual Studio Metadata
 .vscode/
 .vs/

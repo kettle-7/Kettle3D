@@ -429,7 +429,7 @@ def launch(vsn):
         pass
 
     elif os_id == "linux":
-        print("Running %s..." % directory + "/versions/" + vsn + "/Kettle3D-Linux.x86_64")
+        print("Running %s..." % (directory + "/versions/" + vsn + "/Kettle3D-Linux.x86_64"))
         os.system(directory + "/versions/" + vsn + "/Kettle3D-Linux.x86_64")
         pass
 
@@ -484,7 +484,7 @@ def play():
     print("Launching Kettle3D...")
     label.pack()
     nr_tk.update()
-    #launch(m_version)
+    launch(m_version)
     nr_tk.destroy()
 
 def options():

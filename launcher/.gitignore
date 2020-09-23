@@ -1,3 +1,4 @@
 runtime-linux/
 runtime-windows/
 tkinter/
+__pycache__/
