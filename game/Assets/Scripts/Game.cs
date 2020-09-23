@@ -1,6 +1,5 @@
 // These 'using' messages tell Unity what other pieces of code we're using.
 using System.Runtime.Serialization.Formatters.Binary; // I use this to save and load the levels
-//I think this would break the programme, im just checking...  <-- You put that there
 using System.Runtime.InteropServices;                 // And this
 using System.Runtime.Serialization;                   // And this too
 using UnityEngine.SceneManagement;                    // This lets me change between the screen at the start and the actual game.
@@ -140,6 +139,7 @@ public partial class Game : MonoBehaviour
                     blocks[current_block_def].model.transform.Find("bottom").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("north").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("south").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
+                    blocks[current_block_def].frontTexture = new Texture2D(64, 64);
                     blocks[current_block_def].frontTexture?.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
                     blocks[current_block_def].model.transform.Find("east").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     blocks[current_block_def].model.transform.Find("west").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
@@ -170,6 +170,7 @@ public partial class Game : MonoBehaviour
                     img = new Texture2D(64, 64);
                     bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     ImageConversion.LoadImage(img, bytes, false);
+                    blocks[current_block_def].frontTexture = new Texture2D(64, 64);
                     blocks[current_block_def].frontTexture?.LoadImage(File.ReadAllBytes($"{mod}/textures/{sl}"));
                     blocks[current_block_def].model.transform.Find("south").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     return;
@@ -301,6 +302,10 @@ public partial class Game : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         // This is also needed to start the game with a concrete block in the player's hand.
         PickedItem = 0;
+        cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
+        if (cursor_image == null) {
+            Debug.LogError("CURSOR_IMAGE IS NULL. PANIC AND CRASH THE GAME");
+        }
     }
 
     // More fields. PickedItem is a number that says which item the player is holding. 0 is concrete.
@@ -325,6 +330,8 @@ public partial class Game : MonoBehaviour
         // Load the starting screen.
         SceneManager.LoadScene("Scenes/LoadingScreen");
     }
+    
+    public RawImage cursor_image;
 
     // This gets called every frame
     void Update()
@@ -356,7 +363,6 @@ public partial class Game : MonoBehaviour
                 If you find it, which it will, find an image inside it.
                 RawImage is an image that is raw.
                 */
-                var cursor_image = GameObject.Find("Cursor").GetComponent<RawImage>();
                 // Subtract one from the 'PickedItem' variable
                 PickedItem --;
                 
@@ -408,11 +414,11 @@ public partial class Game : MonoBehaviour
             Input.GetAxis("Horizontal") tells Game a decimal number between -1 and 1.
             The harder the user is pressing 'A', the lower the number is. The harder the user is pressing 'D', the higher it is.
             This line multiplies that number by 4, then adds it to movex. */
-            movex += Input.GetAxis("Horizontal") / 4;
+            movex += Input.GetAxis("Horizontal") / 6;
             // Up/Down is the same as above, but instead of responding to the A and D keys, it listens to LEFT SHIFT and SPACE.
-            movey += Input.GetAxis("Up/Down") / 4;
+            movey += Input.GetAxis("Up/Down") / 6;
             // And Vertical listens to S and W.
-            movez += Input.GetAxis("Vertical") / 4;
+            movez += Input.GetAxis("Vertical") / 6;
             // Make movex less than it is now. If we didn't do this, then the user would keep on moving forever.
             movex = movex * 0.735f;
             // Same as above, but for the Z movement
