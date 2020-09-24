@@ -4,9 +4,8 @@ A 3D sandbox construction game that allows you to build all that you desire!
 
 Quick Links
 ---
-[Download for Linux](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0-gamma/Kettle3D_1.0-3.deb) <br />
-[Download for macOS](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0-gamma/Kettle3D_macOS.dmg) <br />
-[Download for Windows](https://github.com/Kettle3D/Kettle3D/releases/download/v1.0-gamma/Kettle3D_Windows.zip)  <br /> 
+[Get Kettle3D](https://kettle3d.github.io/download)  
+[Get Rid of Kettle3D](https://kettle3d.github.io/undownload)
 *For more info visit [the Kettle3D website](https://kettle3d.github.io/)*
 <!--
 I removed the silly comments.
