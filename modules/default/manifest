@@ -114,3 +114,8 @@ Name: Birch wood
 All: Birchwoodsides.png
 Top: Birchwoodtopandbottom.png
 Bottom: Birchwoodtopandbottom.png
+
+BLOCK_DEF 23
+Name: Draws
+All: drawstopandbottom.png
+North: drawsfront.png
