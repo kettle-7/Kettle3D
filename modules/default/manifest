@@ -118,4 +118,9 @@ Bottom: Birchwoodtopandbottom.png
 BLOCK_DEF 23
 Name: Draws
 All: drawstopandbottom.png
-North: drawsfront.png
+South: drawsfront.png
+
+BLOCK_DEF 24
+Name: Cabinet
+All: CabinetGeneric.png
+South: CabinetFront.png
