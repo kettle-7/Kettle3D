@@ -19,5 +19,5 @@ If not, please give us a short description of what you'd like this block to look
 ______________________________________________________________
 ______________________________________________________________
 .
-Thank you for your suggestion. We'd like to do everything we can to make Kettle3D better. We should have your block added into the game within the next 2 weeks. If not, we'll add a comment here explaining why.
+Thank you for your suggestion. We'd like to do everything we can to make Kettle3D better. We should have your block added into the game within the next 5 working days. If not, we'll add a comment here explaining why.
 -->
