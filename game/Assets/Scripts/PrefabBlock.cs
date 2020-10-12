@@ -5,7 +5,7 @@ using System.Diagnostics;
 using UnityEngine;
 using System;
 
-public partial class PrefabBlock : MonoBehaviour
+public class PrefabBlock : MonoBehaviour
 {
     public GameObject SelfModel; // The model of the block that this script is part of
     public Game game;            // The 'Game' object
