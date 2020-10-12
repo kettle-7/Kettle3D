@@ -114,3 +114,13 @@ Name: Birch wood
 All: Birchwoodsides.png
 Top: Birchwoodtopandbottom.png
 Bottom: Birchwoodtopandbottom.png
+
+BLOCK_DEF 23
+Name: Draws
+All: drawstopandbottom.png
+South: drawsfront.png
+
+BLOCK_DEF 24
+Name: Cabinet
+All: CabinetGeneric.png
+South: CabinetFront.png
