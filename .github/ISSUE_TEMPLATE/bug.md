@@ -7,32 +7,24 @@ assignees: Kettle3D
 
 ---
 
-This isn't meant to happen. What's going on???
-==============================================
+This isn't meant to happen. What's going on?
+======================================================================================================================================================================
 
-The Problem:
-------------
 
 <!--
 Please give us a summary of the bug.
 -->
 
-What happened
--------------
 
 <!--
 Please tell us what happened.
 -->
 
-What should've happened
------------------------
 
 <!--
 Please tell us what you'd expect to happen.
 -->
 
-More info
----------
 
 ### Platform
 <!--
@@ -56,6 +48,6 @@ What system did you encounter this problem on?
 - [ ] When I open Kettle3D, I see a window that says 'Kettle3D Launcher'
 - [ ] When I open Kettle3D, nothing happens. <!-- If this is your bug, please let us know, it's the most common one. -->
 
-<!--
+
 Thank you for your report. We'd like to do everything we can to make Kettle3D better. We should get back to you about this issue in the next 10 working days.
--->
+======================================================================================================================================================================
