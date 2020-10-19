@@ -3,7 +3,7 @@
 linux since 0
 add UnityPlayer_s.debug
 add LinuxPlayer_s.debug
-add UntiyPlayer.so
+add UnityPlayer.so
 add Kettle3D-Linux.x86_64
 set d to Kettle3D-Linux_Data
 add d /app.info
@@ -121,7 +121,7 @@ add d /MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so
 windows since 0
 add UnityCrashHandler32.exe
 add UnityCrashHandler64.exe
-add UntiyPlayer.dll
+add UnityPlayer.dll
 add Kettle3D.exe
 set d to Kettle3D_Data
 add d /app.info
