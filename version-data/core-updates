@@ -231,8 +231,8 @@ add m /mscorlib.dll
 add m /netstandard.dll
 add d /Resources/unity\ default\ resources
 add d /Resources/unity_builtin_extra
-add d /MonoBleedingEdge/x86_64/libMonoPosixHelper.so
-add d /MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so
+add d /MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll
+add d /MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll
 
 # Updates to the macOS (m) build since (s) version 0 (This means not installed, so all of these files will be downloaded.)
 macos since 0
