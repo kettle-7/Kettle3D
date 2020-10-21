@@ -18,6 +18,7 @@ using System.IO;                                      // This is important for d
 using System;                                         // This is the system.
 
 using Debug = UnityEngine.Debug;                      // This tells C# that whenever I say 'Debug' I mean the Unity debug, not the system one.
+;                                                     // It's a bit like 'with unityEngine.debug as Debug' in Pyhton.
 /* Here are some descriptions of the keywords below:
 Anyone can use this. Important for Unity.
     |  People can expand on this. Useful for making mods etc.
@@ -119,18 +120,18 @@ public partial class Game : MonoBehaviour
 
             byte[] bytes;
             Texture2D img;
-            switch (com) {
-                case "Description":
+            switch (com.ToLower()) {
+                //case "Description":
                 case "description":
                     modules.Add(new K3DModule { description = sl });
                     return;
-                case "Name":
+                //case "Name":
                 case "name":
                     return;
-                case "Id":
+                //case "Id":
                 case "id":
                     return;
-                case "All":
+                //case "All":
                 case "all":
                     img = new Texture2D(64, 64);
                     bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
@@ -145,28 +146,28 @@ public partial class Game : MonoBehaviour
                     blocks[current_block_def].model.transform.Find("west").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     return;
                 case "top":
-                case "Top":
+                //case "Top":
                     img = new Texture2D(64, 64);
                     bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     ImageConversion.LoadImage(img, bytes, false);
                     blocks[current_block_def].model.transform.Find("top").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     return;
                 case "bottom":
-                case "Bottom":
+                //case "Bottom":
                     img = new Texture2D(64, 64);
                     bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     ImageConversion.LoadImage(img, bytes, false);
                     blocks[current_block_def].model.transform.Find("bottom").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     return;
                 case "north":
-                case "North":
+                //case "North":
                     img = new Texture2D(64, 64);
                     bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     ImageConversion.LoadImage(img, bytes, false);
                     blocks[current_block_def].model.transform.Find("north").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     return;
                 case "south":
-                case "South":
+                //case "South":
                     img = new Texture2D(64, 64);
                     bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     ImageConversion.LoadImage(img, bytes, false);
@@ -175,20 +176,20 @@ public partial class Game : MonoBehaviour
                     blocks[current_block_def].model.transform.Find("south").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     return;
                 case "east":
-                case "East":
+                //case "East":
                     img = new Texture2D(64, 64);
                     bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     ImageConversion.LoadImage(img, bytes, false);
                     blocks[current_block_def].model.transform.Find("east").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     return;
                 case "west":
-                case "West":
+                //case "West":
                     img = new Texture2D(64, 64);
                     bytes = File.ReadAllBytes($"{mod}/textures/{sl}");
                     ImageConversion.LoadImage(img, bytes, false);
                     blocks[current_block_def].model.transform.Find("west").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", img);
                     return;
-                case "Special":
+                //case "Special":
                 case "special":
                     if (sl.Contains("EmitsLight") || sl.Contains("emits_light"))
                         blocks[current_block_def].model.transform.Find("Point Light").gameObject.SetActive(true);

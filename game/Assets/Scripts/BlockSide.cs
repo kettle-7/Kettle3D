@@ -21,7 +21,7 @@ public partial class BlockSide : MonoBehaviour
 
     void OnMouseOver() { // This function gets called when the mouse is on top of this side of the block.
         if (!game.Playing) { return; } // If we're paused, we don't need to do this, so exit the function.
-        if(Input.GetMouseButtonDown(1)) { // If the player is right-clicking:
+        if(Input.GetMouseButton(1)) { // If the player is right-clicking:
             // Place a new block
             var GameScript = game; // We don't need this, we could just say Game.
             var picked_block = GameScript.PickedBlock; // Set picked_block to the block the player is holding
@@ -53,7 +53,7 @@ public partial class BlockSide : MonoBehaviour
             dis.active = true;
             game.worldmap.Add(dis); // Add dis to the worldmap field of game. This is so that this block also gets saved when we quit the game.
         }
-        if(Input.GetMouseButtonDown(0)) { // If the user is left-clicking, Destroy the block.
+        if(Input.GetMouseButton(0)) { // If the user is left-clicking, Destroy the block.
             Destroy (this.transform.parent.gameObject); // We want to destroy the whole block, not just this side of it. transform is the position of this object in the block, parent is the transform of the whole block and gameObject is the GameObject that a tranform (or script) is attached to.
             game.worldmap.Remove(this.transform.parent.gameObject); // And then we want to remove it from worldmap, so that we don't get issues later on.
         }
