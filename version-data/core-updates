@@ -3,7 +3,7 @@
 linux since 0
 add UnityPlayer_s.debug
 add LinuxPlayer_s.debug
-add UntiyPlayer.so
+add UnityPlayer.so
 add Kettle3D-Linux.x86_64
 set d to Kettle3D-Linux_Data
 add d /app.info
@@ -114,14 +114,14 @@ add m /netstandard.dll
 add d /Resources/UnityPlayer.png
 add d /Resources/unity\ default\ resources
 add d /Resources/unity_builtin_extra
-add d /MonoBleedingEdge/x86_64/libMonoPosixHelper.so
-add d /MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so
+add MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll
+add MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll
 
 # Updates to the Windows (w) build since (s) version 0 (This means not installed, so all of these files will be downloaded.)
 windows since 0
 add UnityCrashHandler32.exe
 add UnityCrashHandler64.exe
-add UntiyPlayer.dll
+add UnityPlayer.dll
 add Kettle3D.exe
 set d to Kettle3D_Data
 add d /app.info
@@ -231,8 +231,8 @@ add m /mscorlib.dll
 add m /netstandard.dll
 add d /Resources/unity\ default\ resources
 add d /Resources/unity_builtin_extra
-add d /MonoBleedingEdge/x86_64/libMonoPosixHelper.so
-add d /MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so
+add d /MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll
+add d /MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll
 
 # Updates to the macOS (m) build since (s) version 0 (This means not installed, so all of these files will be downloaded.)
 macos since 0

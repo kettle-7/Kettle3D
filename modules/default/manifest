@@ -124,3 +124,11 @@ BLOCK_DEF 24
 Name: Cabinet
 All: CabinetGeneric.png
 South: CabinetFront.png
+
+BLOCK_DEF 25
+Name: Silver
+All: Silver.png
+
+BLOCK_DEF 26
+Name: Ruby
+All: Ruby.png
