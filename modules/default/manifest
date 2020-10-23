@@ -132,3 +132,8 @@ All: Silver.png
 BLOCK_DEF 26
 Name: Ruby
 All: Ruby.png
+
+BLOCK_DEF 27
+Name: Ruby
+All: Ruby.png
+Special: emits_light
