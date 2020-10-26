@@ -18,7 +18,7 @@ using System.IO;                                      // This is important for d
 using System;                                         // This is the system.
 
 using Debug = UnityEngine.Debug;                      // This tells C# that whenever I say 'Debug' I mean the Unity debug, not the system one.
-;                                                     // It's a bit like 'with unityEngine.debug as Debug' in Pyhton.
+/*/                                                   // It's a bit like 'with unityEngine.debug as Debug' in Pyhton.
 /* Here are some descriptions of the keywords below:
 Anyone can use this. Important for Unity.
     |  People can expand on this. Useful for making mods etc.
