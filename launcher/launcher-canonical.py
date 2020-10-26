@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!python3
 
 # Kettle3D Launcher v1.0, Salvaged from https://github.com/CYBORG123456789/Kettle3D/blob/master/kettle3D-versions.py :~)
 
