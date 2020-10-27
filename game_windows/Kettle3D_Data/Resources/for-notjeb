@@ -15,19 +15,19 @@ paint=Y
 read answer
 if   [[ "$answer" == "*y*" ]]; then
   doscord=Y;
-else if [[ "$answer" == "*Y*" ]]; then
+elif [[ "$answer" == "*Y*" ]]; then
   doscord=Y;
-else if [[ "$answer" == "*yes*" ]]; then
+elif [[ "$answer" == "*yes*" ]]; then
   doscord=Y;
-else if [[ "$answer" == "*Yes*" ]]; then
+elif [[ "$answer" == "*Yes*" ]]; then
   doscord=Y;
-else if [[ "$answer" == "*n*" ]]; then 
+elif [[ "$answer" == "*n*" ]]; then 
   doscord=N;
-else if [[ "$answer" == "*N*" ]]; then 
+elif [[ "$answer" == "*N*" ]]; then 
   doscord=N;
-else if [[ "$answer" == "*no*" ]]; then 
+elif [[ "$answer" == "*no*" ]]; then 
   doscord=N;
-else if [[ "$answer" == "*No*" ]]; then 
+elif [[ "$answer" == "*No*" ]]; then 
   doscord=N;
 else
   echo "I can't understand $answer. I'll take it as a Yes."
@@ -39,19 +39,19 @@ printf "Would you like Minecraft? (y/n): "
 read answe
 if   [[ "$answe" == "*y*" ]]; then
   minceraft=Y;
-else if [[ "$answe" == "*Y*" ]]; then
+elif [[ "$answe" == "*Y*" ]]; then
   minceraft=Y;
-else if [[ "$answe" == "*yes*" ]]; then
+elif [[ "$answe" == "*yes*" ]]; then
   minceraft=Y;
-else if [[ "$answe" == "*Yes*" ]]; then
+elif [[ "$answe" == "*Yes*" ]]; then
   minceraft=Y;
-else if [[ "$answe" == "*n*" ]]; then
+elif [[ "$answe" == "*n*" ]]; then
   minceraft=N;
-else if [[ "$answe" == "*N*" ]]; then
+elif [[ "$answe" == "*N*" ]]; then
   minceraft=N;
-else if [[ "$answe" == "*no*" ]]; then
+elif [[ "$answe" == "*no*" ]]; then
   minceraft=N;
-else if [[ "$answe" == "*No*" ]]; then
+elif [[ "$answe" == "*No*" ]]; then
   minceraft=N;
 else
   echo "I can't understand $answe. I'll take it as a Yes."
@@ -63,13 +63,13 @@ printf "Would you like Kettle3D? (y/n): "
 unset answe
 read answe
 if   [[ "$answe" == "*y*" ]]; then kettle=Y;
-else if [[ "$answe" == "*Y*" ]]; then kettle=Y;
-else if [[ "$answe" == "*yes*" ]]; then kettle=Y;
-else if [[ "$answe" == "*Yes*" ]]; then kettle=Y;
-else if [[ "$answe" == "*n*" ]]; then kettle=N;
-else if [[ "$answe" == "*N*" ]]; then kettle=N;
-else if [[ "$answe" == "*no*" ]]; then kettle=N;
-else if [[ "$answe" == "*No*" ]]; then kettle=N;
+elif [[ "$answe" == "*Y*" ]]; then kettle=Y;
+elif [[ "$answe" == "*yes*" ]]; then kettle=Y;
+elif [[ "$answe" == "*Yes*" ]]; then kettle=Y;
+elif [[ "$answe" == "*n*" ]]; then kettle=N;
+elif [[ "$answe" == "*N*" ]]; then kettle=N;
+elif [[ "$answe" == "*no*" ]]; then kettle=N;
+elif [[ "$answe" == "*No*" ]]; then kettle=N;
 else
   echo "I can't understand $answe. I'll take it as a Yes."
   kettle=Y;
@@ -80,13 +80,13 @@ printf "Would you like Paint? (y/n): "
 unset answe
 read answe
 if   [[ "$answe" == "*y*" ]]; then paint=Y;
-else if [[ "$answe" == "*Y*" ]]; then paint=Y;
-else if [[ "$answe" == "*yes*" ]]; then paint=Y;
-else if [[ "$answe" == "*Yes*" ]]; then paint=Y;
-else if [[ "$answe" == "*n*" ]]; then paint=N;
-else if [[ "$answe" == "*N*" ]]; then paint=N;
-else if [[ "$answe" == "*no*" ]]; then paint=N;
-else if [[ "$answe" == "*No*" ]]; then paint=N;
+elif [[ "$answe" == "*Y*" ]]; then paint=Y;
+elif [[ "$answe" == "*yes*" ]]; then paint=Y;
+elif [[ "$answe" == "*Yes*" ]]; then paint=Y;
+elif [[ "$answe" == "*n*" ]]; then paint=N;
+elif [[ "$answe" == "*N*" ]]; then paint=N;
+elif [[ "$answe" == "*no*" ]]; then paint=N;
+elif [[ "$answe" == "*No*" ]]; then paint=N;
 else
   echo "I can't understand $answe. I'll take it as a Yes."
   paint=Y;
