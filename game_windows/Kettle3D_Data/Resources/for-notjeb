@@ -157,3 +157,4 @@ fi
 clear
 echo "We finished installing your apps now, you can use your computer. Thank you for your time. Press enter to close this window."
 read
+echo
