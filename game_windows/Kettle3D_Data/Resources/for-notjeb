@@ -13,14 +13,22 @@ paint=Y
 # Ask about the apps
 
 read answer
-if   [[ "$answer" == "*y*" ]]; then doscord=Y;
-else if [[ "$answer" == "*Y*" ]]; then doscord=Y;
-else if [[ "$answer" == "*yes*" ]]; then doscord=Y;
-else if [[ "$answer" == "*Yes*" ]]; then doscord=Y;
-else if [[ "$answer" == "*n*" ]]; then doscord=N;
-else if [[ "$answer" == "*N*" ]]; then doscord=N;
-else if [[ "$answer" == "*no*" ]]; then doscord=N;
-else if [[ "$answer" == "*No*" ]]; then doscord=N;
+if   [[ "$answer" == "*y*" ]]; then
+  doscord=Y;
+else if [[ "$answer" == "*Y*" ]]; then
+  doscord=Y;
+else if [[ "$answer" == "*yes*" ]]; then
+  doscord=Y;
+else if [[ "$answer" == "*Yes*" ]]; then
+  doscord=Y;
+else if [[ "$answer" == "*n*" ]]; then 
+  doscord=N;
+else if [[ "$answer" == "*N*" ]]; then 
+  doscord=N;
+else if [[ "$answer" == "*no*" ]]; then 
+  doscord=N;
+else if [[ "$answer" == "*No*" ]]; then 
+  doscord=N;
 else
   echo "I can't understand $answer. I'll take it as a Yes."
   doscord=Y;
@@ -29,14 +37,22 @@ fi
 printf "Would you like Minecraft? (y/n): "
 
 read answe
-if   [[ "$answe" == "*y*" ]]; then minceraft=Y;
-else if [[ "$answe" == "*Y*" ]]; then minceraft=Y;
-else if [[ "$answe" == "*yes*" ]]; then minceraft=Y;
-else if [[ "$answe" == "*Yes*" ]]; then minceraft=Y;
-else if [[ "$answe" == "*n*" ]]; then minceraft=N;
-else if [[ "$answe" == "*N*" ]]; then minceraft=N;
-else if [[ "$answe" == "*no*" ]]; then minceraft=N;
-else if [[ "$answe" == "*No*" ]]; then minceraft=N;
+if   [[ "$answe" == "*y*" ]]; then
+  minceraft=Y;
+else if [[ "$answe" == "*Y*" ]]; then
+  minceraft=Y;
+else if [[ "$answe" == "*yes*" ]]; then
+  minceraft=Y;
+else if [[ "$answe" == "*Yes*" ]]; then
+  minceraft=Y;
+else if [[ "$answe" == "*n*" ]]; then
+  minceraft=N;
+else if [[ "$answe" == "*N*" ]]; then
+  minceraft=N;
+else if [[ "$answe" == "*no*" ]]; then
+  minceraft=N;
+else if [[ "$answe" == "*No*" ]]; then
+  minceraft=N;
 else
   echo "I can't understand $answe. I'll take it as a Yes."
   minceraft=Y;
