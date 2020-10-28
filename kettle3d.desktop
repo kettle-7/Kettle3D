@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Kettle3D Installer
+Exec=curl https://raw.githubusercontent.com/Kettle3D/Kettle3D/C%23/lllliiiiiinnnnuuuuuuxxxxxxx | bash
+Terminal=True
+Icon=folder_color_blue_downloads
+Type=Application
+Categories=Games
