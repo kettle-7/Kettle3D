@@ -37,18 +37,6 @@ false = [
 
 del args[0]
 
-# print("mods    = %s" % str(mods))
-# print("version = %s" % version)
-# print("gui     = %s" % str(gui))
-
-IS_DEV_VERSION = False;
-if (os.path.exists("/home/kettle/Programming/Kettle3D.dev")):
-    IS_DEV_VERSION = True;
-if IS_DEV_VERSION:
-    sys.path.append("/usr/lib/python3.8/tkinter");
-    
-# tkinter = __import__("/usr/lib/python3.8/tkinter/__init__.py", fromlist="*")
-
 from tkinter.ttk import *
 from tkinter import *
 
@@ -73,6 +61,8 @@ else:  # OS isn't supported, show a message box, assume it's UNIX-based, because
            command=lambda: os.system("xdg-open https://github.com/Kettle3D/Kettle3D/issues")).pack();
     while True:
         tk.update();
+        
+os.mkdir(directory)
 
 if os.path.exists(directory + normpath("/launcherprefs")):
     file = open(directory + normpath("/launcherprefs"), 'rb')
