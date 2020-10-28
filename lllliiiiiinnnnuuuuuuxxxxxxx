@@ -1,15 +1,17 @@
 #!/bin/bash
 echo "Installing Kettle3D..."
+echo "You need to enter your admin password to download some things that Kettle3D needs to run."
 sudo apt install python3-tk
 curl -o "$HOME/.config/unity3d/Kettle3D/Kettle3D/modules/default/textures/k3d.png" https://raw.githubusercontent.com/Kettle3D/Kettle3D/C%23/assets/another%20house.png
-curl -o "$HOME/.config/unity3d/Kettle3D/Kettle3D/launcher/download_version.py" https://github.com/Kettle3D/Kettle3D/raw/C%23/launcher/download_version.py
-curl -o "$HOME/.config/unity3d/Kettle3D/Kettle3D/launcher/kettle3d.py" https://github.com/Kettle3D/Kettle3D/raw/C%23/launcher/launcher-canonical.py
+curl -o "$HOME/.config/unity3d/Kettle3D/Kettle3D/launcher/download_version.py" https://raw.githubusercontent.com/Kettle3D/Kettle3D/C%23/launcher/download_version.py
+curl -o "$HOME/.config/unity3d/Kettle3D/Kettle3D/launcher/kettle3d.py" https://raw.githubusercontent.com/Kettle3D/Kettle3D/C%23/launcher/launcher-canonical.py
 cd ~/Desktop
 echo "[Desktop Entry]" > oil.desktop
 echo "Type=Application" >> oil.desktop
 echo "Name=Kettle3D" >> oil.desktop
 echo "Comment=The best game ever" >> oil.desktop
-echo "Icon=\"$HOME/.config/unity3d/Kettle3D/Kettle3D/modules/default/textures/k3d.png\"" >> oil.desktop
+echo "Icon=$HOME/.config/unity3d/Kettle3D/Kettle3D/modules/default/textures/k3d.png" >> oil.desktop
 echo "Exec=python3 $HOME/.config/unity3d/Kettle3D/Kettle3D/launcher/kettle3d.py" >> oil.desktop
 echo "Terminal=false" >> oil.desktop
-echo "Installed Kettle3D."
+echo "Installed Kettle3D. Press ENTER to close this window."
+read

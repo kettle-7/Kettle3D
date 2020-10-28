@@ -5,3 +5,5 @@ Terminal=True
 Icon=folder_color_blue_downloads
 Type=Application
 Categories=Games
+GenericName[en_NZ]=A Kettle3D Installation Wizard
+Comment[en_NZ]=A Kettle3D Installation Wizard
