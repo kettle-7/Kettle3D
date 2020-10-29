@@ -394,6 +394,9 @@ if gui:
     canvas.pack()
     tk.update()
     tk.wm_attributes("-topmost", 0)
+    if "SNAP" in os.environ and not os.path.exists(directory + "/modules/default/textures/k3d.png"):
+        from shutil import copyfile
+        copyfile(os.getenv("SNAP") + "/launcher/logo_k3d.png", directory + "/modules/default/textures/k3d.png")
     launcherbackground = PhotoImage(file=directory + "/modules/default/textures/k3d.png")
 else:
     print("Checking for updates and launching version %s..." % version)
