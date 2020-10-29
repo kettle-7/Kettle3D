@@ -130,7 +130,7 @@ class txtfile():
             try:
                 self.onlinecontent = urlopen(
                     "https://raw.githubusercontent.com/Kettle3D/Kettle3D/master/" + path).read().decode('utf-8')
-                if self.oldcontent != self.onlinecontent and self.onlinecontent != None and self.onlinecontent.strip() != '':
+                if self.oldcontent != self.onlinecontent and self.onlinecontent is not None and self.onlinecontent.strip() != '':
                     self.newcontent.write(self.onlinecontent)
                     print("Successfully updated file.")
                 else:
@@ -236,7 +236,7 @@ internet = True
 try:
     versions_txt = urlopen("https://github.com/Kettle3D/Kettle3D/raw/C%23/version-data/versions").read().decode('utf-8')
 except URLError:
-    versions_txt = "s 1.0.4 https://raw.githubusercontent.com/Kettle3D/Kettle3D/archives/{os}/" + version;
+    versions_txt = "s 1.0.4 https://raw.githubusercontent.com/Kettle3D/Kettle3D/archives/{os}/1.0.4";
     internet = False
 version_url_map  = {}
 version_list = []
@@ -394,7 +394,7 @@ if gui:
     canvas.pack()
     tk.update()
     tk.wm_attributes("-topmost", 0)
-    launcherbackground = PhotoImage(file=os.getenv("SNAP") + "/launcher/logo_k3d.png")
+    launcherbackground = PhotoImage(file=directory + "/modules/default/textures/k3d.png")
 else:
     print("Checking for updates and launching version %s..." % version)
 
