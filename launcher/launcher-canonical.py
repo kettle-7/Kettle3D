@@ -62,7 +62,7 @@ else:  # OS isn't supported, show a message box, assume it's UNIX-based, because
     while True:
         tk.update();
         
-os.mkdir(directory)
+os.makedirs(directory)
 
 if os.path.exists(directory + normpath("/launcherprefs")):
     file = open(directory + normpath("/launcherprefs"), 'rb')
