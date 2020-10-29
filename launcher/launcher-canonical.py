@@ -236,6 +236,7 @@ internet = True
 try:
     versions_txt = urlopen("https://github.com/Kettle3D/Kettle3D/raw/C%23/version-data/versions").read().decode('utf-8')
 except URLError:
+    versions_txt = "s 1.0.4 https://raw.githubusercontent.com/Kettle3D/Kettle3D/archives/{os}/" + version;
     internet = False
 version_url_map  = {}
 version_list = []
