@@ -403,7 +403,7 @@ if gui:
     canvas.pack()
     tk.update()
     tk.wm_attributes("-topmost", 0)
-    launcherbackground = PhotoImage(file=directory + "/modules/default/textures/k3d.png")
+    launcherbackground = PhotoImage(file=os.getenv("SNAP") + "/launcher/logo_k3d.png")
 else:
     print("Checking for updates and launching version %s..." % version)
 
